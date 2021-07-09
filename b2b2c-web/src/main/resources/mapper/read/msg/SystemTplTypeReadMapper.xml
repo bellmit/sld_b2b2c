@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.msg.SystemTplTypeReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.msg.pojo.SystemTplType">
+    <id column="tpl_type_code" property="tplTypeCode" />
+    <result column="tpl_name" property="tplName" />
+    <result column="tpl_source" property="tplSource" />
+    <result column="sort" property="sort" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `tpl_type_code` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.tplTypeCodeNotEquals != null">
+          AND `tpl_type_code` != #{example.tplTypeCodeNotEquals}
+        </if>
+        <if test="example.tplTypeCodeIn != null">
+          AND `tpl_type_code` in (${example.tplTypeCodeIn})
+        </if>
+        <if test="example.tplName != null">
+          AND `tpl_name` = #{example.tplName}
+        </if>
+        <if test="example.tplNameLike != null">
+          AND `tpl_name` like concat('%',#{example.tplNameLike},'%')
+        </if>
+        <if test="example.tplSource != null">
+          AND `tpl_source` = #{example.tplSource}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `tpl_type_code` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.msg.example.SystemTplTypeExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `msg_system_tpl_type`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_system_tpl_type`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_system_tpl_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_system_tpl_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `msg_system_tpl_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `msg_system_tpl_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

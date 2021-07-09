@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.business.CartReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.business.pojo.Cart">
+    <id column="cart_id" property="cartId" />
+    <result column="member_id" property="memberId" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="product_id" property="productId" />
+    <result column="buy_num" property="buyNum" />
+    <result column="product_price" property="productPrice" />
+    <result column="product_image" property="productImage" />
+    <result column="spec_value_ids" property="specValueIds" />
+    <result column="spec_values" property="specValues" />
+    <result column="is_checked" property="isChecked" />
+    <result column="update_time" property="updateTime" />
+    <result column="promotion_id" property="promotionId" />
+    <result column="promotion_type" property="promotionType" />
+    <result column="promotion_description" property="promotionDescription" />
+    <result column="off_price" property="offPrice" />
+    <result column="product_state" property="productState" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `cart_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.cartIdNotEquals != null">
+          AND `cart_id` != #{example.cartIdNotEquals}
+        </if>
+        <if test="example.cartIdIn != null">
+          AND `cart_id` in (${example.cartIdIn})
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.buyNum != null">
+          AND `buy_num` = #{example.buyNum}
+        </if>
+        <if test="example.productPrice != null">
+          AND `product_price` = #{example.productPrice}
+        </if>
+        <if test="example.productImage != null">
+          AND `product_image` = #{example.productImage}
+        </if>
+        <if test="example.specValueIds != null">
+          AND `spec_value_ids` = #{example.specValueIds}
+        </if>
+        <if test="example.specValues != null">
+          AND `spec_values` = #{example.specValues}
+        </if>
+        <if test="example.isChecked != null">
+          AND `is_checked` = #{example.isChecked}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.promotionId != null">
+          AND `promotion_id` = #{example.promotionId}
+        </if>
+        <if test="example.promotionType != null">
+          AND `promotion_type` = #{example.promotionType}
+        </if>
+        <if test="example.promotionDescription != null">
+          AND `promotion_description` = #{example.promotionDescription}
+        </if>
+        <if test="example.offPrice != null">
+          AND `off_price` = #{example.offPrice}
+        </if>
+        <if test="example.productState != null">
+          AND `product_state` = #{example.productState}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `cart_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.business.example.CartExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `bz_cart`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_cart`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_cart`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_cart`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_cart`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_cart`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

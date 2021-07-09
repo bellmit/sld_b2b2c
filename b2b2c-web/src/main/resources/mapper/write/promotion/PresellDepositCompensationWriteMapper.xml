@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.PresellDepositCompensationWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.PresellDepositCompensation">
+    <id column="compensation_id" property="compensationId" />
+    <result column="compensation_amount" property="compensationAmount" />
+    <result column="deposit_amount" property="depositAmount" />
+    <result column="order_sn" property="orderSn" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="compensationAmount != null">
+        `compensation_amount`,
+      </if>
+      <if test="depositAmount != null">
+        `deposit_amount`,
+      </if>
+      <if test="orderSn != null">
+        `order_sn`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="storeName != null">
+        `store_name`,
+      </if>
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="memberName != null">
+        `member_name`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `compensation_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.compensationIdNotEquals != null">
+          AND `compensation_id` != #{example.compensationIdNotEquals}
+        </if>
+        <if test="example.compensationIdIn != null">
+          AND `compensation_id` in (${example.compensationIdIn})
+        </if>
+        <if test="example.compensationAmount != null">
+          AND `compensation_amount` = #{example.compensationAmount}
+        </if>
+        <if test="example.depositAmount != null">
+          AND `deposit_amount` = #{example.depositAmount}
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `compensation_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.PresellDepositCompensationExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_presell_deposit_compensation`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_presell_deposit_compensation`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_presell_deposit_compensation`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_presell_deposit_compensation`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_presell_deposit_compensation`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_presell_deposit_compensation`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_presell_deposit_compensation`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_presell_deposit_compensation`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="compensation_id" keyProperty="compensationId" parameterType="com.slodon.b2b2c.promotion.pojo.PresellDepositCompensation" useGeneratedKeys="true">
+    INSERT INTO `promotion_presell_deposit_compensation`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="compensationAmount != null">
+        #{compensationAmount},
+      </if>
+      <if test="depositAmount != null">
+        #{depositAmount},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="storeName != null">
+        #{storeName},
+      </if>
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="memberName != null">
+        #{memberName},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_presell_deposit_compensation`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.compensationAmount != null">
+        `compensation_amount` = #{record.compensationAmount},
+      </if>
+      <if test="record.depositAmount != null">
+        `deposit_amount` = #{record.depositAmount},
+      </if>
+      <if test="record.orderSn != null">
+        `order_sn` = #{record.orderSn},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.storeName != null">
+        `store_name` = #{record.storeName},
+      </if>
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.memberName != null">
+        `member_name` = #{record.memberName},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_presell_deposit_compensation`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="compensationAmount != null">
+        `compensation_amount` = #{compensationAmount},
+      </if>
+      <if test="depositAmount != null">
+        `deposit_amount` = #{depositAmount},
+      </if>
+      <if test="orderSn != null">
+        `order_sn` = #{orderSn},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="storeName != null">
+        `store_name` = #{storeName},
+      </if>
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="memberName != null">
+        `member_name` = #{memberName},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+    </trim>
+    WHERE `compensation_id` = #{compensationId}
+  </update>
+</mapper>

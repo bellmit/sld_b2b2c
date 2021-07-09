@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.system.TplPcMallDataWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.TplPcMallData">
+    <id column="data_id" property="dataId" />
+    <result column="tpl_pc_id" property="tplPcId" />
+    <result column="tpl_pc_name" property="tplPcName" />
+    <result column="tpl_pc_type" property="tplPcType" />
+    <result column="tpl_pc_type_name" property="tplPcTypeName" />
+    <result column="name" property="name" />
+    <result column="create_time" property="createTime" />
+    <result column="create_user_id" property="createUserId" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_user_id" property="updateUserId" />
+    <result column="sort" property="sort" />
+    <result column="is_enable" property="isEnable" />
+    <result column="store_id" property="storeId" />
+    <result column="html" property="html" />
+    <result column="json" property="json" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="tplPcId != null">
+        `tpl_pc_id`,
+      </if>
+      <if test="tplPcName != null">
+        `tpl_pc_name`,
+      </if>
+      <if test="tplPcType != null">
+        `tpl_pc_type`,
+      </if>
+      <if test="tplPcTypeName != null">
+        `tpl_pc_type_name`,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="createUserId != null">
+        `create_user_id`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+      <if test="updateUserId != null">
+        `update_user_id`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="isEnable != null">
+        `is_enable`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="html != null">
+        `html`,
+      </if>
+      <if test="json != null">
+        `json`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `data_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.dataIdNotEquals != null">
+          AND `data_id` != #{example.dataIdNotEquals}
+        </if>
+        <if test="example.dataIdIn != null">
+          AND `data_id` in (${example.dataIdIn})
+        </if>
+        <if test="example.tplPcId != null">
+          AND `tpl_pc_id` = #{example.tplPcId}
+        </if>
+        <if test="example.tplPcName != null">
+          AND `tpl_pc_name` = #{example.tplPcName}
+        </if>
+        <if test="example.tplPcNameLike != null">
+          AND `tpl_pc_name` like concat('%',#{example.tplPcNameLike},'%')
+        </if>
+        <if test="example.tplPcType != null">
+          AND `tpl_pc_type` = #{example.tplPcType}
+        </if>
+        <if test="example.tplPcTypeName != null">
+          AND `tpl_pc_type_name` = #{example.tplPcTypeName}
+        </if>
+        <if test="example.tplPcTypeNameLike != null">
+          AND `tpl_pc_type_name` like concat('%',#{example.tplPcTypeNameLike},'%')
+        </if>
+        <if test="example.name != null">
+          AND `name` = #{example.name}
+        </if>
+        <if test="example.nameLike != null">
+          AND `name` like concat('%',#{example.nameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.createUserId != null">
+          AND `create_user_id` = #{example.createUserId}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.updateUserId != null">
+          AND `update_user_id` = #{example.updateUserId}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.isEnable != null">
+          AND `is_enable` = #{example.isEnable}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.html != null">
+          AND `html` = #{example.html}
+        </if>
+        <if test="example.json != null">
+          AND `json` = #{example.json}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `data_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.TplPcMallDataExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_tpl_pc_mall_data`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_tpl_pc_mall_data`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_tpl_pc_mall_data`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_tpl_pc_mall_data`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_tpl_pc_mall_data`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_tpl_pc_mall_data`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `sys_tpl_pc_mall_data`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `sys_tpl_pc_mall_data`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="data_id" keyProperty="dataId" parameterType="com.slodon.b2b2c.system.pojo.TplPcMallData" useGeneratedKeys="true">
+    INSERT INTO `sys_tpl_pc_mall_data`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="tplPcId != null">
+        #{tplPcId},
+      </if>
+      <if test="tplPcName != null">
+        #{tplPcName},
+      </if>
+      <if test="tplPcType != null">
+        #{tplPcType},
+      </if>
+      <if test="tplPcTypeName != null">
+        #{tplPcTypeName},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="createUserId != null">
+        #{createUserId},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="updateUserId != null">
+        #{updateUserId},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="html != null">
+        #{html},
+      </if>
+      <if test="json != null">
+        #{json},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `sys_tpl_pc_mall_data`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.tplPcId != null">
+        `tpl_pc_id` = #{record.tplPcId},
+      </if>
+      <if test="record.tplPcName != null">
+        `tpl_pc_name` = #{record.tplPcName},
+      </if>
+      <if test="record.tplPcType != null">
+        `tpl_pc_type` = #{record.tplPcType},
+      </if>
+      <if test="record.tplPcTypeName != null">
+        `tpl_pc_type_name` = #{record.tplPcTypeName},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.createUserId != null">
+        `create_user_id` = #{record.createUserId},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+      <if test="record.updateUserId != null">
+        `update_user_id` = #{record.updateUserId},
+      </if>
+      <if test="record.sort != null">
+        `sort` = #{record.sort},
+      </if>
+      <if test="record.isEnable != null">
+        `is_enable` = #{record.isEnable},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.html != null">
+        `html` = #{record.html},
+      </if>
+      <if test="record.json != null">
+        `json` = #{record.json},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `sys_tpl_pc_mall_data`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="tplPcId != null">
+        `tpl_pc_id` = #{tplPcId},
+      </if>
+      <if test="tplPcName != null">
+        `tpl_pc_name` = #{tplPcName},
+      </if>
+      <if test="tplPcType != null">
+        `tpl_pc_type` = #{tplPcType},
+      </if>
+      <if test="tplPcTypeName != null">
+        `tpl_pc_type_name` = #{tplPcTypeName},
+      </if>
+      <if test="name != null">
+        `name` = #{name},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="createUserId != null">
+        `create_user_id` = #{createUserId},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+      <if test="updateUserId != null">
+        `update_user_id` = #{updateUserId},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort},
+      </if>
+      <if test="isEnable != null">
+        `is_enable` = #{isEnable},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="html != null">
+        `html` = #{html},
+      </if>
+      <if test="json != null">
+        `json` = #{json},
+      </if>
+    </trim>
+    WHERE `data_id` = #{dataId}
+  </update>
+</mapper>

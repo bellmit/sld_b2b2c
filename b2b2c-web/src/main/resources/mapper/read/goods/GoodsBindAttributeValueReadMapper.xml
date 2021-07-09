@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.goods.GoodsBindAttributeValueReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.goods.pojo.GoodsBindAttributeValue">
+    <id column="bind_id" property="bindId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="attribute_id" property="attributeId" />
+    <result column="attribute_name" property="attributeName" />
+    <result column="attribute_value_id" property="attributeValueId" />
+    <result column="attribute_value" property="attributeValue" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `bind_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.bindIdNotEquals != null">
+          AND `bind_id` != #{example.bindIdNotEquals}
+        </if>
+        <if test="example.bindIdIn != null">
+          AND `bind_id` in (${example.bindIdIn})
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.attributeId != null">
+          AND `attribute_id` = #{example.attributeId}
+        </if>
+        <if test="example.attributeName != null">
+          AND `attribute_name` = #{example.attributeName}
+        </if>
+        <if test="example.attributeNameLike != null">
+          AND `attribute_name` like concat('%',#{example.attributeNameLike},'%')
+        </if>
+        <if test="example.attributeValueId != null">
+          AND `attribute_value_id` = #{example.attributeValueId}
+        </if>
+        <if test="example.attributeValue != null">
+          AND `attribute_value` = #{example.attributeValue}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `bind_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.goods.example.GoodsBindAttributeValueExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `goods_bind_attribute_value`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_bind_attribute_value`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_bind_attribute_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_bind_attribute_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_bind_attribute_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_bind_attribute_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

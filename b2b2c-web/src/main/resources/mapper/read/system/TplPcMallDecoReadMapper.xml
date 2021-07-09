@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.system.TplPcMallDecoReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.TplPcMallDeco">
+    <id column="deco_id" property="decoId" />
+    <result column="deco_type" property="decoType" />
+    <result column="deco_name" property="decoName" />
+    <result column="master_navigation_bar_id" property="masterNavigationBarId" />
+    <result column="master_banner_id" property="masterBannerId" />
+    <result column="ranked_tpl_data_ids" property="rankedTplDataIds" />
+    <result column="is_enable" property="isEnable" />
+    <result column="create_user_id" property="createUserId" />
+    <result column="create_user_name" property="createUserName" />
+    <result column="create_time" property="createTime" />
+    <result column="update_user_id" property="updateUserId" />
+    <result column="update_user_name" property="updateUserName" />
+    <result column="update_time" property="updateTime" />
+    <result column="store_id" property="storeId" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `deco_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.decoIdNotEquals != null">
+          AND `deco_id` != #{example.decoIdNotEquals}
+        </if>
+        <if test="example.decoIdIn != null">
+          AND `deco_id` in (${example.decoIdIn})
+        </if>
+        <if test="example.decoType != null">
+          AND `deco_type` = #{example.decoType}
+        </if>
+        <if test="example.decoName != null">
+          AND `deco_name` = #{example.decoName}
+        </if>
+        <if test="example.decoNameLike != null">
+          AND `deco_name` like concat('%',#{example.decoNameLike},'%')
+        </if>
+        <if test="example.masterNavigationBarId != null">
+          AND `master_navigation_bar_id` = #{example.masterNavigationBarId}
+        </if>
+        <if test="example.masterBannerId != null">
+          AND `master_banner_id` = #{example.masterBannerId}
+        </if>
+        <if test="example.rankedTplDataIds != null">
+          AND `ranked_tpl_data_ids` = #{example.rankedTplDataIds}
+        </if>
+        <if test="example.isEnable != null">
+          AND `is_enable` = #{example.isEnable}
+        </if>
+        <if test="example.createUserId != null">
+          AND `create_user_id` = #{example.createUserId}
+        </if>
+        <if test="example.createUserName != null">
+          AND `create_user_name` = #{example.createUserName}
+        </if>
+        <if test="example.createUserNameLike != null">
+          AND `create_user_name` like concat('%',#{example.createUserNameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateUserId != null">
+          AND `update_user_id` = #{example.updateUserId}
+        </if>
+        <if test="example.updateUserName != null">
+          AND `update_user_name` = #{example.updateUserName}
+        </if>
+        <if test="example.updateUserNameLike != null">
+          AND `update_user_name` like concat('%',#{example.updateUserNameLike},'%')
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `deco_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.TplPcMallDecoExample" resultType="java.lang.Integer">
+    SELECT
+    COUNT(*)
+    FROM `sys_tpl_pc_mall_deco`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+    *
+    FROM `sys_tpl_pc_mall_deco`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+    *
+    FROM `sys_tpl_pc_mall_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+    *
+    FROM `sys_tpl_pc_mall_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+    ${fields}
+    FROM `sys_tpl_pc_mall_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+    ${fields}
+    FROM `sys_tpl_pc_mall_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

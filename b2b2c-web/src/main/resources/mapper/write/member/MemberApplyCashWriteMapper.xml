@@ -1,0 +1,483 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.member.MemberApplyCashWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.member.pojo.MemberApplyCash">
+    <id column="cash_id" property="cashId" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="cash_sn" property="cashSn" />
+    <result column="cash_amount" property="cashAmount" />
+    <result column="apply_time" property="applyTime" />
+    <result column="auditing_time" property="auditingTime" />
+    <result column="pay_time" property="payTime" />
+    <result column="pay_account" property="payAccount" />
+    <result column="receive_bank" property="receiveBank" />
+    <result column="receive_account" property="receiveAccount" />
+    <result column="receive_name" property="receiveName" />
+    <result column="receive_type" property="receiveType" />
+    <result column="state" property="state" />
+    <result column="fail_reason" property="failReason" />
+    <result column="admin_id" property="adminId" />
+    <result column="admin_name" property="adminName" />
+    <result column="service_fee" property="serviceFee" />
+    <result column="transaction_sn" property="transactionSn" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="memberName != null">
+        `member_name`,
+      </if>
+      <if test="cashSn != null">
+        `cash_sn`,
+      </if>
+      <if test="cashAmount != null">
+        `cash_amount`,
+      </if>
+      <if test="applyTime != null">
+        `apply_time`,
+      </if>
+      <if test="auditingTime != null">
+        `auditing_time`,
+      </if>
+      <if test="payTime != null">
+        `pay_time`,
+      </if>
+      <if test="payAccount != null">
+        `pay_account`,
+      </if>
+      <if test="receiveBank != null">
+        `receive_bank`,
+      </if>
+      <if test="receiveAccount != null">
+        `receive_account`,
+      </if>
+      <if test="receiveName != null">
+        `receive_name`,
+      </if>
+      <if test="receiveType != null">
+        `receive_type`,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="failReason != null">
+        `fail_reason`,
+      </if>
+      <if test="adminId != null">
+        `admin_id`,
+      </if>
+      <if test="adminName != null">
+        `admin_name`,
+      </if>
+      <if test="serviceFee != null">
+        `service_fee`,
+      </if>
+      <if test="transactionSn != null">
+        `transaction_sn`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `cash_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.cashIdNotEquals != null">
+          AND `cash_id` != #{example.cashIdNotEquals}
+        </if>
+        <if test="example.cashIdIn != null">
+          AND `cash_id` in (${example.cashIdIn})
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.cashSn != null">
+          AND `cash_sn` = #{example.cashSn}
+        </if>
+        <if test="example.cashSnLike != null">
+          AND `cash_sn` like concat('%',#{example.cashSnLike},'%')
+        </if>
+        <if test="example.cashAmount != null">
+          AND `cash_amount` = #{example.cashAmount}
+        </if>
+        <if test="example.applyTimeAfter != null">
+          AND `apply_time` <![CDATA[ >= ]]> #{example.applyTimeAfter}
+        </if>
+        <if test="example.applyTimeBefore != null">
+          AND `apply_time` <![CDATA[ <= ]]> #{example.applyTimeBefore}
+        </if>
+        <if test="example.auditingTimeAfter != null">
+          AND `auditing_time` <![CDATA[ >= ]]> #{example.auditingTimeAfter}
+        </if>
+        <if test="example.auditingTimeBefore != null">
+          AND `auditing_time` <![CDATA[ <= ]]> #{example.auditingTimeBefore}
+        </if>
+        <if test="example.payTimeAfter != null">
+          AND `pay_time` <![CDATA[ >= ]]> #{example.payTimeAfter}
+        </if>
+        <if test="example.payTimeBefore != null">
+          AND `pay_time` <![CDATA[ <= ]]> #{example.payTimeBefore}
+        </if>
+        <if test="example.payAccount != null">
+          AND `pay_account` = #{example.payAccount}
+        </if>
+        <if test="example.receiveBank != null">
+          AND `receive_bank` = #{example.receiveBank}
+        </if>
+        <if test="example.receiveAccount != null">
+          AND `receive_account` = #{example.receiveAccount}
+        </if>
+        <if test="example.receiveName != null">
+          AND `receive_name` = #{example.receiveName}
+        </if>
+        <if test="example.receiveNameLike != null">
+          AND `receive_name` like concat('%',#{example.receiveNameLike},'%')
+        </if>
+        <if test="example.receiveType != null">
+          AND `receive_type` = #{example.receiveType}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.failReason != null">
+          AND `fail_reason` = #{example.failReason}
+        </if>
+        <if test="example.failReasonLike != null">
+          AND `fail_reason` like concat('%',#{example.failReasonLike},'%')
+        </if>
+        <if test="example.adminId != null">
+          AND `admin_id` = #{example.adminId}
+        </if>
+        <if test="example.adminName != null">
+          AND `admin_name` = #{example.adminName}
+        </if>
+        <if test="example.adminNameLike != null">
+          AND `admin_name` like concat('%',#{example.adminNameLike},'%')
+        </if>
+        <if test="example.serviceFee != null">
+          AND `service_fee` = #{example.serviceFee}
+        </if>
+        <if test="example.transactionSn != null">
+          AND `transaction_sn` = #{example.transactionSn}
+        </if>
+        <if test="example.transactionSnLike != null">
+          AND `transaction_sn` like concat('%',#{example.transactionSnLike},'%')
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `cash_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.member.example.MemberApplyCashExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `member_apply_cash`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_apply_cash`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_apply_cash`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_apply_cash`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_apply_cash`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_apply_cash`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `member_apply_cash`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `member_apply_cash`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="cash_id" keyProperty="cashId" parameterType="com.slodon.b2b2c.member.pojo.MemberApplyCash" useGeneratedKeys="true">
+    INSERT INTO `member_apply_cash`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="memberName != null">
+        #{memberName},
+      </if>
+      <if test="cashSn != null">
+        #{cashSn},
+      </if>
+      <if test="cashAmount != null">
+        #{cashAmount},
+      </if>
+      <if test="applyTime != null">
+        #{applyTime},
+      </if>
+      <if test="auditingTime != null">
+        #{auditingTime},
+      </if>
+      <if test="payTime != null">
+        #{payTime},
+      </if>
+      <if test="payAccount != null">
+        #{payAccount},
+      </if>
+      <if test="receiveBank != null">
+        #{receiveBank},
+      </if>
+      <if test="receiveAccount != null">
+        #{receiveAccount},
+      </if>
+      <if test="receiveName != null">
+        #{receiveName},
+      </if>
+      <if test="receiveType != null">
+        #{receiveType},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="failReason != null">
+        #{failReason},
+      </if>
+      <if test="adminId != null">
+        #{adminId},
+      </if>
+      <if test="adminName != null">
+        #{adminName},
+      </if>
+      <if test="serviceFee != null">
+        #{serviceFee},
+      </if>
+      <if test="transactionSn != null">
+        #{transactionSn},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `member_apply_cash`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.memberName != null">
+        `member_name` = #{record.memberName},
+      </if>
+      <if test="record.cashSn != null">
+        `cash_sn` = #{record.cashSn},
+      </if>
+      <if test="record.cashAmount != null">
+        `cash_amount` = #{record.cashAmount},
+      </if>
+      <if test="record.applyTime != null">
+        `apply_time` = #{record.applyTime},
+      </if>
+      <if test="record.auditingTime != null">
+        `auditing_time` = #{record.auditingTime},
+      </if>
+      <if test="record.payTime != null">
+        `pay_time` = #{record.payTime},
+      </if>
+      <if test="record.payAccount != null">
+        `pay_account` = #{record.payAccount},
+      </if>
+      <if test="record.receiveBank != null">
+        `receive_bank` = #{record.receiveBank},
+      </if>
+      <if test="record.receiveAccount != null">
+        `receive_account` = #{record.receiveAccount},
+      </if>
+      <if test="record.receiveName != null">
+        `receive_name` = #{record.receiveName},
+      </if>
+      <if test="record.receiveType != null">
+        `receive_type` = #{record.receiveType},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state},
+      </if>
+      <if test="record.failReason != null">
+        `fail_reason` = #{record.failReason},
+      </if>
+      <if test="record.adminId != null">
+        `admin_id` = #{record.adminId},
+      </if>
+      <if test="record.adminName != null">
+        `admin_name` = #{record.adminName},
+      </if>
+      <if test="record.serviceFee != null">
+        `service_fee` = #{record.serviceFee},
+      </if>
+      <if test="record.transactionSn != null">
+        `transaction_sn` = #{record.transactionSn},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `member_apply_cash`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="memberName != null">
+        `member_name` = #{memberName},
+      </if>
+      <if test="cashSn != null">
+        `cash_sn` = #{cashSn},
+      </if>
+      <if test="cashAmount != null">
+        `cash_amount` = #{cashAmount},
+      </if>
+      <if test="applyTime != null">
+        `apply_time` = #{applyTime},
+      </if>
+      <if test="auditingTime != null">
+        `auditing_time` = #{auditingTime},
+      </if>
+      <if test="payTime != null">
+        `pay_time` = #{payTime},
+      </if>
+      <if test="payAccount != null">
+        `pay_account` = #{payAccount},
+      </if>
+      <if test="receiveBank != null">
+        `receive_bank` = #{receiveBank},
+      </if>
+      <if test="receiveAccount != null">
+        `receive_account` = #{receiveAccount},
+      </if>
+      <if test="receiveName != null">
+        `receive_name` = #{receiveName},
+      </if>
+      <if test="receiveType != null">
+        `receive_type` = #{receiveType},
+      </if>
+      <if test="state != null">
+        `state` = #{state},
+      </if>
+      <if test="failReason != null">
+        `fail_reason` = #{failReason},
+      </if>
+      <if test="adminId != null">
+        `admin_id` = #{adminId},
+      </if>
+      <if test="adminName != null">
+        `admin_name` = #{adminName},
+      </if>
+      <if test="serviceFee != null">
+        `service_fee` = #{serviceFee},
+      </if>
+      <if test="transactionSn != null">
+        `transaction_sn` = #{transactionSn},
+      </if>
+    </trim>
+    WHERE `cash_id` = #{cashId}
+  </update>
+</mapper>

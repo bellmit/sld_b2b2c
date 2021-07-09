@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.integral.IntegralProductReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.integral.pojo.IntegralProduct">
+    <id column="integral_product_id" property="integralProductId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="spec_values" property="specValues" />
+    <result column="spec_value_ids" property="specValueIds" />
+    <result column="market_price" property="marketPrice" />
+    <result column="integral_price" property="integralPrice" />
+    <result column="cash_price" property="cashPrice" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="product_stock" property="productStock" />
+    <result column="product_stock_warning" property="productStockWarning" />
+    <result column="product_stock_warning_state" property="productStockWarningState" />
+    <result column="actual_sales" property="actualSales" />
+    <result column="product_code" property="productCode" />
+    <result column="bar_code" property="barCode" />
+    <result column="weight" property="weight" />
+    <result column="length" property="length" />
+    <result column="width" property="width" />
+    <result column="height" property="height" />
+    <result column="main_image" property="mainImage" />
+    <result column="state" property="state" />
+    <result column="is_default" property="isDefault" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `integral_product_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.integralProductIdNotEquals != null">
+          AND `integral_product_id` != #{example.integralProductIdNotEquals}
+        </if>
+        <if test="example.integralProductIdIn != null">
+          AND `integral_product_id` in (${example.integralProductIdIn})
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.specValues != null">
+          AND `spec_values` = #{example.specValues}
+        </if>
+        <if test="example.specValueIds != null">
+          AND `spec_value_ids` = #{example.specValueIds}
+        </if>
+        <if test="example.marketPrice != null">
+          AND `market_price` = #{example.marketPrice}
+        </if>
+        <if test="example.integralPrice != null">
+          AND `integral_price` = #{example.integralPrice}
+        </if>
+        <if test="example.cashPrice != null">
+          AND `cash_price` = #{example.cashPrice}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.productStock != null">
+          AND `product_stock` = #{example.productStock}
+        </if>
+        <if test="example.productStockWarning != null">
+          AND `product_stock_warning` = #{example.productStockWarning}
+        </if>
+        <if test="example.productStockWarningState != null">
+          AND `product_stock_warning_state` = #{example.productStockWarningState}
+        </if>
+        <if test="example.productStockWarningStateIn != null">
+          AND `product_stock_warning_state` in (${example.productStockWarningStateIn})
+        </if>
+        <if test="example.productStockWarningStateNotIn != null">
+          AND `product_stock_warning_state` not in (${example.productStockWarningStateNotIn})
+        </if>
+        <if test="example.productStockWarningStateNotEquals != null">
+          AND `product_stock_warning_state` != #{example.productStockWarningStateNotEquals}
+        </if>
+        <if test="example.actualSales != null">
+          AND `actual_sales` = #{example.actualSales}
+        </if>
+        <if test="example.productCode != null">
+          AND `product_code` = #{example.productCode}
+        </if>
+        <if test="example.barCode != null">
+          AND `bar_code` = #{example.barCode}
+        </if>
+        <if test="example.weight != null">
+          AND `weight` = #{example.weight}
+        </if>
+        <if test="example.length != null">
+          AND `length` = #{example.length}
+        </if>
+        <if test="example.width != null">
+          AND `width` = #{example.width}
+        </if>
+        <if test="example.height != null">
+          AND `height` = #{example.height}
+        </if>
+        <if test="example.mainImage != null">
+          AND `main_image` = #{example.mainImage}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateIn != null">
+          AND `state` in (${example.stateIn})
+        </if>
+        <if test="example.stateNotIn != null">
+          AND `state` not in (${example.stateNotIn})
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.isDefault != null">
+          AND `is_default` = #{example.isDefault}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `integral_product_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.integral.example.IntegralProductExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `integral_product`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_product`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

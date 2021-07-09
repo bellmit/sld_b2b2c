@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.cms.InformationReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.cms.pojo.Information">
+    <id column="information_id" property="informationId" />
+    <result column="cate_id" property="cateId" />
+    <result column="cate_name" property="cateName" />
+    <result column="title" property="title" />
+    <result column="cover_image" property="coverImage" />
+    <result column="page_view" property="pageView" />
+    <result column="is_recommend" property="isRecommend" />
+    <result column="is_show" property="isShow" />
+    <result column="create_time" property="createTime" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="create_admin_name" property="createAdminName" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_admin_id" property="updateAdminId" />
+    <result column="update_admin_name" property="updateAdminName" />
+    <result column="content" property="content" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `information_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.informationIdNotEquals != null">
+          AND `information_id` != #{example.informationIdNotEquals}
+        </if>
+        <if test="example.informationIdIn != null">
+          AND `information_id` in (${example.informationIdIn})
+        </if>
+        <if test="example.cateId != null">
+          AND `cate_id` = #{example.cateId}
+        </if>
+        <if test="example.cateName != null">
+          AND `cate_name` = #{example.cateName}
+        </if>
+        <if test="example.cateNameLike != null">
+          AND `cate_name` like concat('%',#{example.cateNameLike},'%')
+        </if>
+        <if test="example.title != null">
+          AND `title` = #{example.title}
+        </if>
+        <if test="example.titleLike != null">
+          AND `title` like concat('%',#{example.titleLike},'%')
+        </if>
+        <if test="example.coverImage != null">
+          AND `cover_image` = #{example.coverImage}
+        </if>
+        <if test="example.pageView != null">
+          AND `page_view` = #{example.pageView}
+        </if>
+        <if test="example.isRecommend != null">
+          AND `is_recommend` = #{example.isRecommend}
+        </if>
+        <if test="example.isShow != null">
+          AND `is_show` = #{example.isShow}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.createAdminName != null">
+          AND `create_admin_name` = #{example.createAdminName}
+        </if>
+        <if test="example.createAdminNameLike != null">
+          AND `create_admin_name` like concat('%',#{example.createAdminNameLike},'%')
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.updateAdminId != null">
+          AND `update_admin_id` = #{example.updateAdminId}
+        </if>
+        <if test="example.updateAdminName != null">
+          AND `update_admin_name` = #{example.updateAdminName}
+        </if>
+        <if test="example.updateAdminNameLike != null">
+          AND `update_admin_name` like concat('%',#{example.updateAdminNameLike},'%')
+        </if>
+        <if test="example.content != null">
+          AND `content` = #{example.content}
+        </if>
+        <if test="example.contentLike != null">
+          AND `content` like concat('%',#{example.contentLike},'%')
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `information_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.cms.example.InformationExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `cms_information`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `cms_information`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `cms_information`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `cms_information`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `cms_information`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `cms_information`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

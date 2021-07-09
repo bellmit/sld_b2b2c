@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.integral.IntegralOrderProductWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.integral.pojo.IntegralOrderProduct">
+    <id column="order_product_id" property="orderProductId" />
+    <result column="order_sn" property="orderSn" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="member_id" property="memberId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="product_image" property="productImage" />
+    <result column="spec_values" property="specValues" />
+    <result column="product_id" property="productId" />
+    <result column="integral_price" property="integralPrice" />
+    <result column="cash_price" property="cashPrice" />
+    <result column="product_num" property="productNum" />
+    <result column="integral" property="integral" />
+    <result column="integral_cash_amount" property="integralCashAmount" />
+    <result column="cash_amount" property="cashAmount" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="orderSn != null">
+        `order_sn`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="storeName != null">
+        `store_name`,
+      </if>
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="goodsName != null">
+        `goods_name`,
+      </if>
+      <if test="productImage != null">
+        `product_image`,
+      </if>
+      <if test="specValues != null">
+        `spec_values`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="integralPrice != null">
+        `integral_price`,
+      </if>
+      <if test="cashPrice != null">
+        `cash_price`,
+      </if>
+      <if test="productNum != null">
+        `product_num`,
+      </if>
+      <if test="integral != null">
+        `integral`,
+      </if>
+      <if test="integralCashAmount != null">
+        `integral_cash_amount`,
+      </if>
+      <if test="cashAmount != null">
+        `cash_amount`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `order_product_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.orderProductIdNotEquals != null">
+          AND `order_product_id` != #{example.orderProductIdNotEquals}
+        </if>
+        <if test="example.orderProductIdIn != null">
+          AND `order_product_id` in (${example.orderProductIdIn})
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.productImage != null">
+          AND `product_image` = #{example.productImage}
+        </if>
+        <if test="example.specValues != null">
+          AND `spec_values` = #{example.specValues}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.integralPrice != null">
+          AND `integral_price` = #{example.integralPrice}
+        </if>
+        <if test="example.cashPrice != null">
+          AND `cash_price` = #{example.cashPrice}
+        </if>
+        <if test="example.productNum != null">
+          AND `product_num` = #{example.productNum}
+        </if>
+        <if test="example.integral != null">
+          AND `integral` = #{example.integral}
+        </if>
+        <if test="example.integralCashAmount != null">
+          AND `integral_cash_amount` = #{example.integralCashAmount}
+        </if>
+        <if test="example.cashAmount != null">
+          AND `cash_amount` = #{example.cashAmount}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `order_product_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.integral.example.IntegralOrderProductExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `integral_order_product`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_order_product`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_order_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_order_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_order_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_order_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `integral_order_product`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `integral_order_product`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="order_product_id" keyProperty="orderProductId" parameterType="com.slodon.b2b2c.integral.pojo.IntegralOrderProduct" useGeneratedKeys="true">
+    INSERT INTO `integral_order_product`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="orderSn != null">
+        #{orderSn},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="storeName != null">
+        #{storeName},
+      </if>
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName},
+      </if>
+      <if test="productImage != null">
+        #{productImage},
+      </if>
+      <if test="specValues != null">
+        #{specValues},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="integralPrice != null">
+        #{integralPrice},
+      </if>
+      <if test="cashPrice != null">
+        #{cashPrice},
+      </if>
+      <if test="productNum != null">
+        #{productNum},
+      </if>
+      <if test="integral != null">
+        #{integral},
+      </if>
+      <if test="integralCashAmount != null">
+        #{integralCashAmount},
+      </if>
+      <if test="cashAmount != null">
+        #{cashAmount},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `integral_order_product`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.orderSn != null">
+        `order_sn` = #{record.orderSn},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.storeName != null">
+        `store_name` = #{record.storeName},
+      </if>
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.goodsName != null">
+        `goods_name` = #{record.goodsName},
+      </if>
+      <if test="record.productImage != null">
+        `product_image` = #{record.productImage},
+      </if>
+      <if test="record.specValues != null">
+        `spec_values` = #{record.specValues},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.integralPrice != null">
+        `integral_price` = #{record.integralPrice},
+      </if>
+      <if test="record.cashPrice != null">
+        `cash_price` = #{record.cashPrice},
+      </if>
+      <if test="record.productNum != null">
+        `product_num` = #{record.productNum},
+      </if>
+      <if test="record.integral != null">
+        `integral` = #{record.integral},
+      </if>
+      <if test="record.integralCashAmount != null">
+        `integral_cash_amount` = #{record.integralCashAmount},
+      </if>
+      <if test="record.cashAmount != null">
+        `cash_amount` = #{record.cashAmount},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `integral_order_product`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="orderSn != null">
+        `order_sn` = #{orderSn},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="storeName != null">
+        `store_name` = #{storeName},
+      </if>
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        `goods_name` = #{goodsName},
+      </if>
+      <if test="productImage != null">
+        `product_image` = #{productImage},
+      </if>
+      <if test="specValues != null">
+        `spec_values` = #{specValues},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="integralPrice != null">
+        `integral_price` = #{integralPrice},
+      </if>
+      <if test="cashPrice != null">
+        `cash_price` = #{cashPrice},
+      </if>
+      <if test="productNum != null">
+        `product_num` = #{productNum},
+      </if>
+      <if test="integral != null">
+        `integral` = #{integral},
+      </if>
+      <if test="integralCashAmount != null">
+        `integral_cash_amount` = #{integralCashAmount},
+      </if>
+      <if test="cashAmount != null">
+        `cash_amount` = #{cashAmount},
+      </if>
+    </trim>
+    WHERE `order_product_id` = #{orderProductId}
+  </update>
+</mapper>

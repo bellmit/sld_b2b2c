@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.member.MemberBalanceRechargeWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.member.pojo.MemberBalanceRecharge">
+    <id column="recharge_id" property="rechargeId" />
+    <result column="recharge_sn" property="rechargeSn" />
+    <result column="payment_code" property="paymentCode" />
+    <result column="payment_name" property="paymentName" />
+    <result column="pay_amount" property="payAmount" />
+    <result column="pay_state" property="payState" />
+    <result column="trade_sn" property="tradeSn" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="member_mobile" property="memberMobile" />
+    <result column="create_time" property="createTime" />
+    <result column="pay_time" property="payTime" />
+    <result column="admin_id" property="adminId" />
+    <result column="admin_name" property="adminName" />
+    <result column="description" property="description" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="rechargeSn != null">
+        `recharge_sn`,
+      </if>
+      <if test="paymentCode != null">
+        `payment_code`,
+      </if>
+      <if test="paymentName != null">
+        `payment_name`,
+      </if>
+      <if test="payAmount != null">
+        `pay_amount`,
+      </if>
+      <if test="payState != null">
+        `pay_state`,
+      </if>
+      <if test="tradeSn != null">
+        `trade_sn`,
+      </if>
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="memberName != null">
+        `member_name`,
+      </if>
+      <if test="memberMobile != null">
+        `member_mobile`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="payTime != null">
+        `pay_time`,
+      </if>
+      <if test="adminId != null">
+        `admin_id`,
+      </if>
+      <if test="adminName != null">
+        `admin_name`,
+      </if>
+      <if test="description != null">
+        `description`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `recharge_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.rechargeIdNotEquals != null">
+          AND `recharge_id` != #{example.rechargeIdNotEquals}
+        </if>
+        <if test="example.rechargeIdIn != null">
+          AND `recharge_id` in (${example.rechargeIdIn})
+        </if>
+        <if test="example.rechargeSn != null">
+          AND `recharge_sn` = #{example.rechargeSn}
+        </if>
+        <if test="example.rechargeSnLike != null">
+          AND `recharge_sn` like concat('%',#{example.rechargeSnLike},'%')
+        </if>
+        <if test="example.paymentCode != null">
+          AND `payment_code` = #{example.paymentCode}
+        </if>
+        <if test="example.paymentName != null">
+          AND `payment_name` = #{example.paymentName}
+        </if>
+        <if test="example.paymentNameLike != null">
+          AND `payment_name` like concat('%',#{example.paymentNameLike},'%')
+        </if>
+        <if test="example.payAmount != null">
+          AND `pay_amount` = #{example.payAmount}
+        </if>
+        <if test="example.payState != null">
+          AND `pay_state` = #{example.payState}
+        </if>
+        <if test="example.tradeSn != null">
+          AND `trade_sn` = #{example.tradeSn}
+        </if>
+        <if test="example.tradeSnLike != null">
+          AND `trade_sn` like concat('%',#{example.tradeSnLike},'%')
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.memberMobile != null">
+          AND `member_mobile` = #{example.memberMobile}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.payTimeAfter != null">
+          AND `pay_time` <![CDATA[ >= ]]> #{example.payTimeAfter}
+        </if>
+        <if test="example.payTimeBefore != null">
+          AND `pay_time` <![CDATA[ <= ]]> #{example.payTimeBefore}
+        </if>
+        <if test="example.adminId != null">
+          AND `admin_id` = #{example.adminId}
+        </if>
+        <if test="example.adminName != null">
+          AND `admin_name` = #{example.adminName}
+        </if>
+        <if test="example.adminNameLike != null">
+          AND `admin_name` like concat('%',#{example.adminNameLike},'%')
+        </if>
+        <if test="example.description != null">
+          AND `description` = #{example.description}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `recharge_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.member.example.MemberBalanceRechargeExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `member_balance_recharge`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_balance_recharge`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_balance_recharge`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_balance_recharge`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_balance_recharge`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_balance_recharge`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `member_balance_recharge`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `member_balance_recharge`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="recharge_id" keyProperty="rechargeId" parameterType="com.slodon.b2b2c.member.pojo.MemberBalanceRecharge" useGeneratedKeys="true">
+    INSERT INTO `member_balance_recharge`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="rechargeSn != null">
+        #{rechargeSn},
+      </if>
+      <if test="paymentCode != null">
+        #{paymentCode},
+      </if>
+      <if test="paymentName != null">
+        #{paymentName},
+      </if>
+      <if test="payAmount != null">
+        #{payAmount},
+      </if>
+      <if test="payState != null">
+        #{payState},
+      </if>
+      <if test="tradeSn != null">
+        #{tradeSn},
+      </if>
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="memberName != null">
+        #{memberName},
+      </if>
+      <if test="memberMobile != null">
+        #{memberMobile},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="payTime != null">
+        #{payTime},
+      </if>
+      <if test="adminId != null">
+        #{adminId},
+      </if>
+      <if test="adminName != null">
+        #{adminName},
+      </if>
+      <if test="description != null">
+        #{description},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `member_balance_recharge`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.rechargeSn != null">
+        `recharge_sn` = #{record.rechargeSn},
+      </if>
+      <if test="record.paymentCode != null">
+        `payment_code` = #{record.paymentCode},
+      </if>
+      <if test="record.paymentName != null">
+        `payment_name` = #{record.paymentName},
+      </if>
+      <if test="record.payAmount != null">
+        `pay_amount` = #{record.payAmount},
+      </if>
+      <if test="record.payState != null">
+        `pay_state` = #{record.payState},
+      </if>
+      <if test="record.tradeSn != null">
+        `trade_sn` = #{record.tradeSn},
+      </if>
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.memberName != null">
+        `member_name` = #{record.memberName},
+      </if>
+      <if test="record.memberMobile != null">
+        `member_mobile` = #{record.memberMobile},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.payTime != null">
+        `pay_time` = #{record.payTime},
+      </if>
+      <if test="record.adminId != null">
+        `admin_id` = #{record.adminId},
+      </if>
+      <if test="record.adminName != null">
+        `admin_name` = #{record.adminName},
+      </if>
+      <if test="record.description != null">
+        `description` = #{record.description},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `member_balance_recharge`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="rechargeSn != null">
+        `recharge_sn` = #{rechargeSn},
+      </if>
+      <if test="paymentCode != null">
+        `payment_code` = #{paymentCode},
+      </if>
+      <if test="paymentName != null">
+        `payment_name` = #{paymentName},
+      </if>
+      <if test="payAmount != null">
+        `pay_amount` = #{payAmount},
+      </if>
+      <if test="payState != null">
+        `pay_state` = #{payState},
+      </if>
+      <if test="tradeSn != null">
+        `trade_sn` = #{tradeSn},
+      </if>
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="memberName != null">
+        `member_name` = #{memberName},
+      </if>
+      <if test="memberMobile != null">
+        `member_mobile` = #{memberMobile},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="payTime != null">
+        `pay_time` = #{payTime},
+      </if>
+      <if test="adminId != null">
+        `admin_id` = #{adminId},
+      </if>
+      <if test="adminName != null">
+        `admin_name` = #{adminName},
+      </if>
+      <if test="description != null">
+        `description` = #{description},
+      </if>
+    </trim>
+    WHERE `recharge_id` = #{rechargeId}
+  </update>
+</mapper>

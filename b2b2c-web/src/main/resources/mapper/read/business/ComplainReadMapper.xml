@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.business.ComplainReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.business.pojo.Complain">
+    <id column="complain_id" property="complainId" />
+    <result column="complain_subject_id" property="complainSubjectId" />
+    <result column="afs_sn" property="afsSn" />
+    <result column="order_sn" property="orderSn" />
+    <result column="order_product_id" property="orderProductId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="product_id" property="productId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="goods_image" property="goodsImage" />
+    <result column="spec_values" property="specValues" />
+    <result column="complain_member_id" property="complainMemberId" />
+    <result column="complain_member_name" property="complainMemberName" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="complain_content" property="complainContent" />
+    <result column="complain_pic" property="complainPic" />
+    <result column="complain_time" property="complainTime" />
+    <result column="complain_audit_time" property="complainAuditTime" />
+    <result column="complain_audit_admin_id" property="complainAuditAdminId" />
+    <result column="refuse_reason" property="refuseReason" />
+    <result column="appeal_content" property="appealContent" />
+    <result column="appeal_image" property="appealImage" />
+    <result column="appeal_time" property="appealTime" />
+    <result column="appeal_vendor_id" property="appealVendorId" />
+    <result column="admin_handle_content" property="adminHandleContent" />
+    <result column="admin_handle_time" property="adminHandleTime" />
+    <result column="admin_handle_id" property="adminHandleId" />
+    <result column="complain_state" property="complainState" />
+    <result column="handle_deadline" property="handleDeadline" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `complain_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.complainIdNotEquals != null">
+          AND `complain_id` != #{example.complainIdNotEquals}
+        </if>
+        <if test="example.complainIdIn != null">
+          AND `complain_id` in (${example.complainIdIn})
+        </if>
+        <if test="example.complainSubjectId != null">
+          AND `complain_subject_id` = #{example.complainSubjectId}
+        </if>
+        <if test="example.afsSn != null">
+          AND `afs_sn` = #{example.afsSn}
+        </if>
+        <if test="example.afsSnLike != null">
+          AND `afs_sn` like concat('%',#{example.afsSnLike},'%')
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.orderProductId != null">
+          AND `order_product_id` = #{example.orderProductId}
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.goodsImage != null">
+          AND `goods_image` = #{example.goodsImage}
+        </if>
+        <if test="example.specValues != null">
+          AND `spec_values` = #{example.specValues}
+        </if>
+        <if test="example.complainMemberId != null">
+          AND `complain_member_id` = #{example.complainMemberId}
+        </if>
+        <if test="example.complainMemberName != null">
+          AND `complain_member_name` = #{example.complainMemberName}
+        </if>
+        <if test="example.complainMemberNameLike != null">
+          AND `complain_member_name` like concat('%',#{example.complainMemberNameLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.complainContent != null">
+          AND `complain_content` = #{example.complainContent}
+        </if>
+        <if test="example.complainContentLike != null">
+          AND `complain_content` like concat('%',#{example.complainContentLike},'%')
+        </if>
+        <if test="example.complainPic != null">
+          AND `complain_pic` = #{example.complainPic}
+        </if>
+        <if test="example.complainTimeAfter != null">
+          AND `complain_time` <![CDATA[ >= ]]> #{example.complainTimeAfter}
+        </if>
+        <if test="example.complainTimeBefore != null">
+          AND `complain_time` <![CDATA[ <= ]]> #{example.complainTimeBefore}
+        </if>
+        <if test="example.complainAuditTimeAfter != null">
+          AND `complain_audit_time` <![CDATA[ >= ]]> #{example.complainAuditTimeAfter}
+        </if>
+        <if test="example.complainAuditTimeBefore != null">
+          AND `complain_audit_time` <![CDATA[ <= ]]> #{example.complainAuditTimeBefore}
+        </if>
+        <if test="example.complainAuditAdminId != null">
+          AND `complain_audit_admin_id` = #{example.complainAuditAdminId}
+        </if>
+        <if test="example.refuseReason != null">
+          AND `refuse_reason` = #{example.refuseReason}
+        </if>
+        <if test="example.appealContent != null">
+          AND `appeal_content` = #{example.appealContent}
+        </if>
+        <if test="example.appealContentLike != null">
+          AND `appeal_content` like concat('%',#{example.appealContentLike},'%')
+        </if>
+        <if test="example.appealImage != null">
+          AND `appeal_image` = #{example.appealImage}
+        </if>
+        <if test="example.appealTimeAfter != null">
+          AND `appeal_time` <![CDATA[ >= ]]> #{example.appealTimeAfter}
+        </if>
+        <if test="example.appealTimeBefore != null">
+          AND `appeal_time` <![CDATA[ <= ]]> #{example.appealTimeBefore}
+        </if>
+        <if test="example.appealVendorId != null">
+          AND `appeal_vendor_id` = #{example.appealVendorId}
+        </if>
+        <if test="example.adminHandleContent != null">
+          AND `admin_handle_content` = #{example.adminHandleContent}
+        </if>
+        <if test="example.adminHandleContentLike != null">
+          AND `admin_handle_content` like concat('%',#{example.adminHandleContentLike},'%')
+        </if>
+        <if test="example.adminHandleTimeAfter != null">
+          AND `admin_handle_time` <![CDATA[ >= ]]> #{example.adminHandleTimeAfter}
+        </if>
+        <if test="example.adminHandleTimeBefore != null">
+          AND `admin_handle_time` <![CDATA[ <= ]]> #{example.adminHandleTimeBefore}
+        </if>
+        <if test="example.adminHandleId != null">
+          AND `admin_handle_id` = #{example.adminHandleId}
+        </if>
+        <if test="example.complainState != null">
+          AND `complain_state` = #{example.complainState}
+        </if>
+        <if test="example.handleDeadlineAfter != null">
+          AND `handle_deadline` <![CDATA[ >= ]]> #{example.handleDeadlineAfter}
+        </if>
+        <if test="example.handleDeadlineBefore != null">
+          AND `handle_deadline` <![CDATA[ <= ]]> #{example.handleDeadlineBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `complain_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.business.example.ComplainExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `bz_complain`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_complain`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_complain`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_complain`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_complain`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_complain`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.msg.MemberReceiveReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.msg.pojo.MemberReceive">
+    <id column="receive_id" property="receiveId" />
+    <result column="tpl_code" property="tplCode" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="member_mobile" property="memberMobile" />
+    <result column="msg_content" property="msgContent" />
+    <result column="msg_link_info" property="msgLinkInfo" />
+    <result column="msg_send_time" property="msgSendTime" />
+    <result column="msg_operate_time" property="msgOperateTime" />
+    <result column="msg_state" property="msgState" />
+    <result column="push_id" property="pushId" />
+    <result column="source" property="source" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `receive_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.receiveIdNotEquals != null">
+          AND `receive_id` != #{example.receiveIdNotEquals}
+        </if>
+        <if test="example.receiveIdIn != null">
+          AND `receive_id` in (${example.receiveIdIn})
+        </if>
+        <if test="example.tplCode != null">
+          AND `tpl_code` = #{example.tplCode}
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.memberMobile != null">
+          AND `member_mobile` = #{example.memberMobile}
+        </if>
+        <if test="example.msgContent != null">
+          AND `msg_content` = #{example.msgContent}
+        </if>
+        <if test="example.msgContentLike != null">
+          AND `msg_content` like concat('%',#{example.msgContentLike},'%')
+        </if>
+        <if test="example.msgLinkInfo != null">
+          AND `msg_link_info` = #{example.msgLinkInfo}
+        </if>
+        <if test="example.msgSendTimeAfter != null">
+          AND `msg_send_time` <![CDATA[ >= ]]> #{example.msgSendTimeAfter}
+        </if>
+        <if test="example.msgSendTimeBefore != null">
+          AND `msg_send_time` <![CDATA[ <= ]]> #{example.msgSendTimeBefore}
+        </if>
+        <if test="example.msgOperateTimeAfter != null">
+          AND `msg_operate_time` <![CDATA[ >= ]]> #{example.msgOperateTimeAfter}
+        </if>
+        <if test="example.msgOperateTimeBefore != null">
+          AND `msg_operate_time` <![CDATA[ <= ]]> #{example.msgOperateTimeBefore}
+        </if>
+        <if test="example.msgState != null">
+          AND `msg_state` = #{example.msgState}
+        </if>
+        <if test="example.msgStateIn != null">
+          AND `msg_state` in (${example.msgStateIn})
+        </if>
+        <if test="example.msgStateNotIn != null">
+          AND `msg_state` not in (${example.msgStateNotIn})
+        </if>
+        <if test="example.msgStateNotEquals != null">
+          AND `msg_state` != #{example.msgStateNotEquals}
+        </if>
+        <if test="example.pushId != null">
+          AND `push_id` = #{example.pushId}
+        </if>
+        <if test="example.source != null">
+          AND `source` = #{example.source}
+        </if>
+        <if test="example.tplTypeCode != null">
+          AND `tpl_code` in (select `tpl_code` from `msg_member_tpl` where `tpl_type_code` = #{example.tplTypeCode} )
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `receive_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.msg.example.MemberReceiveExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `msg_member_receive`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_member_receive`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_member_receive`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_member_receive`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `msg_member_receive`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `msg_member_receive`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

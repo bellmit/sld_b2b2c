@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.SpellTeamMemberWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.SpellTeamMember">
+    <id column="spell_team_member_id" property="spellTeamMemberId" />
+    <result column="spell_team_id" property="spellTeamId" />
+    <result column="spell_id" property="spellId" />
+    <result column="spell_goods_id" property="spellGoodsId" />
+    <result column="order_sn" property="orderSn" />
+    <result column="product_id" property="productId" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="member_avatar" property="memberAvatar" />
+    <result column="is_leader" property="isLeader" />
+    <result column="participate_time" property="participateTime" />
+    <result column="pay_state" property="payState" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="spellTeamId != null">
+        `spell_team_id`,
+      </if>
+      <if test="spellId != null">
+        `spell_id`,
+      </if>
+      <if test="spellGoodsId != null">
+        `spell_goods_id`,
+      </if>
+      <if test="orderSn != null">
+        `order_sn`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="memberName != null">
+        `member_name`,
+      </if>
+      <if test="memberAvatar != null">
+        `member_avatar`,
+      </if>
+      <if test="isLeader != null">
+        `is_leader`,
+      </if>
+      <if test="participateTime != null">
+        `participate_time`,
+      </if>
+      <if test="payState != null">
+        `pay_state`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `spell_team_member_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.spellTeamMemberIdNotEquals != null">
+          AND `spell_team_member_id` != #{example.spellTeamMemberIdNotEquals}
+        </if>
+        <if test="example.spellTeamMemberIdIn != null">
+          AND `spell_team_member_id` in (${example.spellTeamMemberIdIn})
+        </if>
+        <if test="example.spellTeamId != null">
+          AND `spell_team_id` = #{example.spellTeamId}
+        </if>
+        <if test="example.spellId != null">
+          AND `spell_id` = #{example.spellId}
+        </if>
+        <if test="example.spellGoodsId != null">
+          AND `spell_goods_id` = #{example.spellGoodsId}
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.memberAvatar != null">
+          AND `member_avatar` = #{example.memberAvatar}
+        </if>
+        <if test="example.isLeader != null">
+          AND `is_leader` = #{example.isLeader}
+        </if>
+        <if test="example.participateTimeAfter != null">
+          AND `participate_time` <![CDATA[ >= ]]> #{example.participateTimeAfter}
+        </if>
+        <if test="example.participateTimeBefore != null">
+          AND `participate_time` <![CDATA[ <= ]]> #{example.participateTimeBefore}
+        </if>
+        <if test="example.payState != null">
+          AND `pay_state` = #{example.payState}
+        </if>
+        <if test="example.payStateIn != null">
+          AND `pay_state` in (${example.payStateIn})
+        </if>
+        <if test="example.payStateNotIn != null">
+          AND `pay_state` not in (${example.payStateNotIn})
+        </if>
+        <if test="example.payStateNotEquals != null">
+          AND `pay_state` != #{example.payStateNotEquals}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `spell_team_member_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.SpellTeamMemberExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_spell_team_member`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_spell_team_member`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_spell_team_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_spell_team_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_spell_team_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_spell_team_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_spell_team_member`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_spell_team_member`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="spell_team_member_id" keyProperty="spellTeamMemberId" parameterType="com.slodon.b2b2c.promotion.pojo.SpellTeamMember" useGeneratedKeys="true">
+    INSERT INTO `promotion_spell_team_member`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="spellTeamId != null">
+        #{spellTeamId},
+      </if>
+      <if test="spellId != null">
+        #{spellId},
+      </if>
+      <if test="spellGoodsId != null">
+        #{spellGoodsId},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="memberName != null">
+        #{memberName},
+      </if>
+      <if test="memberAvatar != null">
+        #{memberAvatar},
+      </if>
+      <if test="isLeader != null">
+        #{isLeader},
+      </if>
+      <if test="participateTime != null">
+        #{participateTime},
+      </if>
+      <if test="payState != null">
+        #{payState},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_spell_team_member`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.spellTeamId != null">
+        `spell_team_id` = #{record.spellTeamId},
+      </if>
+      <if test="record.spellId != null">
+        `spell_id` = #{record.spellId},
+      </if>
+      <if test="record.spellGoodsId != null">
+        `spell_goods_id` = #{record.spellGoodsId},
+      </if>
+      <if test="record.orderSn != null">
+        `order_sn` = #{record.orderSn},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.memberName != null">
+        `member_name` = #{record.memberName},
+      </if>
+      <if test="record.memberAvatar != null">
+        `member_avatar` = #{record.memberAvatar},
+      </if>
+      <if test="record.isLeader != null">
+        `is_leader` = #{record.isLeader},
+      </if>
+      <if test="record.participateTime != null">
+        `participate_time` = #{record.participateTime},
+      </if>
+      <if test="record.payState != null">
+        `pay_state` = #{record.payState},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_spell_team_member`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="spellTeamId != null">
+        `spell_team_id` = #{spellTeamId},
+      </if>
+      <if test="spellId != null">
+        `spell_id` = #{spellId},
+      </if>
+      <if test="spellGoodsId != null">
+        `spell_goods_id` = #{spellGoodsId},
+      </if>
+      <if test="orderSn != null">
+        `order_sn` = #{orderSn},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="memberName != null">
+        `member_name` = #{memberName},
+      </if>
+      <if test="memberAvatar != null">
+        `member_avatar` = #{memberAvatar},
+      </if>
+      <if test="isLeader != null">
+        `is_leader` = #{isLeader},
+      </if>
+      <if test="participateTime != null">
+        `participate_time` = #{participateTime},
+      </if>
+      <if test="payState != null">
+        `pay_state` = #{payState},
+      </if>
+    </trim>
+    WHERE `spell_team_member_id` = #{spellTeamMemberId}
+  </update>
+</mapper>

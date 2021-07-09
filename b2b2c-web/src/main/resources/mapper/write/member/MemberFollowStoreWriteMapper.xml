@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.member.MemberFollowStoreWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.member.pojo.MemberFollowStore">
+    <id column="follow_id" property="followId" />
+    <result column="member_id" property="memberId" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="store_logo" property="storeLogo" />
+    <result column="store_category_id" property="storeCategoryId" />
+    <result column="store_category_name" property="storeCategoryName" />
+    <result column="create_time" property="createTime" />
+    <result column="is_top" property="isTop" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="storeName != null">
+        `store_name`,
+      </if>
+      <if test="storeLogo != null">
+        `store_logo`,
+      </if>
+      <if test="storeCategoryId != null">
+        `store_category_id`,
+      </if>
+      <if test="storeCategoryName != null">
+        `store_category_name`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="isTop != null">
+        `is_top`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `follow_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.followIdNotEquals != null">
+          AND `follow_id` != #{example.followIdNotEquals}
+        </if>
+        <if test="example.followIdIn != null">
+          AND `follow_id` in (${example.followIdIn})
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeIdIn != null">
+          AND `store_id` in (${example.storeIdIn})
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.storeLogo != null">
+          AND `store_logo` = #{example.storeLogo}
+        </if>
+        <if test="example.storeCategoryId != null">
+          AND `store_category_id` = #{example.storeCategoryId}
+        </if>
+        <if test="example.storeCategoryName != null">
+          AND `store_category_name` = #{example.storeCategoryName}
+        </if>
+        <if test="example.storeCategoryNameLike != null">
+          AND `store_category_name` like concat('%',#{example.storeCategoryNameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.isTop != null">
+          AND `is_top` = #{example.isTop}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `follow_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.member.example.MemberFollowStoreExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `member_follow_store`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_follow_store`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_follow_store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_follow_store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_follow_store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_follow_store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `member_follow_store`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `member_follow_store`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="follow_id" keyProperty="followId" parameterType="com.slodon.b2b2c.member.pojo.MemberFollowStore" useGeneratedKeys="true">
+    INSERT INTO `member_follow_store`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="storeName != null">
+        #{storeName},
+      </if>
+      <if test="storeLogo != null">
+        #{storeLogo},
+      </if>
+      <if test="storeCategoryId != null">
+        #{storeCategoryId},
+      </if>
+      <if test="storeCategoryName != null">
+        #{storeCategoryName},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="isTop != null">
+        #{isTop},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `member_follow_store`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.storeName != null">
+        `store_name` = #{record.storeName},
+      </if>
+      <if test="record.storeLogo != null">
+        `store_logo` = #{record.storeLogo},
+      </if>
+      <if test="record.storeCategoryId != null">
+        `store_category_id` = #{record.storeCategoryId},
+      </if>
+      <if test="record.storeCategoryName != null">
+        `store_category_name` = #{record.storeCategoryName},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.isTop != null">
+        `is_top` = #{record.isTop},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `member_follow_store`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="storeName != null">
+        `store_name` = #{storeName},
+      </if>
+      <if test="storeLogo != null">
+        `store_logo` = #{storeLogo},
+      </if>
+      <if test="storeCategoryId != null">
+        `store_category_id` = #{storeCategoryId},
+      </if>
+      <if test="storeCategoryName != null">
+        `store_category_name` = #{storeCategoryName},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="isTop != null">
+        `is_top` = #{isTop},
+      </if>
+    </trim>
+    WHERE `follow_id` = #{followId}
+  </update>
+</mapper>

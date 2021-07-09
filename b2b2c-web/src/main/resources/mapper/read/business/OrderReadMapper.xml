@@ -1,0 +1,689 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.business.OrderReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.business.pojo.Order">
+    <id column="order_id" property="orderId" />
+    <result column="order_sn" property="orderSn" />
+    <result column="pay_sn" property="paySn" />
+    <result column="parent_sn" property="parentSn" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="member_name" property="memberName" />
+    <result column="member_id" property="memberId" />
+    <result column="pay_time" property="payTime" />
+    <result column="create_time" property="createTime" />
+    <result column="finish_time" property="finishTime" />
+    <result column="order_state" property="orderState" />
+    <result column="payment_name" property="paymentName" />
+    <result column="payment_code" property="paymentCode" />
+    <result column="goods_amount" property="goodsAmount" />
+    <result column="express_fee" property="expressFee" />
+    <result column="activity_discount_amount" property="activityDiscountAmount" />
+    <result column="activity_discount_detail" property="activityDiscountDetail" />
+    <result column="order_amount" property="orderAmount" />
+    <result column="balance_amount" property="balanceAmount" />
+    <result column="pay_amount" property="payAmount" />
+    <result column="refund_amount" property="refundAmount" />
+    <result column="integral_cash_amount" property="integralCashAmount" />
+    <result column="integral" property="integral" />
+    <result column="receiver_name" property="receiverName" />
+    <result column="receiver_area_info" property="receiverAreaInfo" />
+    <result column="receiver_address" property="receiverAddress" />
+    <result column="receiver_mobile" property="receiverMobile" />
+    <result column="delay_days" property="delayDays" />
+    <result column="express_id" property="expressId" />
+    <result column="express_name" property="expressName" />
+    <result column="express_number" property="expressNumber" />
+    <result column="evaluate_state" property="evaluateState" />
+    <result column="order_type" property="orderType" />
+    <result column="lock_state" property="lockState" />
+    <result column="delete_state" property="deleteState" />
+    <result column="refuse_reason" property="refuseReason" />
+    <result column="refuse_remark" property="refuseRemark" />
+    <result column="is_settlement" property="isSettlement" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `order_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.orderIdNotEquals != null">
+          AND `order_id` != #{example.orderIdNotEquals}
+        </if>
+        <if test="example.orderIdIn != null">
+          AND `order_id` in (${example.orderIdIn})
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLikes != null">
+          AND `order_sn` like concat('%',#{example.orderSnLikes},'%')
+        </if>
+        <if test="example.orderSnLike != null">
+          AND ( `order_sn` like concat('%',#{example.orderSnLike},'%')
+          OR `order_sn` IN (SELECT `order_sn` FROM `bz_order_product` WHERE `goods_name` LIKE concat('%',#{example.orderSnLike},'%')) )
+        </if>
+        <if test="example.orderSnIn != null">
+          AND `order_sn` in (${example.orderSnIn})
+        </if>
+        <if test="example.paySn != null">
+          AND `pay_sn` = #{example.paySn}
+        </if>
+        <if test="example.paySnLike != null">
+          AND `pay_sn` like concat('%',#{example.paySnLike},'%')
+        </if>
+        <if test="example.parentSn != null">
+          AND `parent_sn` = #{example.parentSn}
+        </if>
+        <if test="example.parentSnLike != null">
+          AND `parent_sn` like concat('%',#{example.parentSnLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.payTimeAfter != null">
+          AND `pay_time` <![CDATA[ >= ]]> #{example.payTimeAfter}
+        </if>
+        <if test="example.payTimeBefore != null">
+          AND `pay_time` <![CDATA[ <= ]]> #{example.payTimeBefore}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.finishTimeAfter != null">
+          AND `finish_time` <![CDATA[ >= ]]> #{example.finishTimeAfter}
+        </if>
+        <if test="example.finishTimeBefore != null">
+          AND `finish_time` <![CDATA[ <= ]]> #{example.finishTimeBefore}
+        </if>
+        <if test="example.orderState != null">
+          AND `order_state` = #{example.orderState}
+        </if>
+        <if test="example.orderStateIn != null">
+          AND `order_state` in (${example.orderStateIn})
+        </if>
+        <if test="example.orderStateNotIn != null">
+          AND `order_state` not in (${example.orderStateNotIn})
+        </if>
+        <if test="example.orderStateNotEquals != null">
+          AND `order_state` != #{example.orderStateNotEquals}
+        </if>
+        <if test="example.paymentName != null">
+          AND `payment_name` = #{example.paymentName}
+        </if>
+        <if test="example.paymentNameLike != null">
+          AND `payment_name` like concat('%',#{example.paymentNameLike},'%')
+        </if>
+        <if test="example.paymentCode != null">
+          AND `payment_code` = #{example.paymentCode}
+        </if>
+        <if test="example.goodsAmount != null">
+          AND `goods_amount` = #{example.goodsAmount}
+        </if>
+        <if test="example.expressFee != null">
+          AND `express_fee` = #{example.expressFee}
+        </if>
+        <if test="example.activityDiscountAmount != null">
+          AND `activity_discount_amount` = #{example.activityDiscountAmount}
+        </if>
+        <if test="example.activityDiscountDetail != null">
+          AND `activity_discount_detail` = #{example.activityDiscountDetail}
+        </if>
+        <if test="example.orderAmount != null">
+          AND `order_amount` = #{example.orderAmount}
+        </if>
+        <if test="example.balanceAmount != null">
+          AND `balance_amount` = #{example.balanceAmount}
+        </if>
+        <if test="example.payAmount != null">
+          AND `pay_amount` = #{example.payAmount}
+        </if>
+        <if test="example.refundAmount != null">
+          AND `refund_amount` = #{example.refundAmount}
+        </if>
+        <if test="example.integralCashAmount != null">
+          AND `integral_cash_amount` = #{example.integralCashAmount}
+        </if>
+        <if test="example.integral != null">
+          AND `integral` = #{example.integral}
+        </if>
+        <if test="example.receiverName != null">
+          AND `receiver_name` = #{example.receiverName}
+        </if>
+        <if test="example.receiverNameLike != null">
+          AND `receiver_name` like concat('%',#{example.receiverNameLike},'%')
+        </if>
+        <if test="example.receiverAreaInfo != null">
+          AND `receiver_area_info` = #{example.receiverAreaInfo}
+        </if>
+        <if test="example.receiverAddress != null">
+          AND `receiver_address` = #{example.receiverAddress}
+        </if>
+        <if test="example.receiverMobile != null">
+          AND `receiver_mobile` = #{example.receiverMobile}
+        </if>
+        <if test="example.delayDays != null">
+          AND `delay_days` = #{example.delayDays}
+        </if>
+        <if test="example.expressId != null">
+          AND `express_id` = #{example.expressId}
+        </if>
+        <if test="example.expressName != null">
+          AND `express_name` = #{example.expressName}
+        </if>
+        <if test="example.expressNameLike != null">
+          AND `express_name` like concat('%',#{example.expressNameLike},'%')
+        </if>
+        <if test="example.expressNumber != null">
+          AND `express_number` = #{example.expressNumber}
+        </if>
+        <if test="example.expressNumberLike != null">
+          AND `express_number` like concat('%',#{example.expressNumberLike},'%')
+        </if>
+        <if test="example.evaluateState != null">
+          AND `evaluate_state` = #{example.evaluateState}
+        </if>
+        <if test="example.evaluateStateIn != null">
+          AND `evaluate_state` in (${example.evaluateStateIn})
+        </if>
+        <if test="example.evaluateStateNotIn != null">
+          AND `evaluate_state` not in (${example.evaluateStateNotIn})
+        </if>
+        <if test="example.evaluateStateNotEquals != null">
+          AND `evaluate_state` != #{example.evaluateStateNotEquals}
+        </if>
+        <if test="example.orderType != null">
+          AND `order_type` = #{example.orderType}
+        </if>
+        <if test="example.lockState != null">
+          AND `lock_state` = #{example.lockState}
+        </if>
+        <if test="example.lockStateIn != null">
+          AND `lock_state` in (${example.lockStateIn})
+        </if>
+        <if test="example.lockStateNotIn != null">
+          AND `lock_state` not in (${example.lockStateNotIn})
+        </if>
+        <if test="example.lockStateNotEquals != null">
+          AND `lock_state` != #{example.lockStateNotEquals}
+        </if>
+        <if test="example.deleteState != null">
+          AND `delete_state` = #{example.deleteState}
+        </if>
+        <if test="example.deleteStateIn != null">
+          AND `delete_state` in (${example.deleteStateIn})
+        </if>
+        <if test="example.deleteStateNotIn != null">
+          AND `delete_state` not in (${example.deleteStateNotIn})
+        </if>
+        <if test="example.deleteStateNotEquals != null">
+          AND `delete_state` != #{example.deleteStateNotEquals}
+        </if>
+        <if test="example.refuseReason != null">
+          AND `refuse_reason` = #{example.refuseReason}
+        </if>
+        <if test="example.refuseReasonLike != null">
+          AND `refuse_reason` like concat('%',#{example.refuseReasonLike},'%')
+        </if>
+        <if test="example.refuseRemark != null">
+          AND `refuse_remark` = #{example.refuseRemark}
+        </if>
+        <if test="example.isSettlement != null">
+          AND `is_settlement` = #{example.isSettlement}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `order_sn` in (select `order_sn` from `bz_order_product` where `goods_name` like concat('%',#{example.goodsNameLike},'%'))
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `order_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.business.example.OrderExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `bz_order`
+    <include refid="whereCondition" />
+  </select>
+  <!--查询符合条件的分组记录数-->
+  <select id="countGroupFieldsByExample" parameterType="com.slodon.b2b2c.business.example.OrderExample" resultType="java.lang.Integer">
+    SELECT
+    COUNT(DISTINCT ${fields})
+    FROM `bz_order`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+
+  <select id="getOrdersList4AutoFinish" resultMap="resultMap">
+    SELECT o.* FROM bz_order o
+    LEFT JOIN bz_order_extend e on o.order_sn = e.order_sn
+    <where>
+      <if test="example.orderState != null">
+        and o.`order_state`= #{example.orderState}
+      </if>
+      <if test="example.deliverTimeEnd != null">
+        and e.`deliver_time` &lt;= #{example.deliverTimeEnd}
+      </if>
+    </where>
+  </select>
+
+  <select id="getOrderDayDto" resultType="com.slodon.b2b2c.business.dto.OrderDayDTO">
+    select
+    left(create_time,10) as orderDay,
+    sum(goods_amount) as goodsAmount,
+    sum(express_fee) as expressFee,
+    sum(order_amount) as orderAmount,
+    sum(balance_amount) as balanceAmount,
+    sum(pay_amount) as payAmount,
+    sum(refund_amount) as refundAmount,
+    count(1) as count
+    from `bz_order`
+    <include refid="whereCondition"/>
+    group by orderDay
+    order by orderDay desc
+  </select>
+
+  <select id="getSaleTotalDayDto" resultType="com.slodon.b2b2c.business.dto.SaleTotalDayDTO">
+    select
+    left(create_time,10) as `day`,
+    sum(order_amount) as `amount`
+    from `bz_order`
+    <include refid="whereCondition" />
+    group by `day`
+    order by `day` desc
+  </select>
+  
+  <resultMap id="exportResultMap" type="com.slodon.b2b2c.business.dto.OrderExportDTO">
+    <id column="orderSn" property="orderSn"/>
+    <result column="orderState" property="orderState"/>
+    <result column="orderAmount" property="orderAmount"/>
+    <result column="expressFee" property="expressFee"/>
+    <result column="memberId" property="memberId"/>
+    <result column="memberName" property="memberName"/>
+    <result column="storeId" property="storeId"/>
+    <result column="storeName" property="storeName"/>
+    <result column="createTime" property="createTime"/>
+    <result column="payTime" property="payTime"/>
+    <result column="paymentName" property="paymentName"/>
+    <result column="finishTime" property="finishTime"/>
+    <result column="receiverName" property="receiverName"/>
+    <result column="receiverMobile" property="receiverMobile"/>
+    <result column="receiverAreaInfo" property="receiverAreaInfo"/>
+    <result column="expressNumber" property="expressNumber"/>
+    <result column="deliverName" property="deliverName"/>
+    <result column="deliverMobile" property="deliverMobile"/>
+    <result column="deliverAreaInfo" property="deliverAreaInfo"/>
+    <result column="invoice" property="invoice"/>
+    <collection property="productList" ofType="com.slodon.b2b2c.business.dto.OrderProductExportDTO">
+      <id column="orderProductId" property="orderProductId"/>
+      <result column="goodsName" property="goodsName"/>
+      <result column="specValues" property="specValues"/>
+      <result column="goodsNum" property="goodsNum"/>
+      <result column="goodsPrice" property="goodsPrice"/>
+    </collection>
+  </resultMap>
+
+  <select id="getOrderExportList" resultMap="exportResultMap">
+    SELECT
+      o.order_sn orderSn,
+      o.order_state orderState,
+      o.order_amount orderAmount,
+      o.express_fee expressFee,
+      o.member_id memberId,
+      o.member_name memberName,
+      o.store_id storeId,
+      o.store_name storeName,
+      o.create_time createTime,
+      o.pay_time payTime,
+      o.payment_name paymentName,
+      o.finish_time finishTime,
+      e.receiver_name receiverName,
+      o.receiver_mobile receiverMobile,
+      e.receiver_info receiverAreaInfo,
+      o.express_number expressNumber,
+      e.deliver_name deliverName,
+      e.deliver_mobile deliverMobile,
+      e.invoice_info invoice,
+      p.order_product_id orderProductId,
+      p.goods_name goodsName,
+      p.spec_values specValues,
+      p.product_num goodsNum,
+      p.product_show_price goodsPrice
+    FROM bz_order o, bz_order_extend e ,bz_order_product p
+    <include refid="exportWhereCondition"/>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+
+  <!--操作条件-->
+  <sql id="exportWhereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        AND o.order_sn = e.order_sn
+        AND o.order_sn = p.order_sn
+        <if test="example.orderIdNotEquals != null">
+          AND o.`order_id` != #{example.orderIdNotEquals}
+        </if>
+        <if test="example.orderIdIn != null">
+          AND o.`order_id` in (${example.orderIdIn})
+        </if>
+        <if test="example.orderSn != null">
+          AND o.`order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND ( o.`order_sn` like concat('%',#{example.orderSnLike},'%')
+          OR p.`goods_name` like concat('%',#{example.orderSnLike},'%') )
+        </if>
+        <if test="example.paySn != null">
+          AND o.`pay_sn` = #{example.paySn}
+        </if>
+        <if test="example.paySnLike != null">
+          AND o.`pay_sn` like concat('%',#{example.paySnLike},'%')
+        </if>
+        <if test="example.parentSn != null">
+          AND o.`parent_sn` = #{example.parentSn}
+        </if>
+        <if test="example.parentSnLike != null">
+          AND o.`parent_sn` like concat('%',#{example.parentSnLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND o.`store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND o.`store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND o.`store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.memberName != null">
+          AND o.`member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND o.`member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.memberId != null">
+          AND o.`member_id` = #{example.memberId}
+        </if>
+        <if test="example.payTimeAfter != null">
+          AND o.`pay_time` <![CDATA[ >= ]]> #{example.payTimeAfter}
+        </if>
+        <if test="example.payTimeBefore != null">
+          AND o.`pay_time` <![CDATA[ <= ]]> #{example.payTimeBefore}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND o.`create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND o.`create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.finishTimeAfter != null">
+          AND o.`finish_time` <![CDATA[ >= ]]> #{example.finishTimeAfter}
+        </if>
+        <if test="example.finishTimeBefore != null">
+          AND o.`finish_time` <![CDATA[ <= ]]> #{example.finishTimeBefore}
+        </if>
+        <if test="example.orderState != null">
+          AND o.`order_state` = #{example.orderState}
+        </if>
+        <if test="example.orderStateIn != null">
+          AND o.`order_state` in (${example.orderStateIn})
+        </if>
+        <if test="example.orderStateNotIn != null">
+          AND o.`order_state` not in (${example.orderStateNotIn})
+        </if>
+        <if test="example.orderStateNotEquals != null">
+          AND o.`order_state` != #{example.orderStateNotEquals}
+        </if>
+        <if test="example.paymentName != null">
+          AND o.`payment_name` = #{example.paymentName}
+        </if>
+        <if test="example.paymentNameLike != null">
+          AND o.`payment_name` like concat('%',#{example.paymentNameLike},'%')
+        </if>
+        <if test="example.paymentCode != null">
+          AND o.`payment_code` = #{example.paymentCode}
+        </if>
+        <if test="example.goodsAmount != null">
+          AND o.`goods_amount` = #{example.goodsAmount}
+        </if>
+        <if test="example.expressFee != null">
+          AND o.`express_fee` = #{example.expressFee}
+        </if>
+        <if test="example.activityDiscountAmount != null">
+          AND o.`activity_discount_amount` = #{example.activityDiscountAmount}
+        </if>
+        <if test="example.activityDiscountDetail != null">
+          AND o.`activity_discount_detail` = #{example.activityDiscountDetail}
+        </if>
+        <if test="example.orderAmount != null">
+          AND o.`order_amount` = #{example.orderAmount}
+        </if>
+        <if test="example.balanceAmount != null">
+          AND o.`balance_amount` = #{example.balanceAmount}
+        </if>
+        <if test="example.payAmount != null">
+          AND o.`pay_amount` = #{example.payAmount}
+        </if>
+        <if test="example.refundAmount != null">
+          AND o.`refund_amount` = #{example.refundAmount}
+        </if>
+        <if test="example.integralCashAmount != null">
+          AND o.`integral_cash_amount` = #{example.integralCashAmount}
+        </if>
+        <if test="example.integral != null">
+          AND o.`integral` = #{example.integral}
+        </if>
+        <if test="example.receiverName != null">
+          AND o.`receiver_name` = #{example.receiverName}
+        </if>
+        <if test="example.receiverNameLike != null">
+          AND o.`receiver_name` like concat('%',#{example.receiverNameLike},'%')
+        </if>
+        <if test="example.receiverAreaInfo != null">
+          AND o.`receiver_area_info` = #{example.receiverAreaInfo}
+        </if>
+        <if test="example.receiverAddress != null">
+          AND o.`receiver_address` = #{example.receiverAddress}
+        </if>
+        <if test="example.receiverMobile != null">
+          AND o.`receiver_mobile` = #{example.receiverMobile}
+        </if>
+        <if test="example.delayDays != null">
+          AND o.`delay_days` = #{example.delayDays}
+        </if>
+        <if test="example.expressId != null">
+          AND o.`express_id` = #{example.expressId}
+        </if>
+        <if test="example.expressName != null">
+          AND o.`express_name` = #{example.expressName}
+        </if>
+        <if test="example.expressNameLike != null">
+          AND o.`express_name` like concat('%',#{example.expressNameLike},'%')
+        </if>
+        <if test="example.expressNumber != null">
+          AND o.`express_number` = #{example.expressNumber}
+        </if>
+        <if test="example.expressNumberLike != null">
+          AND o.`express_number` like concat('%',#{example.expressNumberLike},'%')
+        </if>
+        <if test="example.evaluateState != null">
+          AND o.`evaluate_state` = #{example.evaluateState}
+        </if>
+        <if test="example.evaluateStateIn != null">
+          AND o.`evaluate_state` in (${example.evaluateStateIn})
+        </if>
+        <if test="example.evaluateStateNotIn != null">
+          AND o.`evaluate_state` not in (${example.evaluateStateNotIn})
+        </if>
+        <if test="example.evaluateStateNotEquals != null">
+          AND o.`evaluate_state` != #{example.evaluateStateNotEquals}
+        </if>
+        <if test="example.orderType != null">
+          AND o.`order_type` = #{example.orderType}
+        </if>
+        <if test="example.lockState != null">
+          AND o.`lock_state` = #{example.lockState}
+        </if>
+        <if test="example.lockStateIn != null">
+          AND o.`lock_state` in (${example.lockStateIn})
+        </if>
+        <if test="example.lockStateNotIn != null">
+          AND o.`lock_state` not in (${example.lockStateNotIn})
+        </if>
+        <if test="example.lockStateNotEquals != null">
+          AND o.`lock_state` != #{example.lockStateNotEquals}
+        </if>
+        <if test="example.deleteState != null">
+          AND o.`delete_state` = #{example.deleteState}
+        </if>
+        <if test="example.deleteStateIn != null">
+          AND o.`delete_state` in (${example.deleteStateIn})
+        </if>
+        <if test="example.deleteStateNotIn != null">
+          AND o.`delete_state` not in (${example.deleteStateNotIn})
+        </if>
+        <if test="example.deleteStateNotEquals != null">
+          AND o.`delete_state` != #{example.deleteStateNotEquals}
+        </if>
+        <if test="example.refuseReason != null">
+          AND o.`refuse_reason` = #{example.refuseReason}
+        </if>
+        <if test="example.refuseReasonLike != null">
+          AND o.`refuse_reason` like concat('%',#{example.refuseReasonLike},'%')
+        </if>
+        <if test="example.refuseRemark != null">
+          AND o.`refuse_remark` = #{example.refuseRemark}
+        </if>
+        <if test="example.isSettlement != null">
+          AND o.`is_settlement` = #{example.isSettlement}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND  p.`goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+      </trim>
+    </if>
+  </sql>
+</mapper>

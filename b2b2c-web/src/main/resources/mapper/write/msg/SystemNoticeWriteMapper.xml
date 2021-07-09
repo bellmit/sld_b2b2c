@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.msg.SystemNoticeWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.msg.pojo.SystemNotice">
+    <id column="notice_id" property="noticeId" />
+    <result column="title" property="title" />
+    <result column="description" property="description" />
+    <result column="create_time" property="createTime" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="create_admin_name" property="createAdminName" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_admin_id" property="updateAdminId" />
+    <result column="update_admin_name" property="updateAdminName" />
+    <result column="is_top" property="isTop" />
+    <result column="sort" property="sort" />
+    <result column="content" property="content" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="title != null">
+        `title`,
+      </if>
+      <if test="description != null">
+        `description`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id`,
+      </if>
+      <if test="createAdminName != null">
+        `create_admin_name`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id`,
+      </if>
+      <if test="updateAdminName != null">
+        `update_admin_name`,
+      </if>
+      <if test="isTop != null">
+        `is_top`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="content != null">
+        `content`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `notice_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.noticeIdNotEquals != null">
+          AND `notice_id` != #{example.noticeIdNotEquals}
+        </if>
+        <if test="example.noticeIdIn != null">
+          AND `notice_id` in (${example.noticeIdIn})
+        </if>
+        <if test="example.title != null">
+          AND `title` = #{example.title}
+        </if>
+        <if test="example.titleLike != null">
+          AND `title` like concat('%',#{example.titleLike},'%')
+        </if>
+        <if test="example.description != null">
+          AND `description` = #{example.description}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.createAdminName != null">
+          AND `create_admin_name` = #{example.createAdminName}
+        </if>
+        <if test="example.createAdminNameLike != null">
+          AND `create_admin_name` like concat('%',#{example.createAdminNameLike},'%')
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.updateAdminId != null">
+          AND `update_admin_id` = #{example.updateAdminId}
+        </if>
+        <if test="example.updateAdminName != null">
+          AND `update_admin_name` = #{example.updateAdminName}
+        </if>
+        <if test="example.updateAdminNameLike != null">
+          AND `update_admin_name` like concat('%',#{example.updateAdminNameLike},'%')
+        </if>
+        <if test="example.isTop != null">
+          AND `is_top` = #{example.isTop}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.content != null">
+          AND `content` = #{example.content}
+        </if>
+        <if test="example.contentLike != null">
+          AND `content` like concat('%',#{example.contentLike},'%')
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `notice_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.msg.example.SystemNoticeExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `msg_system_notice`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_system_notice`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_system_notice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `msg_system_notice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `msg_system_notice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `msg_system_notice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `msg_system_notice`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `msg_system_notice`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="notice_id" keyProperty="noticeId" parameterType="com.slodon.b2b2c.msg.pojo.SystemNotice" useGeneratedKeys="true">
+    INSERT INTO `msg_system_notice`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="title != null">
+        #{title},
+      </if>
+      <if test="description != null">
+        #{description},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="createAdminId != null">
+        #{createAdminId},
+      </if>
+      <if test="createAdminName != null">
+        #{createAdminName},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="updateAdminId != null">
+        #{updateAdminId},
+      </if>
+      <if test="updateAdminName != null">
+        #{updateAdminName},
+      </if>
+      <if test="isTop != null">
+        #{isTop},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `msg_system_notice`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.title != null">
+        `title` = #{record.title},
+      </if>
+      <if test="record.description != null">
+        `description` = #{record.description},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.createAdminId != null">
+        `create_admin_id` = #{record.createAdminId},
+      </if>
+      <if test="record.createAdminName != null">
+        `create_admin_name` = #{record.createAdminName},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+      <if test="record.updateAdminId != null">
+        `update_admin_id` = #{record.updateAdminId},
+      </if>
+      <if test="record.updateAdminName != null">
+        `update_admin_name` = #{record.updateAdminName},
+      </if>
+      <if test="record.isTop != null">
+        `is_top` = #{record.isTop},
+      </if>
+      <if test="record.sort != null">
+        `sort` = #{record.sort},
+      </if>
+      <if test="record.content != null">
+        `content` = #{record.content},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `msg_system_notice`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="title != null">
+        `title` = #{title},
+      </if>
+      <if test="description != null">
+        `description` = #{description},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id` = #{createAdminId},
+      </if>
+      <if test="createAdminName != null">
+        `create_admin_name` = #{createAdminName},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id` = #{updateAdminId},
+      </if>
+      <if test="updateAdminName != null">
+        `update_admin_name` = #{updateAdminName},
+      </if>
+      <if test="isTop != null">
+        `is_top` = #{isTop},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort},
+      </if>
+      <if test="content != null">
+        `content` = #{content},
+      </if>
+    </trim>
+    WHERE `notice_id` = #{noticeId}
+  </update>
+</mapper>

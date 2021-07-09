@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.system.ExpressElectronicReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.ExpressElectronic">
+    <id column="electronic_id" property="electronicId" />
+    <result column="express_id" property="expressId" />
+    <result column="express_name" property="expressName" />
+    <result column="express_code" property="expressCode" />
+    <result column="express_state" property="expressState" />
+    <result column="express_website" property="expressWebsite" />
+    <result column="is_apply" property="isApply" />
+    <result column="customer_name" property="customerName" />
+    <result column="customer_pwd" property="customerPwd" />
+    <result column="mouth_code" property="mouthCode" />
+    <result column="send_site" property="sendSite" />
+    <result column="send_staff" property="sendStaff" />
+    <result column="express_img" property="expressImg" />
+    <result column="template_size" property="templateSize" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `electronic_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.electronicIdNotEquals != null">
+          AND `electronic_id` != #{example.electronicIdNotEquals}
+        </if>
+        <if test="example.electronicIdIn != null">
+          AND `electronic_id` in (${example.electronicIdIn})
+        </if>
+        <if test="example.expressId != null">
+          AND `express_id` = #{example.expressId}
+        </if>
+        <if test="example.expressName != null">
+          AND `express_name` = #{example.expressName}
+        </if>
+        <if test="example.expressNameLike != null">
+          AND `express_name` like concat('%',#{example.expressNameLike},'%')
+        </if>
+        <if test="example.expressCode != null">
+          AND `express_code` = #{example.expressCode}
+        </if>
+        <if test="example.expressState != null">
+          AND `express_state` = #{example.expressState}
+        </if>
+        <if test="example.expressWebsite != null">
+          AND `express_website` = #{example.expressWebsite}
+        </if>
+        <if test="example.isApply != null">
+          AND `is_apply` = #{example.isApply}
+        </if>
+        <if test="example.customerName != null">
+          AND `customer_name` = #{example.customerName}
+        </if>
+        <if test="example.customerNameLike != null">
+          AND `customer_name` like concat('%',#{example.customerNameLike},'%')
+        </if>
+        <if test="example.customerPwd != null">
+          AND `customer_pwd` = #{example.customerPwd}
+        </if>
+        <if test="example.mouthCode != null">
+          AND `mouth_code` = #{example.mouthCode}
+        </if>
+        <if test="example.sendSite != null">
+          AND `send_site` = #{example.sendSite}
+        </if>
+        <if test="example.sendStaff != null">
+          AND `send_staff` = #{example.sendStaff}
+        </if>
+        <if test="example.expressImg != null">
+          AND `express_img` = #{example.expressImg}
+        </if>
+        <if test="example.templateSize != null">
+          AND `template_size` = #{example.templateSize}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `electronic_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.ExpressElectronicExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_express_electronic`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_express_electronic`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_express_electronic`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_express_electronic`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_express_electronic`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_express_electronic`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

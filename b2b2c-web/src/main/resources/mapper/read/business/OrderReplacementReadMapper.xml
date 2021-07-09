@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.business.OrderReplacementReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.business.pojo.OrderReplacement">
+    <id column="replacement_id" property="replacementId" />
+    <result column="afs_sn" property="afsSn" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="order_sn" property="orderSn" />
+    <result column="replacement_num" property="replacementNum" />
+    <result column="new_product_id" property="newProductId" />
+    <result column="buyer_receive_address" property="buyerReceiveAddress" />
+    <result column="buyer_receive_name" property="buyerReceiveName" />
+    <result column="buyer_receive_phone" property="buyerReceivePhone" />
+    <result column="store_express_name" property="storeExpressName" />
+    <result column="store_express_code" property="storeExpressCode" />
+    <result column="store_delivery_number" property="storeDeliveryNumber" />
+    <result column="store_delivery_time" property="storeDeliveryTime" />
+    <result column="complete_time" property="completeTime" />
+    <result column="state" property="state" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `replacement_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.replacementIdNotEquals != null">
+          AND `replacement_id` != #{example.replacementIdNotEquals}
+        </if>
+        <if test="example.replacementIdIn != null">
+          AND `replacement_id` in (${example.replacementIdIn})
+        </if>
+        <if test="example.afsSn != null">
+          AND `afs_sn` = #{example.afsSn}
+        </if>
+        <if test="example.afsSnLike != null">
+          AND `afs_sn` like concat('%',#{example.afsSnLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.replacementNum != null">
+          AND `replacement_num` = #{example.replacementNum}
+        </if>
+        <if test="example.newProductId != null">
+          AND `new_product_id` = #{example.newProductId}
+        </if>
+        <if test="example.buyerReceiveAddress != null">
+          AND `buyer_receive_address` = #{example.buyerReceiveAddress}
+        </if>
+        <if test="example.buyerReceiveName != null">
+          AND `buyer_receive_name` = #{example.buyerReceiveName}
+        </if>
+        <if test="example.buyerReceiveNameLike != null">
+          AND `buyer_receive_name` like concat('%',#{example.buyerReceiveNameLike},'%')
+        </if>
+        <if test="example.buyerReceivePhone != null">
+          AND `buyer_receive_phone` = #{example.buyerReceivePhone}
+        </if>
+        <if test="example.storeExpressName != null">
+          AND `store_express_name` = #{example.storeExpressName}
+        </if>
+        <if test="example.storeExpressNameLike != null">
+          AND `store_express_name` like concat('%',#{example.storeExpressNameLike},'%')
+        </if>
+        <if test="example.storeExpressCode != null">
+          AND `store_express_code` = #{example.storeExpressCode}
+        </if>
+        <if test="example.storeDeliveryNumber != null">
+          AND `store_delivery_number` = #{example.storeDeliveryNumber}
+        </if>
+        <if test="example.storeDeliveryTimeAfter != null">
+          AND `store_delivery_time` <![CDATA[ >= ]]> #{example.storeDeliveryTimeAfter}
+        </if>
+        <if test="example.storeDeliveryTimeBefore != null">
+          AND `store_delivery_time` <![CDATA[ <= ]]> #{example.storeDeliveryTimeBefore}
+        </if>
+        <if test="example.completeTimeAfter != null">
+          AND `complete_time` <![CDATA[ >= ]]> #{example.completeTimeAfter}
+        </if>
+        <if test="example.completeTimeBefore != null">
+          AND `complete_time` <![CDATA[ <= ]]> #{example.completeTimeBefore}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `replacement_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.business.example.OrderReplacementExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_replacement`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

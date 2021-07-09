@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.integral.IntegralGoodsSpecValueWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.integral.pojo.IntegralGoodsSpecValue">
+    <id column="spec_value_id" property="specValueId" />
+    <result column="spec_value" property="specValue" />
+    <result column="spec_id" property="specId" />
+    <result column="store_id" property="storeId" />
+    <result column="create_id" property="createId" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="specValue != null">
+        `spec_value`,
+      </if>
+      <if test="specId != null">
+        `spec_id`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="createId != null">
+        `create_id`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `spec_value_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.specValueIdNotEquals != null">
+          AND `spec_value_id` != #{example.specValueIdNotEquals}
+        </if>
+        <if test="example.specValueIdIn != null">
+          AND `spec_value_id` in (${example.specValueIdIn})
+        </if>
+        <if test="example.specValue != null">
+          AND `spec_value` = #{example.specValue}
+        </if>
+        <if test="example.specId != null">
+          AND `spec_id` = #{example.specId}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.createId != null">
+          AND `create_id` = #{example.createId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `spec_value_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.integral.example.IntegralGoodsSpecValueExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `integral_goods_spec_value`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_goods_spec_value`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_goods_spec_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_goods_spec_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_goods_spec_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_goods_spec_value`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `integral_goods_spec_value`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `integral_goods_spec_value`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="spec_value_id" keyProperty="specValueId" parameterType="com.slodon.b2b2c.integral.pojo.IntegralGoodsSpecValue" useGeneratedKeys="true">
+    INSERT INTO `integral_goods_spec_value`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="specValue != null">
+        #{specValue},
+      </if>
+      <if test="specId != null">
+        #{specId},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="createId != null">
+        #{createId},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `integral_goods_spec_value`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.specValue != null">
+        `spec_value` = #{record.specValue},
+      </if>
+      <if test="record.specId != null">
+        `spec_id` = #{record.specId},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.createId != null">
+        `create_id` = #{record.createId},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `integral_goods_spec_value`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="specValue != null">
+        `spec_value` = #{specValue},
+      </if>
+      <if test="specId != null">
+        `spec_id` = #{specId},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="createId != null">
+        `create_id` = #{createId},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+    </trim>
+    WHERE `spec_value_id` = #{specValueId}
+  </update>
+</mapper>

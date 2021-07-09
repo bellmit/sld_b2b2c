@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.FullAsmRuleWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.FullAsmRule">
+    <id column="rule_id" property="ruleId" />
+    <result column="full_id" property="fullId" />
+    <result column="full_value" property="fullValue" />
+    <result column="minus_value" property="minusValue" />
+    <result column="send_integral" property="sendIntegral" />
+    <result column="send_coupon_ids" property="sendCouponIds" />
+    <result column="send_goods_ids" property="sendGoodsIds" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="fullId != null">
+        `full_id`,
+      </if>
+      <if test="fullValue != null">
+        `full_value`,
+      </if>
+      <if test="minusValue != null">
+        `minus_value`,
+      </if>
+      <if test="sendIntegral != null">
+        `send_integral`,
+      </if>
+      <if test="sendCouponIds != null">
+        `send_coupon_ids`,
+      </if>
+      <if test="sendGoodsIds != null">
+        `send_goods_ids`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `rule_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.ruleIdNotEquals != null">
+          AND `rule_id` != #{example.ruleIdNotEquals}
+        </if>
+        <if test="example.ruleIdIn != null">
+          AND `rule_id` in (${example.ruleIdIn})
+        </if>
+        <if test="example.fullId != null">
+          AND `full_id` = #{example.fullId}
+        </if>
+        <if test="example.fullValue != null">
+          AND `full_value` = #{example.fullValue}
+        </if>
+        <if test="example.minusValue != null">
+          AND `minus_value` = #{example.minusValue}
+        </if>
+        <if test="example.sendIntegral != null">
+          AND `send_integral` = #{example.sendIntegral}
+        </if>
+        <if test="example.sendCouponIds != null">
+          AND `send_coupon_ids` = #{example.sendCouponIds}
+        </if>
+        <if test="example.sendGoodsIds != null">
+          AND `send_goods_ids` = #{example.sendGoodsIds}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `rule_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.FullAsmRuleExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_full_asm_rule`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_full_asm_rule`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_full_asm_rule`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_full_asm_rule`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_full_asm_rule`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_full_asm_rule`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_full_asm_rule`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_full_asm_rule`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="rule_id" keyProperty="ruleId" parameterType="com.slodon.b2b2c.promotion.pojo.FullAsmRule" useGeneratedKeys="true">
+    INSERT INTO `promotion_full_asm_rule`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="fullId != null">
+        #{fullId},
+      </if>
+      <if test="fullValue != null">
+        #{fullValue},
+      </if>
+      <if test="minusValue != null">
+        #{minusValue},
+      </if>
+      <if test="sendIntegral != null">
+        #{sendIntegral},
+      </if>
+      <if test="sendCouponIds != null">
+        #{sendCouponIds},
+      </if>
+      <if test="sendGoodsIds != null">
+        #{sendGoodsIds},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_full_asm_rule`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.fullId != null">
+        `full_id` = #{record.fullId},
+      </if>
+      <if test="record.fullValue != null">
+        `full_value` = #{record.fullValue},
+      </if>
+      <if test="record.minusValue != null">
+        `minus_value` = #{record.minusValue},
+      </if>
+      <if test="record.sendIntegral != null">
+        `send_integral` = #{record.sendIntegral},
+      </if>
+      <if test="record.sendCouponIds != null">
+        `send_coupon_ids` = #{record.sendCouponIds},
+      </if>
+      <if test="record.sendGoodsIds != null">
+        `send_goods_ids` = #{record.sendGoodsIds},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_full_asm_rule`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="fullId != null">
+        `full_id` = #{fullId},
+      </if>
+      <if test="fullValue != null">
+        `full_value` = #{fullValue},
+      </if>
+      <if test="minusValue != null">
+        `minus_value` = #{minusValue},
+      </if>
+      <if test="sendIntegral != null">
+        `send_integral` = #{sendIntegral},
+      </if>
+      <if test="sendCouponIds != null">
+        `send_coupon_ids` = #{sendCouponIds},
+      </if>
+      <if test="sendGoodsIds != null">
+        `send_goods_ids` = #{sendGoodsIds},
+      </if>
+    </trim>
+    WHERE `rule_id` = #{ruleId}
+  </update>
+</mapper>

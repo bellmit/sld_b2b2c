@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.goods.GoodsFreightExtendReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.goods.pojo.GoodsFreightExtend">
+    <id column="freight_extend_id" property="freightExtendId" />
+    <result column="freight_template_id" property="freightTemplateId" />
+    <result column="base_number" property="baseNumber" />
+    <result column="base_price" property="basePrice" />
+    <result column="add_number" property="addNumber" />
+    <result column="add_price" property="addPrice" />
+    <result column="province_info" property="provinceInfo" />
+    <result column="city_code" property="cityCode" />
+    <result column="city_name" property="cityName" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `freight_extend_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.freightExtendIdNotEquals != null">
+          AND `freight_extend_id` != #{example.freightExtendIdNotEquals}
+        </if>
+        <if test="example.freightExtendIdIn != null">
+          AND `freight_extend_id` in (${example.freightExtendIdIn})
+        </if>
+        <if test="example.freightTemplateId != null">
+          AND `freight_template_id` = #{example.freightTemplateId}
+        </if>
+        <if test="example.baseNumber != null">
+          AND `base_number` = #{example.baseNumber}
+        </if>
+        <if test="example.basePrice != null">
+          AND `base_price` = #{example.basePrice}
+        </if>
+        <if test="example.addNumber != null">
+          AND `add_number` = #{example.addNumber}
+        </if>
+        <if test="example.addPrice != null">
+          AND `add_price` = #{example.addPrice}
+        </if>
+        <if test="example.provinceInfo != null">
+          AND `province_info` = #{example.provinceInfo}
+        </if>
+        <if test="example.cityCode != null">
+          AND `city_code` = #{example.cityCode}
+        </if>
+        <if test="example.cityName != null">
+          AND `city_name` = #{example.cityName}
+        </if>
+        <if test="example.cityNameLike != null">
+          AND `city_name` like concat('%',#{example.cityNameLike},'%')
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `freight_extend_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.goods.example.GoodsFreightExtendExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `goods_freight_extend`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_freight_extend`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_freight_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_freight_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_freight_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_freight_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

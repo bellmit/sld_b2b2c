@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.member.MemberGoodsAskReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.member.pojo.MemberGoodsAsk">
+    <id column="ask_id" property="askId" />
+    <result column="store_id" property="storeId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="ask_content" property="askContent" />
+    <result column="reply_vendor_id" property="replyVendorId" />
+    <result column="reply_vendor_name" property="replyVendorName" />
+    <result column="reply_content" property="replyContent" />
+    <result column="create_time" property="createTime" />
+    <result column="reply_time" property="replyTime" />
+    <result column="state" property="state" />
+    <result column="is_anonymous" property="isAnonymous" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `ask_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.askIdNotEquals != null">
+          AND `ask_id` != #{example.askIdNotEquals}
+        </if>
+        <if test="example.askIdIn != null">
+          AND `ask_id` in (${example.askIdIn})
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.askContent != null">
+          AND `ask_content` = #{example.askContent}
+        </if>
+        <if test="example.askContentLike != null">
+          AND `ask_content` like concat('%',#{example.askContentLike},'%')
+        </if>
+        <if test="example.replyVendorId != null">
+          AND `reply_vendor_id` = #{example.replyVendorId}
+        </if>
+        <if test="example.replyVendorName != null">
+          AND `reply_vendor_name` = #{example.replyVendorName}
+        </if>
+        <if test="example.replyVendorNameLike != null">
+          AND `reply_vendor_name` like concat('%',#{example.replyVendorNameLike},'%')
+        </if>
+        <if test="example.replyContent != null">
+          AND `reply_content` = #{example.replyContent}
+        </if>
+        <if test="example.replyContentLike != null">
+          AND `reply_content` like concat('%',#{example.replyContentLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.replyTimeAfter != null">
+          AND `reply_time` <![CDATA[ >= ]]> #{example.replyTimeAfter}
+        </if>
+        <if test="example.replyTimeBefore != null">
+          AND `reply_time` <![CDATA[ <= ]]> #{example.replyTimeBefore}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.isAnonymous != null">
+          AND `is_anonymous` = #{example.isAnonymous}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `ask_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.member.example.MemberGoodsAskExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `member_goods_ask`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_goods_ask`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_goods_ask`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_goods_ask`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_goods_ask`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_goods_ask`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

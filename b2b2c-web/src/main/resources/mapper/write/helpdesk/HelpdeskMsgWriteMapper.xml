@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.helpdesk.HelpdeskMsgWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.helpdesk.pojo.HelpdeskMsg">
+    <id column="msg_id" property="msgId" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="member_avatar" property="memberAvatar" />
+    <result column="vendor_id" property="vendorId" />
+    <result column="vendor_name" property="vendorName" />
+    <result column="vendor_avatar" property="vendorAvatar" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="msg_content" property="msgContent" />
+    <result column="msg_state" property="msgState" />
+    <result column="msg_type" property="msgType" />
+    <result column="user_type" property="userType" />
+    <result column="add_time" property="addTime" />
+    <result column="is_delete" property="isDelete" />
+    <result column="wx_avatar_img" property="wxAvatarImg" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="memberName != null">
+        `member_name`,
+      </if>
+      <if test="memberAvatar != null">
+        `member_avatar`,
+      </if>
+      <if test="vendorId != null">
+        `vendor_id`,
+      </if>
+      <if test="vendorName != null">
+        `vendor_name`,
+      </if>
+      <if test="vendorAvatar != null">
+        `vendor_avatar`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="storeName != null">
+        `store_name`,
+      </if>
+      <if test="msgContent != null">
+        `msg_content`,
+      </if>
+      <if test="msgState != null">
+        `msg_state`,
+      </if>
+      <if test="msgType != null">
+        `msg_type`,
+      </if>
+      <if test="userType != null">
+        `user_type`,
+      </if>
+      <if test="addTime != null">
+        `add_time`,
+      </if>
+      <if test="isDelete != null">
+        `is_delete`,
+      </if>
+      <if test="wxAvatarImg != null">
+        `wx_avatar_img`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `msg_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.msgIdNotEquals != null">
+          AND `msg_id` != #{example.msgIdNotEquals}
+        </if>
+        <if test="example.msgIdIn != null">
+          AND `msg_id` in (${example.msgIdIn})
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.memberAvatar != null">
+          AND `member_avatar` = #{example.memberAvatar}
+        </if>
+        <if test="example.vendorId != null">
+          AND `vendor_id` = #{example.vendorId}
+        </if>
+        <if test="example.vendorName != null">
+          AND `vendor_name` = #{example.vendorName}
+        </if>
+        <if test="example.vendorNameLike != null">
+          AND `vendor_name` like concat('%',#{example.vendorNameLike},'%')
+        </if>
+        <if test="example.vendorAvatar != null">
+          AND `vendor_avatar` = #{example.vendorAvatar}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.msgContent != null">
+          AND `msg_content` = #{example.msgContent}
+        </if>
+        <if test="example.msgContentLike != null">
+          AND `msg_content` like concat('%',#{example.msgContentLike},'%')
+        </if>
+        <if test="example.msgState != null">
+          AND `msg_state` = #{example.msgState}
+        </if>
+        <if test="example.msgType != null">
+          AND `msg_type` = #{example.msgType}
+        </if>
+        <if test="example.userType != null">
+          AND `user_type` = #{example.userType}
+        </if>
+        <if test="example.addTimeAfter != null">
+          AND `add_time` <![CDATA[ >= ]]> #{example.addTimeAfter}
+        </if>
+        <if test="example.addTimeBefore != null">
+          AND `add_time` <![CDATA[ <= ]]> #{example.addTimeBefore}
+        </if>
+        <if test="example.isDelete != null">
+          AND `is_delete` = #{example.isDelete}
+        </if>
+        <if test="example.wxAvatarImg != null">
+          AND `wx_avatar_img` = #{example.wxAvatarImg}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `msg_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.helpdesk.example.HelpdeskMsgExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `helpdesk_msg`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `helpdesk_msg`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `helpdesk_msg`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `helpdesk_msg`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `helpdesk_msg`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `helpdesk_msg`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `helpdesk_msg`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `helpdesk_msg`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="msg_id" keyProperty="msgId" parameterType="com.slodon.b2b2c.helpdesk.pojo.HelpdeskMsg" useGeneratedKeys="true">
+    INSERT INTO `helpdesk_msg`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="memberName != null">
+        #{memberName},
+      </if>
+      <if test="memberAvatar != null">
+        #{memberAvatar},
+      </if>
+      <if test="vendorId != null">
+        #{vendorId},
+      </if>
+      <if test="vendorName != null">
+        #{vendorName},
+      </if>
+      <if test="vendorAvatar != null">
+        #{vendorAvatar},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="storeName != null">
+        #{storeName},
+      </if>
+      <if test="msgContent != null">
+        #{msgContent},
+      </if>
+      <if test="msgState != null">
+        #{msgState},
+      </if>
+      <if test="msgType != null">
+        #{msgType},
+      </if>
+      <if test="userType != null">
+        #{userType},
+      </if>
+      <if test="addTime != null">
+        #{addTime},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete},
+      </if>
+      <if test="wxAvatarImg != null">
+        #{wxAvatarImg},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `helpdesk_msg`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.memberName != null">
+        `member_name` = #{record.memberName},
+      </if>
+      <if test="record.memberAvatar != null">
+        `member_avatar` = #{record.memberAvatar},
+      </if>
+      <if test="record.vendorId != null">
+        `vendor_id` = #{record.vendorId},
+      </if>
+      <if test="record.vendorName != null">
+        `vendor_name` = #{record.vendorName},
+      </if>
+      <if test="record.vendorAvatar != null">
+        `vendor_avatar` = #{record.vendorAvatar},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.storeName != null">
+        `store_name` = #{record.storeName},
+      </if>
+      <if test="record.msgContent != null">
+        `msg_content` = #{record.msgContent},
+      </if>
+      <if test="record.msgState != null">
+        `msg_state` = #{record.msgState},
+      </if>
+      <if test="record.msgType != null">
+        `msg_type` = #{record.msgType},
+      </if>
+      <if test="record.userType != null">
+        `user_type` = #{record.userType},
+      </if>
+      <if test="record.addTime != null">
+        `add_time` = #{record.addTime},
+      </if>
+      <if test="record.isDelete != null">
+        `is_delete` = #{record.isDelete},
+      </if>
+      <if test="record.wxAvatarImg != null">
+        `wx_avatar_img` = #{record.wxAvatarImg},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `helpdesk_msg`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="memberName != null">
+        `member_name` = #{memberName},
+      </if>
+      <if test="memberAvatar != null">
+        `member_avatar` = #{memberAvatar},
+      </if>
+      <if test="vendorId != null">
+        `vendor_id` = #{vendorId},
+      </if>
+      <if test="vendorName != null">
+        `vendor_name` = #{vendorName},
+      </if>
+      <if test="vendorAvatar != null">
+        `vendor_avatar` = #{vendorAvatar},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="storeName != null">
+        `store_name` = #{storeName},
+      </if>
+      <if test="msgContent != null">
+        `msg_content` = #{msgContent},
+      </if>
+      <if test="msgState != null">
+        `msg_state` = #{msgState},
+      </if>
+      <if test="msgType != null">
+        `msg_type` = #{msgType},
+      </if>
+      <if test="userType != null">
+        `user_type` = #{userType},
+      </if>
+      <if test="addTime != null">
+        `add_time` = #{addTime},
+      </if>
+      <if test="isDelete != null">
+        `is_delete` = #{isDelete},
+      </if>
+      <if test="wxAvatarImg != null">
+        `wx_avatar_img` = #{wxAvatarImg},
+      </if>
+    </trim>
+    WHERE `msg_id` = #{msgId}
+  </update>
+</mapper>

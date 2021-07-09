@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.system.AdminReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.Admin">
+    <id column="admin_id" property="adminId" />
+    <result column="admin_name" property="adminName" />
+    <result column="password" property="password" />
+    <result column="role_id" property="roleId" />
+    <result column="role_name" property="roleName" />
+    <result column="phone" property="phone" />
+    <result column="email" property="email" />
+    <result column="state" property="state" />
+    <result column="is_super" property="isSuper" />
+    <result column="login_time" property="loginTime" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `admin_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.adminIdNotEquals != null">
+          AND `admin_id` != #{example.adminIdNotEquals}
+        </if>
+        <if test="example.adminIdIn != null">
+          AND `admin_id` in (${example.adminIdIn})
+        </if>
+        <if test="example.adminName != null">
+          AND `admin_name` = #{example.adminName}
+        </if>
+        <if test="example.adminNameLike != null">
+          AND `admin_name` like concat('%',#{example.adminNameLike},'%')
+        </if>
+        <if test="example.password != null">
+          AND `password` = #{example.password}
+        </if>
+        <if test="example.roleId != null">
+          AND `role_id` = #{example.roleId}
+        </if>
+        <if test="example.roleName != null">
+          AND `role_name` = #{example.roleName}
+        </if>
+        <if test="example.roleNameLike != null">
+          AND `role_name` like concat('%',#{example.roleNameLike},'%')
+        </if>
+        <if test="example.phone != null">
+          AND `phone` = #{example.phone}
+        </if>
+        <if test="example.email != null">
+          AND `email` = #{example.email}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateIn != null">
+          AND `state` in (${example.stateIn})
+        </if>
+        <if test="example.stateNotIn != null">
+          AND `state` not in (${example.stateNotIn})
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.isSuper != null">
+          AND `is_super` = #{example.isSuper}
+        </if>
+        <if test="example.loginTimeAfter != null">
+          AND `login_time` <![CDATA[ >= ]]> #{example.loginTimeAfter}
+        </if>
+        <if test="example.loginTimeBefore != null">
+          AND `login_time` <![CDATA[ <= ]]> #{example.loginTimeBefore}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `admin_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.AdminExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_admin`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_admin`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_admin`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_admin`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_admin`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_admin`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

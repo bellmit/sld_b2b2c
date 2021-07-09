@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.seller.VendorRolesReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.VendorRoles">
+    <id column="roles_id" property="rolesId" />
+    <result column="roles_name" property="rolesName" />
+    <result column="store_id" property="storeId" />
+    <result column="content" property="content" />
+    <result column="create_vendor_id" property="createVendorId" />
+    <result column="create_vendor_name" property="createVendorName" />
+    <result column="create_time" property="createTime" />
+    <result column="update_vendor_id" property="updateVendorId" />
+    <result column="update_vendor_name" property="updateVendorName" />
+    <result column="update_time" property="updateTime" />
+    <result column="state" property="state" />
+    <result column="is_inner" property="isInner" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `roles_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.rolesIdNotEquals != null">
+          AND `roles_id` != #{example.rolesIdNotEquals}
+        </if>
+        <if test="example.rolesIdIn != null">
+          AND `roles_id` in (${example.rolesIdIn})
+        </if>
+        <if test="example.rolesName != null">
+          AND `roles_name` = #{example.rolesName}
+        </if>
+        <if test="example.rolesNameLike != null">
+          AND `roles_name` like concat('%',#{example.rolesNameLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.content != null">
+          AND `content` = #{example.content}
+        </if>
+        <if test="example.contentLike != null">
+          AND `content` like concat('%',#{example.contentLike},'%')
+        </if>
+        <if test="example.createVendorId != null">
+          AND `create_vendor_id` = #{example.createVendorId}
+        </if>
+        <if test="example.createVendorName != null">
+          AND `create_vendor_name` = #{example.createVendorName}
+        </if>
+        <if test="example.createVendorNameLike != null">
+          AND `create_vendor_name` like concat('%',#{example.createVendorNameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateVendorId != null">
+          AND `update_vendor_id` = #{example.updateVendorId}
+        </if>
+        <if test="example.updateVendorName != null">
+          AND `update_vendor_name` = #{example.updateVendorName}
+        </if>
+        <if test="example.updateVendorNameLike != null">
+          AND `update_vendor_name` like concat('%',#{example.updateVendorNameLike},'%')
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.isInner != null">
+          AND `is_inner` = #{example.isInner}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `roles_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.VendorRolesExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `vendor_roles`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor_roles`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor_roles`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor_roles`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor_roles`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor_roles`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

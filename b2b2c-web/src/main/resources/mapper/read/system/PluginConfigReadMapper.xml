@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.system.PluginConfigReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.PluginConfig">
+    <id column="p_id" property="pId" />
+    <result column="plugin_id" property="pluginId" />
+    <result column="plugin_config" property="pluginConfig" />
+    <result column="version" property="version" />
+    <result column="is_enable" property="isEnable" />
+    <result column="install_date" property="installDate" />
+    <result column="update_date" property="updateDate" />
+    <result column="sort" property="sort" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `p_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.pIdNotEquals != null">
+          AND `p_id` != #{example.pIdNotEquals}
+        </if>
+        <if test="example.pIdIn != null">
+          AND `p_id` in (${example.pIdIn})
+        </if>
+        <if test="example.pluginId != null">
+          AND `plugin_id` = #{example.pluginId}
+        </if>
+        <if test="example.pluginConfig != null">
+          AND `plugin_config` = #{example.pluginConfig}
+        </if>
+        <if test="example.version != null">
+          AND `version` = #{example.version}
+        </if>
+        <if test="example.isEnable != null">
+          AND `is_enable` = #{example.isEnable}
+        </if>
+        <if test="example.installDateAfter != null">
+          AND `install_date` <![CDATA[ >= ]]> #{example.installDateAfter}
+        </if>
+        <if test="example.installDateBefore != null">
+          AND `install_date` <![CDATA[ <= ]]> #{example.installDateBefore}
+        </if>
+        <if test="example.updateDateAfter != null">
+          AND `update_date` <![CDATA[ >= ]]> #{example.updateDateAfter}
+        </if>
+        <if test="example.updateDateBefore != null">
+          AND `update_date` <![CDATA[ <= ]]> #{example.updateDateBefore}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `p_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.PluginConfigExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_plugin_config`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_plugin_config`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_plugin_config`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_plugin_config`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_plugin_config`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_plugin_config`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

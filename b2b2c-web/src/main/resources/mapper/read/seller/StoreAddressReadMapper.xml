@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.seller.StoreAddressReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.StoreAddress">
+    <id column="address_id" property="addressId" />
+    <result column="store_id" property="storeId" />
+    <result column="contact_name" property="contactName" />
+    <result column="telphone" property="telphone" />
+    <result column="telphone2" property="telphone2" />
+    <result column="province_code" property="provinceCode" />
+    <result column="city_code" property="cityCode" />
+    <result column="area_code" property="areaCode" />
+    <result column="street_code" property="streetCode" />
+    <result column="area_info" property="areaInfo" />
+    <result column="address" property="address" />
+    <result column="created_time" property="createdTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="is_default" property="isDefault" />
+    <result column="type" property="type" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `address_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.addressIdNotEquals != null">
+          AND `address_id` != #{example.addressIdNotEquals}
+        </if>
+        <if test="example.addressIdIn != null">
+          AND `address_id` in (${example.addressIdIn})
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.contactName != null">
+          AND `contact_name` = #{example.contactName}
+        </if>
+        <if test="example.contactNameLike != null">
+          AND `contact_name` like concat('%',#{example.contactNameLike},'%')
+        </if>
+        <if test="example.telphone != null">
+          AND `telphone` = #{example.telphone}
+        </if>
+        <if test="example.telphoneLike != null">
+          AND `telphone` like concat('%',#{example.telphoneLike},'%')
+        </if>
+        <if test="example.telphone2 != null">
+          AND `telphone2` = #{example.telphone2}
+        </if>
+        <if test="example.provinceCode != null">
+          AND `province_code` = #{example.provinceCode}
+        </if>
+        <if test="example.cityCode != null">
+          AND `city_code` = #{example.cityCode}
+        </if>
+        <if test="example.areaCode != null">
+          AND `area_code` = #{example.areaCode}
+        </if>
+        <if test="example.streetCode != null">
+          AND `street_code` = #{example.streetCode}
+        </if>
+        <if test="example.areaInfo != null">
+          AND `area_info` = #{example.areaInfo}
+        </if>
+        <if test="example.address != null">
+          AND `address` = #{example.address}
+        </if>
+        <if test="example.createdTimeAfter != null">
+          AND `created_time` <![CDATA[ >= ]]> #{example.createdTimeAfter}
+        </if>
+        <if test="example.createdTimeBefore != null">
+          AND `created_time` <![CDATA[ <= ]]> #{example.createdTimeBefore}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.isDefault != null">
+          AND `is_default` = #{example.isDefault}
+        </if>
+        <if test="example.type != null">
+          AND `type` = #{example.type}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `address_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.StoreAddressExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `store_address`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_address`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_address`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_address`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store_address`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store_address`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

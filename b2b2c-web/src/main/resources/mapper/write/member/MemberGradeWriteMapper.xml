@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.member.MemberGradeWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.member.pojo.MemberGrade">
+    <id column="grade_id" property="gradeId" />
+    <result column="grade_name" property="gradeName" />
+    <result column="grade_img" property="gradeImg" />
+    <result column="experience_value" property="experienceValue" />
+    <result column="is_inner" property="isInner" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="create_time" property="createTime" />
+    <result column="update_admin_id" property="updateAdminId" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="gradeName != null">
+        `grade_name`,
+      </if>
+      <if test="gradeImg != null">
+        `grade_img`,
+      </if>
+      <if test="experienceValue != null">
+        `experience_value`,
+      </if>
+      <if test="isInner != null">
+        `is_inner`,
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `grade_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.gradeIdNotEquals != null">
+          AND `grade_id` != #{example.gradeIdNotEquals}
+        </if>
+        <if test="example.gradeIdIn != null">
+          AND `grade_id` in (${example.gradeIdIn})
+        </if>
+        <if test="example.gradeName != null">
+          AND `grade_name` = #{example.gradeName}
+        </if>
+        <if test="example.gradeNameLike != null">
+          AND `grade_name` like concat('%',#{example.gradeNameLike},'%')
+        </if>
+        <if test="example.gradeImg != null">
+          AND `grade_img` = #{example.gradeImg}
+        </if>
+        <if test="example.experienceValue != null">
+          AND `experience_value` = #{example.experienceValue}
+        </if>
+        <if test="example.isInner != null">
+          AND `is_inner` = #{example.isInner}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateAdminId != null">
+          AND `update_admin_id` = #{example.updateAdminId}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `grade_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.member.example.MemberGradeExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `member_grade`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_grade`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_grade`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_grade`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_grade`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_grade`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `member_grade`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `member_grade`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="grade_id" keyProperty="gradeId" parameterType="com.slodon.b2b2c.member.pojo.MemberGrade" useGeneratedKeys="true">
+    INSERT INTO `member_grade`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="gradeName != null">
+        #{gradeName},
+      </if>
+      <if test="gradeImg != null">
+        #{gradeImg},
+      </if>
+      <if test="experienceValue != null">
+        #{experienceValue},
+      </if>
+      <if test="isInner != null">
+        #{isInner},
+      </if>
+      <if test="createAdminId != null">
+        #{createAdminId},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateAdminId != null">
+        #{updateAdminId},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `member_grade`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.gradeName != null">
+        `grade_name` = #{record.gradeName},
+      </if>
+      <if test="record.gradeImg != null">
+        `grade_img` = #{record.gradeImg},
+      </if>
+      <if test="record.experienceValue != null">
+        `experience_value` = #{record.experienceValue},
+      </if>
+      <if test="record.isInner != null">
+        `is_inner` = #{record.isInner},
+      </if>
+      <if test="record.createAdminId != null">
+        `create_admin_id` = #{record.createAdminId},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.updateAdminId != null">
+        `update_admin_id` = #{record.updateAdminId},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `member_grade`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="gradeName != null">
+        `grade_name` = #{gradeName},
+      </if>
+      <if test="gradeImg != null">
+        `grade_img` = #{gradeImg},
+      </if>
+      <if test="experienceValue != null">
+        `experience_value` = #{experienceValue},
+      </if>
+      <if test="isInner != null">
+        `is_inner` = #{isInner},
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id` = #{createAdminId},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id` = #{updateAdminId},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+    </trim>
+    WHERE `grade_id` = #{gradeId}
+  </update>
+</mapper>

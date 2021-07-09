@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.seller.VendorReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.Vendor">
+    <id column="vendor_id" property="vendorId" />
+    <result column="vendor_name" property="vendorName" />
+    <result column="vendor_password" property="vendorPassword" />
+    <result column="vendor_mobile" property="vendorMobile" />
+    <result column="vendor_email" property="vendorEmail" />
+    <result column="store_id" property="storeId" />
+    <result column="is_store_admin" property="isStoreAdmin" />
+    <result column="register_time" property="registerTime" />
+    <result column="latest_login_time" property="latestLoginTime" />
+    <result column="latest_login_ip" property="latestLoginIp" />
+    <result column="avatar_url" property="avatarUrl" />
+    <result column="is_allow_login" property="isAllowLogin" />
+    <result column="roles_id" property="rolesId" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `vendor_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.vendorIdNotEquals != null">
+          AND `vendor_id` != #{example.vendorIdNotEquals}
+        </if>
+        <if test="example.vendorIdIn != null">
+          AND `vendor_id` in (${example.vendorIdIn})
+        </if>
+        <if test="example.vendorName != null">
+          AND `vendor_name` = #{example.vendorName}
+        </if>
+        <if test="example.vendorNameLike != null">
+          AND `vendor_name` like concat('%',#{example.vendorNameLike},'%')
+        </if>
+        <if test="example.vendorPassword != null">
+          AND `vendor_password` = #{example.vendorPassword}
+        </if>
+        <if test="example.vendorMobile != null">
+          AND `vendor_mobile` = #{example.vendorMobile}
+        </if>
+        <if test="example.vendorEmail != null">
+          AND `vendor_email` = #{example.vendorEmail}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.isStoreAdmin != null">
+          AND `is_store_admin` = #{example.isStoreAdmin}
+        </if>
+        <if test="example.registerTimeAfter != null">
+          AND `register_time` <![CDATA[ >= ]]> #{example.registerTimeAfter}
+        </if>
+        <if test="example.registerTimeBefore != null">
+          AND `register_time` <![CDATA[ <= ]]> #{example.registerTimeBefore}
+        </if>
+        <if test="example.latestLoginTimeAfter != null">
+          AND `latest_login_time` <![CDATA[ >= ]]> #{example.latestLoginTimeAfter}
+        </if>
+        <if test="example.latestLoginTimeBefore != null">
+          AND `latest_login_time` <![CDATA[ <= ]]> #{example.latestLoginTimeBefore}
+        </if>
+        <if test="example.latestLoginIp != null">
+          AND `latest_login_ip` = #{example.latestLoginIp}
+        </if>
+        <if test="example.avatarUrl != null">
+          AND `avatar_url` = #{example.avatarUrl}
+        </if>
+        <if test="example.isAllowLogin != null">
+          AND `is_allow_login` = #{example.isAllowLogin}
+        </if>
+        <if test="example.rolesId != null">
+          AND `roles_id` = #{example.rolesId}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `vendor_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.VendorExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `vendor`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

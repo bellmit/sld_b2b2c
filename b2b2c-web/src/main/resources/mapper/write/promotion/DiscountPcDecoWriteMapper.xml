@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.DiscountPcDecoWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.DiscountPcDeco">
+    <id column="integral_deco_id" property="integralDecoId" />
+    <result column="tpl_id" property="tplId" />
+    <result column="tpl_name" property="tplName" />
+    <result column="tpl_type_name" property="tplTypeName" />
+    <result column="name" property="name" />
+    <result column="create_time" property="createTime" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="update_time" property="updateTime" />
+    <result column="update_admin_id" property="updateAdminId" />
+    <result column="sort" property="sort" />
+    <result column="is_enable" property="isEnable" />
+    <result column="html" property="html" />
+    <result column="json" property="json" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="tplId != null">
+        `tpl_id`,
+      </if>
+      <if test="tplName != null">
+        `tpl_name`,
+      </if>
+      <if test="tplTypeName != null">
+        `tpl_type_name`,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="isEnable != null">
+        `is_enable`,
+      </if>
+      <if test="html != null">
+        `html`,
+      </if>
+      <if test="json != null">
+        `json`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `integral_deco_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.integralDecoIdNotEquals != null">
+          AND `integral_deco_id` != #{example.integralDecoIdNotEquals}
+        </if>
+        <if test="example.integralDecoIdIn != null">
+          AND `integral_deco_id` in (${example.integralDecoIdIn})
+        </if>
+        <if test="example.tplId != null">
+          AND `tpl_id` = #{example.tplId}
+        </if>
+        <if test="example.tplName != null">
+          AND `tpl_name` = #{example.tplName}
+        </if>
+        <if test="example.tplNameLike != null">
+          AND `tpl_name` like concat('%',#{example.tplNameLike},'%')
+        </if>
+        <if test="example.tplTypeName != null">
+          AND `tpl_type_name` = #{example.tplTypeName}
+        </if>
+        <if test="example.tplTypeNameLike != null">
+          AND `tpl_type_name` like concat('%',#{example.tplTypeNameLike},'%')
+        </if>
+        <if test="example.name != null">
+          AND `name` = #{example.name}
+        </if>
+        <if test="example.nameLike != null">
+          AND `name` like concat('%',#{example.nameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.updateAdminId != null">
+          AND `update_admin_id` = #{example.updateAdminId}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.isEnable != null">
+          AND `is_enable` = #{example.isEnable}
+        </if>
+        <if test="example.html != null">
+          AND `html` = #{example.html}
+        </if>
+        <if test="example.json != null">
+          AND `json` = #{example.json}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `integral_deco_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.DiscountPcDecoExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_discount_pc_deco`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount_pc_deco`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount_pc_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount_pc_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_discount_pc_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_discount_pc_deco`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_discount_pc_deco`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_discount_pc_deco`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="integral_deco_id" keyProperty="integralDecoId" parameterType="com.slodon.b2b2c.promotion.pojo.DiscountPcDeco" useGeneratedKeys="true">
+    INSERT INTO `promotion_discount_pc_deco`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="tplId != null">
+        #{tplId},
+      </if>
+      <if test="tplName != null">
+        #{tplName},
+      </if>
+      <if test="tplTypeName != null">
+        #{tplTypeName},
+      </if>
+      <if test="name != null">
+        #{name},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="createAdminId != null">
+        #{createAdminId},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="updateAdminId != null">
+        #{updateAdminId},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable},
+      </if>
+      <if test="html != null">
+        #{html},
+      </if>
+      <if test="json != null">
+        #{json},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_discount_pc_deco`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.tplId != null">
+        `tpl_id` = #{record.tplId},
+      </if>
+      <if test="record.tplName != null">
+        `tpl_name` = #{record.tplName},
+      </if>
+      <if test="record.tplTypeName != null">
+        `tpl_type_name` = #{record.tplTypeName},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.createAdminId != null">
+        `create_admin_id` = #{record.createAdminId},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+      <if test="record.updateAdminId != null">
+        `update_admin_id` = #{record.updateAdminId},
+      </if>
+      <if test="record.sort != null">
+        `sort` = #{record.sort},
+      </if>
+      <if test="record.isEnable != null">
+        `is_enable` = #{record.isEnable},
+      </if>
+      <if test="record.html != null">
+        `html` = #{record.html},
+      </if>
+      <if test="record.json != null">
+        `json` = #{record.json},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_discount_pc_deco`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="tplId != null">
+        `tpl_id` = #{tplId},
+      </if>
+      <if test="tplName != null">
+        `tpl_name` = #{tplName},
+      </if>
+      <if test="tplTypeName != null">
+        `tpl_type_name` = #{tplTypeName},
+      </if>
+      <if test="name != null">
+        `name` = #{name},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id` = #{createAdminId},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id` = #{updateAdminId},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort},
+      </if>
+      <if test="isEnable != null">
+        `is_enable` = #{isEnable},
+      </if>
+      <if test="html != null">
+        `html` = #{html},
+      </if>
+      <if test="json != null">
+        `json` = #{json},
+      </if>
+    </trim>
+    WHERE `integral_deco_id` = #{integralDecoId}
+  </update>
+</mapper>

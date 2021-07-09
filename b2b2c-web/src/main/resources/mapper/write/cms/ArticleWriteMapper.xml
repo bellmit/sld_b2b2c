@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.cms.ArticleWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.cms.pojo.Article">
+    <id column="article_id" property="articleId" />
+    <result column="category_id" property="categoryId" />
+    <result column="title" property="title" />
+    <result column="out_url" property="outUrl" />
+    <result column="state" property="state" />
+    <result column="sort" property="sort" />
+    <result column="create_id" property="createId" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="content" property="content" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="categoryId != null">
+        `category_id`,
+      </if>
+      <if test="title != null">
+        `title`,
+      </if>
+      <if test="outUrl != null">
+        `out_url`,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="createId != null">
+        `create_id`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+      <if test="content != null">
+        `content`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `article_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.articleIdNotEquals != null">
+          AND `article_id` != #{example.articleIdNotEquals}
+        </if>
+        <if test="example.articleIdIn != null">
+          AND `article_id` in (${example.articleIdIn})
+        </if>
+        <if test="example.categoryId != null">
+          AND `category_id` = #{example.categoryId}
+        </if>
+        <if test="example.title != null">
+          AND `title` = #{example.title}
+        </if>
+        <if test="example.titleLike != null">
+          AND `title` like concat('%',#{example.titleLike},'%')
+        </if>
+        <if test="example.outUrl != null">
+          AND `out_url` = #{example.outUrl}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.createId != null">
+          AND `create_id` = #{example.createId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.content != null">
+          AND `content` = #{example.content}
+        </if>
+        <if test="example.contentLike != null">
+          AND `content` like concat('%',#{example.contentLike},'%')
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `article_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.cms.example.ArticleExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `cms_article`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `cms_article`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `cms_article`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `cms_article`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `cms_article`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `cms_article`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `cms_article`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `cms_article`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="article_id" keyProperty="articleId" parameterType="com.slodon.b2b2c.cms.pojo.Article" useGeneratedKeys="true">
+    INSERT INTO `cms_article`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId},
+      </if>
+      <if test="title != null">
+        #{title},
+      </if>
+      <if test="outUrl != null">
+        #{outUrl},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="createId != null">
+        #{createId},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `cms_article`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.categoryId != null">
+        `category_id` = #{record.categoryId},
+      </if>
+      <if test="record.title != null">
+        `title` = #{record.title},
+      </if>
+      <if test="record.outUrl != null">
+        `out_url` = #{record.outUrl},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state},
+      </if>
+      <if test="record.sort != null">
+        `sort` = #{record.sort},
+      </if>
+      <if test="record.createId != null">
+        `create_id` = #{record.createId},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+      <if test="record.content != null">
+        `content` = #{record.content},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `cms_article`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="categoryId != null">
+        `category_id` = #{categoryId},
+      </if>
+      <if test="title != null">
+        `title` = #{title},
+      </if>
+      <if test="outUrl != null">
+        `out_url` = #{outUrl},
+      </if>
+      <if test="state != null">
+        `state` = #{state},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort},
+      </if>
+      <if test="createId != null">
+        `create_id` = #{createId},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+      <if test="content != null">
+        `content` = #{content},
+      </if>
+    </trim>
+    WHERE `article_id` = #{articleId}
+  </update>
+</mapper>

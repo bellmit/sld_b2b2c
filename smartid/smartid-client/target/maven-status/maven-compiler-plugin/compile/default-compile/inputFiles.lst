@@ -1,0 +1,7 @@
+/home/java/jianianhua/daima/b2b2c/smartid/smartid-client/src/main/java/com/slodon/smartid/client/service/impl/HttpSegmentIdServiceImpl.java
+/home/java/jianianhua/daima/b2b2c/smartid/smartid-client/src/main/java/com/slodon/smartid/client/utils/PropertiesLoader.java
+/home/java/jianianhua/daima/b2b2c/smartid/smartid-client/src/main/java/com/slodon/smartid/client/utils/SmartIdNumberUtils.java
+/home/java/jianianhua/daima/b2b2c/smartid/smartid-client/src/main/java/com/slodon/smartid/client/utils/SmartIdHttpUtils.java
+/home/java/jianianhua/daima/b2b2c/smartid/smartid-client/src/main/java/com/slodon/smartid/client/config/SmartIdClientConfig.java
+/home/java/jianianhua/daima/b2b2c/smartid/smartid-client/src/main/java/com/slodon/smartid/client/factory/impl/IdGeneratorFactoryClient.java
+/home/java/jianianhua/daima/b2b2c/smartid/smartid-client/src/main/java/com/slodon/smartid/client/utils/SmartId.java

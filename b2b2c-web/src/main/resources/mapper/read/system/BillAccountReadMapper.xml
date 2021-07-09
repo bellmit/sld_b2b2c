@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.system.BillAccountReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.BillAccount">
+    <id column="account_id" property="accountId" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="account_type" property="accountType" />
+    <result column="alipay_name" property="alipayName" />
+    <result column="alipay_account" property="alipayAccount" />
+    <result column="bank_account_name" property="bankAccountName" />
+    <result column="bank_account_number" property="bankAccountNumber" />
+    <result column="bank_branch" property="bankBranch" />
+    <result column="province_code" property="provinceCode" />
+    <result column="city_code" property="cityCode" />
+    <result column="district_code" property="districtCode" />
+    <result column="address_all" property="addressAll" />
+    <result column="is_default" property="isDefault" />
+    <result column="create_vendor_id" property="createVendorId" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `account_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.accountIdNotEquals != null">
+          AND `account_id` != #{example.accountIdNotEquals}
+        </if>
+        <if test="example.accountIdIn != null">
+          AND `account_id` in (${example.accountIdIn})
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.accountType != null">
+          AND `account_type` = #{example.accountType}
+        </if>
+        <if test="example.alipayName != null">
+          AND `alipay_name` = #{example.alipayName}
+        </if>
+        <if test="example.alipayNameLike != null">
+          AND `alipay_name` like concat('%',#{example.alipayNameLike},'%')
+        </if>
+        <if test="example.alipayAccount != null">
+          AND `alipay_account` = #{example.alipayAccount}
+        </if>
+        <if test="example.bankAccountName != null">
+          AND `bank_account_name` = #{example.bankAccountName}
+        </if>
+        <if test="example.bankAccountNameLike != null">
+          AND `bank_account_name` like concat('%',#{example.bankAccountNameLike},'%')
+        </if>
+        <if test="example.bankAccountNumber != null">
+          AND `bank_account_number` = #{example.bankAccountNumber}
+        </if>
+        <if test="example.bankBranch != null">
+          AND `bank_branch` = #{example.bankBranch}
+        </if>
+        <if test="example.provinceCode != null">
+          AND `province_code` = #{example.provinceCode}
+        </if>
+        <if test="example.cityCode != null">
+          AND `city_code` = #{example.cityCode}
+        </if>
+        <if test="example.districtCode != null">
+          AND `district_code` = #{example.districtCode}
+        </if>
+        <if test="example.addressAll != null">
+          AND `address_all` = #{example.addressAll}
+        </if>
+        <if test="example.isDefault != null">
+          AND `is_default` = #{example.isDefault}
+        </if>
+        <if test="example.createVendorId != null">
+          AND `create_vendor_id` = #{example.createVendorId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `account_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.BillAccountExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_bill_account`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_bill_account`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_bill_account`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_bill_account`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_bill_account`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_bill_account`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

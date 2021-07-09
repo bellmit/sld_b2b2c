@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.member.MemberInvoiceWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.member.pojo.MemberInvoice">
+    <id column="invoice_id" property="invoiceId" />
+    <result column="member_id" property="memberId" />
+    <result column="is_default" property="isDefault" />
+    <result column="create_time" property="createTime" />
+    <result column="title_type" property="titleType" />
+    <result column="invoice_type" property="invoiceType" />
+    <result column="invoice_title" property="invoiceTitle" />
+    <result column="invoice_content" property="invoiceContent" />
+    <result column="tax_code" property="taxCode" />
+    <result column="register_addr" property="registerAddr" />
+    <result column="register_phone" property="registerPhone" />
+    <result column="bank_name" property="bankName" />
+    <result column="bank_account" property="bankAccount" />
+    <result column="receiver_name" property="receiverName" />
+    <result column="receiver_mobile" property="receiverMobile" />
+    <result column="receiver_email" property="receiverEmail" />
+    <result column="province_code" property="provinceCode" />
+    <result column="city_code" property="cityCode" />
+    <result column="district_code" property="districtCode" />
+    <result column="address_all" property="addressAll" />
+    <result column="receiver_address" property="receiverAddress" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="isDefault != null">
+        `is_default`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="titleType != null">
+        `title_type`,
+      </if>
+      <if test="invoiceType != null">
+        `invoice_type`,
+      </if>
+      <if test="invoiceTitle != null">
+        `invoice_title`,
+      </if>
+      <if test="invoiceContent != null">
+        `invoice_content`,
+      </if>
+      <if test="taxCode != null">
+        `tax_code`,
+      </if>
+      <if test="registerAddr != null">
+        `register_addr`,
+      </if>
+      <if test="registerPhone != null">
+        `register_phone`,
+      </if>
+      <if test="bankName != null">
+        `bank_name`,
+      </if>
+      <if test="bankAccount != null">
+        `bank_account`,
+      </if>
+      <if test="receiverName != null">
+        `receiver_name`,
+      </if>
+      <if test="receiverMobile != null">
+        `receiver_mobile`,
+      </if>
+      <if test="receiverEmail != null">
+        `receiver_email`,
+      </if>
+      <if test="provinceCode != null">
+        `province_code`,
+      </if>
+      <if test="cityCode != null">
+        `city_code`,
+      </if>
+      <if test="districtCode != null">
+        `district_code`,
+      </if>
+      <if test="addressAll != null">
+        `address_all`,
+      </if>
+      <if test="receiverAddress != null">
+        `receiver_address`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `invoice_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.invoiceIdNotEquals != null">
+          AND `invoice_id` != #{example.invoiceIdNotEquals}
+        </if>
+        <if test="example.invoiceIdIn != null">
+          AND `invoice_id` in (${example.invoiceIdIn})
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.isDefault != null">
+          AND `is_default` = #{example.isDefault}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.titleType != null">
+          AND `title_type` = #{example.titleType}
+        </if>
+        <if test="example.invoiceType != null">
+          AND `invoice_type` = #{example.invoiceType}
+        </if>
+        <if test="example.invoiceTitle != null">
+          AND `invoice_title` = #{example.invoiceTitle}
+        </if>
+        <if test="example.invoiceTitleLike != null">
+          AND `invoice_title` like concat('%',#{example.invoiceTitleLike},'%')
+        </if>
+        <if test="example.invoiceContent != null">
+          AND `invoice_content` = #{example.invoiceContent}
+        </if>
+        <if test="example.taxCode != null">
+          AND `tax_code` = #{example.taxCode}
+        </if>
+        <if test="example.registerAddr != null">
+          AND `register_addr` = #{example.registerAddr}
+        </if>
+        <if test="example.registerPhone != null">
+          AND `register_phone` = #{example.registerPhone}
+        </if>
+        <if test="example.bankName != null">
+          AND `bank_name` = #{example.bankName}
+        </if>
+        <if test="example.bankNameLike != null">
+          AND `bank_name` like concat('%',#{example.bankNameLike},'%')
+        </if>
+        <if test="example.bankAccount != null">
+          AND `bank_account` = #{example.bankAccount}
+        </if>
+        <if test="example.receiverName != null">
+          AND `receiver_name` = #{example.receiverName}
+        </if>
+        <if test="example.receiverNameLike != null">
+          AND `receiver_name` like concat('%',#{example.receiverNameLike},'%')
+        </if>
+        <if test="example.receiverMobile != null">
+          AND `receiver_mobile` = #{example.receiverMobile}
+        </if>
+        <if test="example.receiverEmail != null">
+          AND `receiver_email` = #{example.receiverEmail}
+        </if>
+        <if test="example.provinceCode != null">
+          AND `province_code` = #{example.provinceCode}
+        </if>
+        <if test="example.cityCode != null">
+          AND `city_code` = #{example.cityCode}
+        </if>
+        <if test="example.districtCode != null">
+          AND `district_code` = #{example.districtCode}
+        </if>
+        <if test="example.addressAll != null">
+          AND `address_all` = #{example.addressAll}
+        </if>
+        <if test="example.receiverAddress != null">
+          AND `receiver_address` = #{example.receiverAddress}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `invoice_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.member.example.MemberInvoiceExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `member_invoice`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_invoice`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_invoice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_invoice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_invoice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_invoice`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `member_invoice`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `member_invoice`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="invoice_id" keyProperty="invoiceId" parameterType="com.slodon.b2b2c.member.pojo.MemberInvoice" useGeneratedKeys="true">
+    INSERT INTO `member_invoice`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="titleType != null">
+        #{titleType},
+      </if>
+      <if test="invoiceType != null">
+        #{invoiceType},
+      </if>
+      <if test="invoiceTitle != null">
+        #{invoiceTitle},
+      </if>
+      <if test="invoiceContent != null">
+        #{invoiceContent},
+      </if>
+      <if test="taxCode != null">
+        #{taxCode},
+      </if>
+      <if test="registerAddr != null">
+        #{registerAddr},
+      </if>
+      <if test="registerPhone != null">
+        #{registerPhone},
+      </if>
+      <if test="bankName != null">
+        #{bankName},
+      </if>
+      <if test="bankAccount != null">
+        #{bankAccount},
+      </if>
+      <if test="receiverName != null">
+        #{receiverName},
+      </if>
+      <if test="receiverMobile != null">
+        #{receiverMobile},
+      </if>
+      <if test="receiverEmail != null">
+        #{receiverEmail},
+      </if>
+      <if test="provinceCode != null">
+        #{provinceCode},
+      </if>
+      <if test="cityCode != null">
+        #{cityCode},
+      </if>
+      <if test="districtCode != null">
+        #{districtCode},
+      </if>
+      <if test="addressAll != null">
+        #{addressAll},
+      </if>
+      <if test="receiverAddress != null">
+        #{receiverAddress},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `member_invoice`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.isDefault != null">
+        `is_default` = #{record.isDefault},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.titleType != null">
+        `title_type` = #{record.titleType},
+      </if>
+      <if test="record.invoiceType != null">
+        `invoice_type` = #{record.invoiceType},
+      </if>
+      <if test="record.invoiceTitle != null">
+        `invoice_title` = #{record.invoiceTitle},
+      </if>
+      <if test="record.invoiceContent != null">
+        `invoice_content` = #{record.invoiceContent},
+      </if>
+      <if test="record.taxCode != null">
+        `tax_code` = #{record.taxCode},
+      </if>
+      <if test="record.registerAddr != null">
+        `register_addr` = #{record.registerAddr},
+      </if>
+      <if test="record.registerPhone != null">
+        `register_phone` = #{record.registerPhone},
+      </if>
+      <if test="record.bankName != null">
+        `bank_name` = #{record.bankName},
+      </if>
+      <if test="record.bankAccount != null">
+        `bank_account` = #{record.bankAccount},
+      </if>
+      <if test="record.receiverName != null">
+        `receiver_name` = #{record.receiverName},
+      </if>
+      <if test="record.receiverMobile != null">
+        `receiver_mobile` = #{record.receiverMobile},
+      </if>
+      <if test="record.receiverEmail != null">
+        `receiver_email` = #{record.receiverEmail},
+      </if>
+      <if test="record.provinceCode != null">
+        `province_code` = #{record.provinceCode},
+      </if>
+      <if test="record.cityCode != null">
+        `city_code` = #{record.cityCode},
+      </if>
+      <if test="record.districtCode != null">
+        `district_code` = #{record.districtCode},
+      </if>
+      <if test="record.addressAll != null">
+        `address_all` = #{record.addressAll},
+      </if>
+      <if test="record.receiverAddress != null">
+        `receiver_address` = #{record.receiverAddress},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `member_invoice`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="isDefault != null">
+        `is_default` = #{isDefault},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="titleType != null">
+        `title_type` = #{titleType},
+      </if>
+      <if test="invoiceType != null">
+        `invoice_type` = #{invoiceType},
+      </if>
+      <if test="invoiceTitle != null">
+        `invoice_title` = #{invoiceTitle},
+      </if>
+      <if test="invoiceContent != null">
+        `invoice_content` = #{invoiceContent},
+      </if>
+      <if test="taxCode != null">
+        `tax_code` = #{taxCode},
+      </if>
+      <if test="registerAddr != null">
+        `register_addr` = #{registerAddr},
+      </if>
+      <if test="registerPhone != null">
+        `register_phone` = #{registerPhone},
+      </if>
+      <if test="bankName != null">
+        `bank_name` = #{bankName},
+      </if>
+      <if test="bankAccount != null">
+        `bank_account` = #{bankAccount},
+      </if>
+      <if test="receiverName != null">
+        `receiver_name` = #{receiverName},
+      </if>
+      <if test="receiverMobile != null">
+        `receiver_mobile` = #{receiverMobile},
+      </if>
+      <if test="receiverEmail != null">
+        `receiver_email` = #{receiverEmail},
+      </if>
+      <if test="provinceCode != null">
+        `province_code` = #{provinceCode},
+      </if>
+      <if test="cityCode != null">
+        `city_code` = #{cityCode},
+      </if>
+      <if test="districtCode != null">
+        `district_code` = #{districtCode},
+      </if>
+      <if test="addressAll != null">
+        `address_all` = #{addressAll},
+      </if>
+      <if test="receiverAddress != null">
+        `receiver_address` = #{receiverAddress},
+      </if>
+    </trim>
+    WHERE `invoice_id` = #{invoiceId}
+  </update>
+</mapper>

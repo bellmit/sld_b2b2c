@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.SpellGoodsWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.SpellGoods">
+    <id column="spell_goods_id" property="spellGoodsId" />
+    <result column="spell_id" property="spellId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="goods_brief" property="goodsBrief" />
+    <result column="goods_image" property="goodsImage" />
+    <result column="spec_values" property="specValues" />
+    <result column="product_id" property="productId" />
+    <result column="product_price" property="productPrice" />
+    <result column="spell_price" property="spellPrice" />
+    <result column="leader_price" property="leaderPrice" />
+    <result column="sales_volume" property="salesVolume" />
+    <result column="spell_stock" property="spellStock" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="spellId != null">
+        `spell_id`,
+      </if>
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="goodsName != null">
+        `goods_name`,
+      </if>
+      <if test="goodsBrief != null">
+        `goods_brief`,
+      </if>
+      <if test="goodsImage != null">
+        `goods_image`,
+      </if>
+      <if test="specValues != null">
+        `spec_values`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="productPrice != null">
+        `product_price`,
+      </if>
+      <if test="spellPrice != null">
+        `spell_price`,
+      </if>
+      <if test="leaderPrice != null">
+        `leader_price`,
+      </if>
+      <if test="salesVolume != null">
+        `sales_volume`,
+      </if>
+      <if test="spellStock != null">
+        `spell_stock`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `spell_goods_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.spellGoodsIdNotEquals != null">
+          AND `spell_goods_id` != #{example.spellGoodsIdNotEquals}
+        </if>
+        <if test="example.spellGoodsIdIn != null">
+          AND `spell_goods_id` in (${example.spellGoodsIdIn})
+        </if>
+        <if test="example.spellId != null">
+          AND `spell_id` = #{example.spellId}
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.goodsBrief != null">
+          AND `goods_brief` = #{example.goodsBrief}
+        </if>
+        <if test="example.goodsImage != null">
+          AND `goods_image` = #{example.goodsImage}
+        </if>
+        <if test="example.specValues != null">
+          AND `spec_values` = #{example.specValues}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.productPrice != null">
+          AND `product_price` = #{example.productPrice}
+        </if>
+        <if test="example.spellPrice != null">
+          AND `spell_price` = #{example.spellPrice}
+        </if>
+        <if test="example.leaderPrice != null">
+          AND `leader_price` = #{example.leaderPrice}
+        </if>
+        <if test="example.salesVolume != null">
+          AND `sales_volume` = #{example.salesVolume}
+        </if>
+        <if test="example.spellStock != null">
+          AND `spell_stock` = #{example.spellStock}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `spell_goods_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.SpellGoodsExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_spell_goods`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_spell_goods`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_spell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_spell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_spell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_spell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_spell_goods`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_spell_goods`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="spell_goods_id" keyProperty="spellGoodsId" parameterType="com.slodon.b2b2c.promotion.pojo.SpellGoods" useGeneratedKeys="true">
+    INSERT INTO `promotion_spell_goods`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="spellId != null">
+        #{spellId},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName},
+      </if>
+      <if test="goodsBrief != null">
+        #{goodsBrief},
+      </if>
+      <if test="goodsImage != null">
+        #{goodsImage},
+      </if>
+      <if test="specValues != null">
+        #{specValues},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice},
+      </if>
+      <if test="spellPrice != null">
+        #{spellPrice},
+      </if>
+      <if test="leaderPrice != null">
+        #{leaderPrice},
+      </if>
+      <if test="salesVolume != null">
+        #{salesVolume},
+      </if>
+      <if test="spellStock != null">
+        #{spellStock},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_spell_goods`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.spellId != null">
+        `spell_id` = #{record.spellId},
+      </if>
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.goodsName != null">
+        `goods_name` = #{record.goodsName},
+      </if>
+      <if test="record.goodsBrief != null">
+        `goods_brief` = #{record.goodsBrief},
+      </if>
+      <if test="record.goodsImage != null">
+        `goods_image` = #{record.goodsImage},
+      </if>
+      <if test="record.specValues != null">
+        `spec_values` = #{record.specValues},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.productPrice != null">
+        `product_price` = #{record.productPrice},
+      </if>
+      <if test="record.spellPrice != null">
+        `spell_price` = #{record.spellPrice},
+      </if>
+      <if test="record.leaderPrice != null">
+        `leader_price` = #{record.leaderPrice},
+      </if>
+      <if test="record.salesVolume != null">
+        `sales_volume` = #{record.salesVolume},
+      </if>
+      <if test="record.spellStock != null">
+        `spell_stock` = #{record.spellStock},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_spell_goods`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="spellId != null">
+        `spell_id` = #{spellId},
+      </if>
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        `goods_name` = #{goodsName},
+      </if>
+      <if test="goodsBrief != null">
+        `goods_brief` = #{goodsBrief},
+      </if>
+      <if test="goodsImage != null">
+        `goods_image` = #{goodsImage},
+      </if>
+      <if test="specValues != null">
+        `spec_values` = #{specValues},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="productPrice != null">
+        `product_price` = #{productPrice},
+      </if>
+      <if test="spellPrice != null">
+        `spell_price` = #{spellPrice},
+      </if>
+      <if test="leaderPrice != null">
+        `leader_price` = #{leaderPrice},
+      </if>
+      <if test="salesVolume != null">
+        `sales_volume` = #{salesVolume},
+      </if>
+      <if test="spellStock != null">
+        `spell_stock` = #{spellStock},
+      </if>
+    </trim>
+    WHERE `spell_goods_id` = #{spellGoodsId}
+  </update>
+</mapper>

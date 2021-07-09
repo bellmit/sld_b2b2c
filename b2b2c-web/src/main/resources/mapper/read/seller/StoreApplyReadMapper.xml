@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.seller.StoreApplyReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.StoreApply">
+    <id column="apply_id" property="applyId" />
+    <result column="vendor_id" property="vendorId" />
+    <result column="vendor_name" property="vendorName" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="store_type" property="storeType" />
+    <result column="state" property="state" />
+    <result column="apply_year" property="applyYear" />
+    <result column="store_grade_id" property="storeGradeId" />
+    <result column="store_category_id" property="storeCategoryId" />
+    <result column="submit_time" property="submitTime" />
+    <result column="refuse_reason" property="refuseReason" />
+    <result column="audit_info" property="auditInfo" />
+    <result column="pay_sn" property="paySn" />
+    <result column="pay_amount" property="payAmount" />
+    <result column="callback_time" property="callbackTime" />
+    <result column="trade_sn" property="tradeSn" />
+    <result column="payment_name" property="paymentName" />
+    <result column="payment_code" property="paymentCode" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `apply_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.applyIdNotEquals != null">
+          AND `apply_id` != #{example.applyIdNotEquals}
+        </if>
+        <if test="example.applyIdIn != null">
+          AND `apply_id` in (${example.applyIdIn})
+        </if>
+        <if test="example.vendorId != null">
+          AND `vendor_id` = #{example.vendorId}
+        </if>
+        <if test="example.vendorName != null">
+          AND `vendor_name` = #{example.vendorName}
+        </if>
+        <if test="example.vendorNameLike != null">
+          AND `vendor_name` like concat('%',#{example.vendorNameLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.storeType != null">
+          AND `store_type` = #{example.storeType}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.applyYear != null">
+          AND `apply_year` = #{example.applyYear}
+        </if>
+        <if test="example.storeGradeId != null">
+          AND `store_grade_id` = #{example.storeGradeId}
+        </if>
+        <if test="example.storeCategoryId != null">
+          AND `store_category_id` = #{example.storeCategoryId}
+        </if>
+        <if test="example.submitTimeAfter != null">
+          AND `submit_time` <![CDATA[ >= ]]> #{example.submitTimeAfter}
+        </if>
+        <if test="example.submitTimeBefore != null">
+          AND `submit_time` <![CDATA[ <= ]]> #{example.submitTimeBefore}
+        </if>
+        <if test="example.refuseReason != null">
+          AND `refuse_reason` = #{example.refuseReason}
+        </if>
+        <if test="example.auditInfo != null">
+          AND `audit_info` = #{example.auditInfo}
+        </if>
+        <if test="example.paySn != null">
+          AND `pay_sn` = #{example.paySn}
+        </if>
+        <if test="example.paySnLike != null">
+          AND `pay_sn` like concat('%',#{example.paySnLike},'%')
+        </if>
+        <if test="example.payAmount != null">
+          AND `pay_amount` = #{example.payAmount}
+        </if>
+        <if test="example.callbackTimeAfter != null">
+          AND `callback_time` <![CDATA[ >= ]]> #{example.callbackTimeAfter}
+        </if>
+        <if test="example.callbackTimeBefore != null">
+          AND `callback_time` <![CDATA[ <= ]]> #{example.callbackTimeBefore}
+        </if>
+        <if test="example.tradeSn != null">
+          AND `trade_sn` = #{example.tradeSn}
+        </if>
+        <if test="example.tradeSnLike != null">
+          AND `trade_sn` like concat('%',#{example.tradeSnLike},'%')
+        </if>
+        <if test="example.paymentName != null">
+          AND `payment_name` = #{example.paymentName}
+        </if>
+        <if test="example.paymentNameLike != null">
+          AND `payment_name` like concat('%',#{example.paymentNameLike},'%')
+        </if>
+        <if test="example.paymentCode != null">
+          AND `payment_code` = #{example.paymentCode}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `apply_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.StoreApplyExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `store_apply`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_apply`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_apply`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_apply`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store_apply`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store_apply`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

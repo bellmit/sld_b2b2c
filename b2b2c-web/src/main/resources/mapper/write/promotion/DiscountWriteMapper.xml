@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.DiscountWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.Discount">
+    <id column="discount_id" property="discountId" />
+    <result column="discount_name" property="discountName" />
+    <result column="start_time" property="startTime" />
+    <result column="end_time" property="endTime" />
+    <result column="buy_limit" property="buyLimit" />
+    <result column="is_custom_price" property="isCustomPrice" />
+    <result column="discount_rate" property="discountRate" />
+    <result column="store_id" property="storeId" />
+    <result column="state" property="state" />
+    <result column="rule" property="rule" />
+    <result column="create_time" property="createTime" />
+    <result column="vendor_id" property="vendorId" />
+    <result column="vendor_name" property="vendorName" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="discountId != null">
+        `discount_id`,
+      </if>
+      <if test="discountName != null">
+        `discount_name`,
+      </if>
+      <if test="startTime != null">
+        `start_time`,
+      </if>
+      <if test="endTime != null">
+        `end_time`,
+      </if>
+      <if test="buyLimit != null">
+        `buy_limit`,
+      </if>
+      <if test="isCustomPrice != null">
+        `is_custom_price`,
+      </if>
+      <if test="discountRate != null">
+        `discount_rate`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="rule != null">
+        `rule`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="vendorId != null">
+        `vendor_id`,
+      </if>
+      <if test="vendorName != null">
+        `vendor_name`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `discount_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.discountIdNotEquals != null">
+          AND `discount_id` != #{example.discountIdNotEquals}
+        </if>
+        <if test="example.discountIdIn != null">
+          AND `discount_id` in (${example.discountIdIn})
+        </if>
+        <if test="example.discountName != null">
+          AND `discount_name` = #{example.discountName}
+        </if>
+        <if test="example.discountNameLike != null">
+          AND `discount_name` like concat('%',#{example.discountNameLike},'%')
+        </if>
+        <if test="example.startTimeAfter != null">
+          AND `start_time` <![CDATA[ >= ]]> #{example.startTimeAfter}
+        </if>
+        <if test="example.startTimeBefore != null">
+          AND `start_time` <![CDATA[ <= ]]> #{example.startTimeBefore}
+        </if>
+        <if test="example.endTimeAfter != null">
+          AND `end_time` <![CDATA[ >= ]]> #{example.endTimeAfter}
+        </if>
+        <if test="example.endTimeBefore != null">
+          AND `end_time` <![CDATA[ <= ]]> #{example.endTimeBefore}
+        </if>
+        <if test="example.buyLimit != null">
+          AND `buy_limit` = #{example.buyLimit}
+        </if>
+        <if test="example.isCustomPrice != null">
+          AND `is_custom_price` = #{example.isCustomPrice}
+        </if>
+        <if test="example.discountRate != null">
+          AND `discount_rate` = #{example.discountRate}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.rule != null">
+          AND `rule` = #{example.rule}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.vendorId != null">
+          AND `vendor_id` = #{example.vendorId}
+        </if>
+        <if test="example.vendorName != null">
+          AND `vendor_name` = #{example.vendorName}
+        </if>
+        <if test="example.vendorNameLike != null">
+          AND `vendor_name` like concat('%',#{example.vendorNameLike},'%')
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `discount_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.DiscountExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_discount`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_discount`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_discount`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_discount`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_discount`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="discount_id" keyProperty="discountId" parameterType="com.slodon.b2b2c.promotion.pojo.Discount" useGeneratedKeys="true">
+    INSERT INTO `promotion_discount`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="discountId != null">
+        #{discountId},
+      </if>
+      <if test="discountName != null">
+        #{discountName},
+      </if>
+      <if test="startTime != null">
+        #{startTime},
+      </if>
+      <if test="endTime != null">
+        #{endTime},
+      </if>
+      <if test="buyLimit != null">
+        #{buyLimit},
+      </if>
+      <if test="isCustomPrice != null">
+        #{isCustomPrice},
+      </if>
+      <if test="discountRate != null">
+        #{discountRate},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="rule != null">
+        #{rule},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="vendorId != null">
+        #{vendorId},
+      </if>
+      <if test="vendorName != null">
+        #{vendorName},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_discount`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.discountName != null">
+        `discount_name` = #{record.discountName},
+      </if>
+      <if test="record.startTime != null">
+        `start_time` = #{record.startTime},
+      </if>
+      <if test="record.endTime != null">
+        `end_time` = #{record.endTime},
+      </if>
+      <if test="record.buyLimit != null">
+        `buy_limit` = #{record.buyLimit},
+      </if>
+      <if test="record.isCustomPrice != null">
+        `is_custom_price` = #{record.isCustomPrice},
+      </if>
+      <if test="record.discountRate != null">
+        `discount_rate` = #{record.discountRate},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state},
+      </if>
+      <if test="record.rule != null">
+        `rule` = #{record.rule},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.vendorId != null">
+        `vendor_id` = #{record.vendorId},
+      </if>
+      <if test="record.vendorName != null">
+        `vendor_name` = #{record.vendorName},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_discount`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="discountName != null">
+        `discount_name` = #{discountName},
+      </if>
+      <if test="startTime != null">
+        `start_time` = #{startTime},
+      </if>
+      <if test="endTime != null">
+        `end_time` = #{endTime},
+      </if>
+      <if test="buyLimit != null">
+        `buy_limit` = #{buyLimit},
+      </if>
+      <if test="isCustomPrice != null">
+        `is_custom_price` = #{isCustomPrice},
+      </if>
+      <if test="discountRate != null">
+        `discount_rate` = #{discountRate},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="state != null">
+        `state` = #{state},
+      </if>
+      <if test="rule != null">
+        `rule` = #{rule},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="vendorId != null">
+        `vendor_id` = #{vendorId},
+      </if>
+      <if test="vendorName != null">
+        `vendor_name` = #{vendorName},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+    </trim>
+    WHERE `discount_id` = #{discountId}
+  </update>
+</mapper>

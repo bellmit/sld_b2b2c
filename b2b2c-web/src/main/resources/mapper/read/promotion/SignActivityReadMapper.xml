@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.promotion.SignActivityReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.SignActivity">
+    <id column="sign_activity_id" property="signActivityId" />
+    <result column="start_time" property="startTime" />
+    <result column="end_time" property="endTime" />
+    <result column="integral_per_sign" property="integralPerSign" />
+    <result column="is_remind" property="isRemind" />
+    <result column="continue_num" property="continueNum" />
+    <result column="bonus_rules" property="bonusRules" />
+    <result column="bonus_integral" property="bonusIntegral" />
+    <result column="bonus_voucher" property="bonusVoucher" />
+    <result column="state" property="state" />
+    <result column="template_json" property="templateJson" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="create_admin_name" property="createAdminName" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `sign_activity_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.signActivityIdNotEquals != null">
+          AND `sign_activity_id` != #{example.signActivityIdNotEquals}
+        </if>
+        <if test="example.signActivityIdIn != null">
+          AND `sign_activity_id` in (${example.signActivityIdIn})
+        </if>
+        <if test="example.startTimeAfter != null">
+          AND `start_time` <![CDATA[ >= ]]> #{example.startTimeAfter}
+        </if>
+        <if test="example.startTimeBefore != null">
+          AND `start_time` <![CDATA[ <= ]]> #{example.startTimeBefore}
+        </if>
+        <if test="example.endTimeAfter != null">
+          AND `end_time` <![CDATA[ >= ]]> #{example.endTimeAfter}
+        </if>
+        <if test="example.endTimeBefore != null">
+          AND `end_time` <![CDATA[ <= ]]> #{example.endTimeBefore}
+        </if>
+        <if test="example.integralPerSign != null">
+          AND `integral_per_sign` = #{example.integralPerSign}
+        </if>
+        <if test="example.isRemind != null">
+          AND `is_remind` = #{example.isRemind}
+        </if>
+        <if test="example.continueNum != null">
+          AND `continue_num` = #{example.continueNum}
+        </if>
+        <if test="example.bonusRules != null">
+          AND `bonus_rules` = #{example.bonusRules}
+        </if>
+        <if test="example.bonusIntegral != null">
+          AND `bonus_integral` = #{example.bonusIntegral}
+        </if>
+        <if test="example.bonusVoucher != null">
+          AND `bonus_voucher` = #{example.bonusVoucher}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.templateJson != null">
+          AND `template_json` = #{example.templateJson}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.createAdminName != null">
+          AND `create_admin_name` = #{example.createAdminName}
+        </if>
+        <if test="example.createAdminNameLike != null">
+          AND `create_admin_name` like concat('%',#{example.createAdminNameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.checkStartTime != null">
+          AND ( (`start_time` <![CDATA[ <= ]]> #{example.checkStartTime} AND `end_time` <![CDATA[ >= ]]> #{example.checkStartTime})
+          OR (`start_time` <![CDATA[ <= ]]> #{example.checkEndTime} AND `end_time` <![CDATA[ >= ]]> #{example.checkEndTime})
+          OR ( `start_time` <![CDATA[ >= ]]> #{example.checkStartTime} AND `end_time` <![CDATA[ <= ]]> #{example.checkEndTime} ) )
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `sign_activity_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.SignActivityExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_sign_activity`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_sign_activity`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_sign_activity`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_sign_activity`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_sign_activity`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_sign_activity`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

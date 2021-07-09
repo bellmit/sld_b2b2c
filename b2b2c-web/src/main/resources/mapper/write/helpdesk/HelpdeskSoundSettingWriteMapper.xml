@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.helpdesk.HelpdeskSoundSettingWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.helpdesk.pojo.HelpdeskSoundSetting">
+    <id column="setting_id" property="settingId" />
+    <result column="store_id" property="storeId" />
+    <result column="vendor_id" property="vendorId" />
+    <result column="is_open" property="isOpen" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="vendorId != null">
+        `vendor_id`,
+      </if>
+      <if test="isOpen != null">
+        `is_open`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `setting_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.settingIdNotEquals != null">
+          AND `setting_id` != #{example.settingIdNotEquals}
+        </if>
+        <if test="example.settingIdIn != null">
+          AND `setting_id` in (${example.settingIdIn})
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.vendorId != null">
+          AND `vendor_id` = #{example.vendorId}
+        </if>
+        <if test="example.isOpen != null">
+          AND `is_open` = #{example.isOpen}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `setting_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.helpdesk.example.HelpdeskSoundSettingExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `helpdesk_sound_setting`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `helpdesk_sound_setting`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `helpdesk_sound_setting`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `helpdesk_sound_setting`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `helpdesk_sound_setting`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `helpdesk_sound_setting`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `helpdesk_sound_setting`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `helpdesk_sound_setting`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="setting_id" keyProperty="settingId" parameterType="com.slodon.b2b2c.helpdesk.pojo.HelpdeskSoundSetting" useGeneratedKeys="true">
+    INSERT INTO `helpdesk_sound_setting`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="vendorId != null">
+        #{vendorId},
+      </if>
+      <if test="isOpen != null">
+        #{isOpen},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `helpdesk_sound_setting`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.vendorId != null">
+        `vendor_id` = #{record.vendorId},
+      </if>
+      <if test="record.isOpen != null">
+        `is_open` = #{record.isOpen},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `helpdesk_sound_setting`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="vendorId != null">
+        `vendor_id` = #{vendorId},
+      </if>
+      <if test="isOpen != null">
+        `is_open` = #{isOpen},
+      </if>
+    </trim>
+    WHERE `setting_id` = #{settingId}
+  </update>
+</mapper>

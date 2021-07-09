@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.promotion.SignLogReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.SignLog">
+    <id column="log_id" property="logId" />
+    <result column="sign_activity_id" property="signActivityId" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="login_ip" property="loginIp" />
+    <result column="sign_time" property="signTime" />
+    <result column="sign_source" property="signSource" />
+    <result column="sign_type" property="signType" />
+    <result column="bonus_integral" property="bonusIntegral" />
+    <result column="bonus_voucher" property="bonusVoucher" />
+    <result column="continue_num" property="continueNum" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `log_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.logIdNotEquals != null">
+          AND `log_id` != #{example.logIdNotEquals}
+        </if>
+        <if test="example.logIdIn != null">
+          AND `log_id` in (${example.logIdIn})
+        </if>
+        <if test="example.signActivityId != null">
+          AND `sign_activity_id` = #{example.signActivityId}
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.loginIp != null">
+          AND `login_ip` = #{example.loginIp}
+        </if>
+        <if test="example.signTimeAfter != null">
+          AND `sign_time` <![CDATA[ >= ]]> #{example.signTimeAfter}
+        </if>
+        <if test="example.signTimeBefore != null">
+          AND `sign_time` <![CDATA[ <= ]]> #{example.signTimeBefore}
+        </if>
+        <if test="example.signSource != null">
+          AND `sign_source` = #{example.signSource}
+        </if>
+        <if test="example.signType != null">
+          AND `sign_type` = #{example.signType}
+        </if>
+        <if test="example.bonusIntegral != null">
+          AND `bonus_integral` = #{example.bonusIntegral}
+        </if>
+        <if test="example.bonusVoucher != null">
+          AND `bonus_voucher` = #{example.bonusVoucher}
+        </if>
+        <if test="example.continueNum != null">
+          AND `continue_num` = #{example.continueNum}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `log_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.SignLogExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_sign_log`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_sign_log`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_sign_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_sign_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_sign_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_sign_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+
+  <select id="getMemberSignListCount" resultType="java.lang.Integer">
+    SELECT count(*) FROM (
+    SELECT DISTINCT member_id FROM promotion_sign_log
+    <if test="example.memberName != null">
+      WHERE member_name LIKE CONCAT('%',#{example.memberName},'%')
+    </if>
+    ) a
+  </select>
+
+  <select id="getMemberSignList" resultType="com.slodon.b2b2c.vo.promotion.MemberSignListVO">
+    SELECT
+    member_id memberId, member_name memberName, COUNT(*) signTotal
+    FROM promotion_sign_log
+    <if test="example.memberNameLike != null">
+      WHERE member_name LIKE CONCAT('%',#{example.memberNameLike},'%')
+    </if>
+    GROUP BY member_id,member_name
+    ORDER BY count(*) desc
+    <if test="size != null and size &gt; 0">limit #{start},#{size}</if>
+  </select>
+</mapper>

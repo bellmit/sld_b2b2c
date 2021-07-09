@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.business.OrderExtendReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.business.pojo.OrderExtend">
+    <id column="extend_id" property="extendId" />
+    <result column="order_sn" property="orderSn" />
+    <result column="store_id" property="storeId" />
+    <result column="deliver_type" property="deliverType" />
+    <result column="deliver_mobile" property="deliverMobile" />
+    <result column="deliver_name" property="deliverName" />
+    <result column="shipping_express_id" property="shippingExpressId" />
+    <result column="deliver_time" property="deliverTime" />
+    <result column="evaluation_time" property="evaluationTime" />
+    <result column="order_remark" property="orderRemark" />
+    <result column="order_points_count" property="orderPointsCount" />
+    <result column="voucher_price" property="voucherPrice" />
+    <result column="voucher_code" property="voucherCode" />
+    <result column="order_from" property="orderFrom" />
+    <result column="deliver_address_id" property="deliverAddressId" />
+    <result column="receiver_province_code" property="receiverProvinceCode" />
+    <result column="receiver_city_code" property="receiverCityCode" />
+    <result column="receiver_district_code" property="receiverDistrictCode" />
+    <result column="receiver_name" property="receiverName" />
+    <result column="receiver_info" property="receiverInfo" />
+    <result column="invoice_info" property="invoiceInfo" />
+    <result column="promotion_info" property="promotionInfo" />
+    <result column="is_dzmd" property="isDzmd" />
+    <result column="invoice_status" property="invoiceStatus" />
+    <result column="store_voucher_amount" property="storeVoucherAmount" />
+    <result column="platform_voucher_amount" property="platformVoucherAmount" />
+    <result column="deliver_remark" property="deliverRemark" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `extend_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.extendIdNotEquals != null">
+          AND `extend_id` != #{example.extendIdNotEquals}
+        </if>
+        <if test="example.extendIdIn != null">
+          AND `extend_id` in (${example.extendIdIn})
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.deliverType != null">
+          AND `deliver_type` = #{example.deliverType}
+        </if>
+        <if test="example.deliverMobile != null">
+          AND `deliver_mobile` = #{example.deliverMobile}
+        </if>
+        <if test="example.deliverName != null">
+          AND `deliver_name` = #{example.deliverName}
+        </if>
+        <if test="example.shippingExpressId != null">
+          AND `shipping_express_id` = #{example.shippingExpressId}
+        </if>
+        <if test="example.deliverTimeAfter != null">
+          AND `deliver_time` <![CDATA[ >= ]]> #{example.deliverTimeAfter}
+        </if>
+        <if test="example.deliverTimeBefore != null">
+          AND `deliver_time` <![CDATA[ <= ]]> #{example.deliverTimeBefore}
+        </if>
+        <if test="example.evaluationTimeAfter != null">
+          AND `evaluation_time` <![CDATA[ >= ]]> #{example.evaluationTimeAfter}
+        </if>
+        <if test="example.evaluationTimeBefore != null">
+          AND `evaluation_time` <![CDATA[ <= ]]> #{example.evaluationTimeBefore}
+        </if>
+        <if test="example.orderRemark != null">
+          AND `order_remark` = #{example.orderRemark}
+        </if>
+        <if test="example.orderPointsCount != null">
+          AND `order_points_count` = #{example.orderPointsCount}
+        </if>
+        <if test="example.voucherPrice != null">
+          AND `voucher_price` = #{example.voucherPrice}
+        </if>
+        <if test="example.voucherCode != null">
+          AND `voucher_code` = #{example.voucherCode}
+        </if>
+        <if test="example.orderFrom != null">
+          AND `order_from` = #{example.orderFrom}
+        </if>
+        <if test="example.deliverAddressId != null">
+          AND `deliver_address_id` = #{example.deliverAddressId}
+        </if>
+        <if test="example.receiverProvinceCode != null">
+          AND `receiver_province_code` = #{example.receiverProvinceCode}
+        </if>
+        <if test="example.receiverCityCode != null">
+          AND `receiver_city_code` = #{example.receiverCityCode}
+        </if>
+        <if test="example.receiverDistrictCode != null">
+          AND `receiver_district_code` = #{example.receiverDistrictCode}
+        </if>
+        <if test="example.receiverName != null">
+          AND `receiver_name` = #{example.receiverName}
+        </if>
+        <if test="example.receiverNameLike != null">
+          AND `receiver_name` like concat('%',#{example.receiverNameLike},'%')
+        </if>
+        <if test="example.receiverInfo != null">
+          AND `receiver_info` = #{example.receiverInfo}
+        </if>
+        <if test="example.invoiceInfo != null">
+          AND `invoice_info` = #{example.invoiceInfo}
+        </if>
+        <if test="example.promotionInfo != null">
+          AND `promotion_info` = #{example.promotionInfo}
+        </if>
+        <if test="example.isDzmd != null">
+          AND `is_dzmd` = #{example.isDzmd}
+        </if>
+        <if test="example.invoiceStatus != null">
+          AND `invoice_status` = #{example.invoiceStatus}
+        </if>
+        <if test="example.storeVoucherAmount != null">
+          AND `store_voucher_amount` = #{example.storeVoucherAmount}
+        </if>
+        <if test="example.platformVoucherAmount != null">
+          AND `platform_voucher_amount` = #{example.platformVoucherAmount}
+        </if>
+        <if test="example.deliverRemark != null">
+          AND `deliver_remark` = #{example.deliverRemark}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `extend_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.business.example.OrderExtendExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `bz_order_extend`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_extend`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

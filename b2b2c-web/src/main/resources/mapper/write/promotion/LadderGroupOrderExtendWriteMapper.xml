@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.LadderGroupOrderExtendWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.LadderGroupOrderExtend">
+    <id column="extend_id" property="extendId" />
+    <result column="group_id" property="groupId" />
+    <result column="order_sn" property="orderSn" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="goods_image" property="goodsImage" />
+    <result column="product_id" property="productId" />
+    <result column="product_num" property="productNum" />
+    <result column="product_price" property="productPrice" />
+    <result column="deposit_pay_sn" property="depositPaySn" />
+    <result column="remain_pay_sn" property="remainPaySn" />
+    <result column="order_sub_state" property="orderSubState" />
+    <result column="advance_deposit" property="advanceDeposit" />
+    <result column="remain_amount" property="remainAmount" />
+    <result column="remain_start_time" property="remainStartTime" />
+    <result column="remain_end_time" property="remainEndTime" />
+    <result column="participate_time" property="participateTime" />
+    <result column="success_time" property="successTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="groupId != null">
+        `group_id`,
+      </if>
+      <if test="orderSn != null">
+        `order_sn`,
+      </if>
+      <if test="memberId != null">
+        `member_id`,
+      </if>
+      <if test="memberName != null">
+        `member_name`,
+      </if>
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="goodsName != null">
+        `goods_name`,
+      </if>
+      <if test="goodsImage != null">
+        `goods_image`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="productNum != null">
+        `product_num`,
+      </if>
+      <if test="productPrice != null">
+        `product_price`,
+      </if>
+      <if test="depositPaySn != null">
+        `deposit_pay_sn`,
+      </if>
+      <if test="remainPaySn != null">
+        `remain_pay_sn`,
+      </if>
+      <if test="orderSubState != null">
+        `order_sub_state`,
+      </if>
+      <if test="advanceDeposit != null">
+        `advance_deposit`,
+      </if>
+      <if test="remainAmount != null">
+        `remain_amount`,
+      </if>
+      <if test="remainStartTime != null">
+        `remain_start_time`,
+      </if>
+      <if test="remainEndTime != null">
+        `remain_end_time`,
+      </if>
+      <if test="participateTime != null">
+        `participate_time`,
+      </if>
+      <if test="successTime != null">
+        `success_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `extend_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.extendIdNotEquals != null">
+          AND `extend_id` != #{example.extendIdNotEquals}
+        </if>
+        <if test="example.extendIdIn != null">
+          AND `extend_id` in (${example.extendIdIn})
+        </if>
+        <if test="example.groupId != null">
+          AND `group_id` = #{example.groupId}
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.orderSnIn != null">
+          AND `order_sn` in (${example.orderSnIn})
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.goodsImage != null">
+          AND `goods_image` = #{example.goodsImage}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.productPrice != null">
+          AND `product_price` = #{example.productPrice}
+        </if>
+        <if test="example.depositPaySn != null">
+          AND `deposit_pay_sn` = #{example.depositPaySn}
+        </if>
+        <if test="example.depositPaySnLike != null">
+          AND `deposit_pay_sn` like concat('%',#{example.depositPaySnLike},'%')
+        </if>
+        <if test="example.remainPaySn != null">
+          AND `remain_pay_sn` = #{example.remainPaySn}
+        </if>
+        <if test="example.remainPaySnLike != null">
+          AND `remain_pay_sn` like concat('%',#{example.remainPaySnLike},'%')
+        </if>
+        <if test="example.orderSubState != null">
+          AND `order_sub_state` = #{example.orderSubState}
+        </if>
+        <if test="example.orderSubStateIn != null">
+          AND `order_sub_state` in (${example.orderSubStateIn})
+        </if>
+        <if test="example.orderSubStateNotIn != null">
+          AND `order_sub_state` not in (${example.orderSubStateNotIn})
+        </if>
+        <if test="example.orderSubStateNotEquals != null">
+          AND `order_sub_state` != #{example.orderSubStateNotEquals}
+        </if>
+        <if test="example.advanceDeposit != null">
+          AND `advance_deposit` = #{example.advanceDeposit}
+        </if>
+        <if test="example.remainAmount != null">
+          AND `remain_amount` = #{example.remainAmount}
+        </if>
+        <if test="example.remainStartTimeAfter != null">
+          AND `remain_start_time` <![CDATA[ >= ]]> #{example.remainStartTimeAfter}
+        </if>
+        <if test="example.remainStartTimeBefore != null">
+          AND `remain_start_time` <![CDATA[ <= ]]> #{example.remainStartTimeBefore}
+        </if>
+        <if test="example.remainEndTimeAfter != null">
+          AND `remain_end_time` <![CDATA[ >= ]]> #{example.remainEndTimeAfter}
+        </if>
+        <if test="example.remainEndTimeBefore != null">
+          AND `remain_end_time` <![CDATA[ <= ]]> #{example.remainEndTimeBefore}
+        </if>
+        <if test="example.participateTimeAfter != null">
+          AND `participate_time` <![CDATA[ >= ]]> #{example.participateTimeAfter}
+        </if>
+        <if test="example.participateTimeBefore != null">
+          AND `participate_time` <![CDATA[ <= ]]> #{example.participateTimeBefore}
+        </if>
+        <if test="example.successTimeAfter != null">
+          AND `success_time` <![CDATA[ >= ]]> #{example.successTimeAfter}
+        </if>
+        <if test="example.successTimeBefore != null">
+          AND `success_time` <![CDATA[ <= ]]> #{example.successTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `extend_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.LadderGroupOrderExtendExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_ladder_group_order_extend`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group_order_extend`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_ladder_group_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_ladder_group_order_extend`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_ladder_group_order_extend`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_ladder_group_order_extend`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="extend_id" keyProperty="extendId" parameterType="com.slodon.b2b2c.promotion.pojo.LadderGroupOrderExtend" useGeneratedKeys="true">
+    INSERT INTO `promotion_ladder_group_order_extend`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="groupId != null">
+        #{groupId},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn},
+      </if>
+      <if test="memberId != null">
+        #{memberId},
+      </if>
+      <if test="memberName != null">
+        #{memberName},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName},
+      </if>
+      <if test="goodsImage != null">
+        #{goodsImage},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="productNum != null">
+        #{productNum},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice},
+      </if>
+      <if test="depositPaySn != null">
+        #{depositPaySn},
+      </if>
+      <if test="remainPaySn != null">
+        #{remainPaySn},
+      </if>
+      <if test="orderSubState != null">
+        #{orderSubState},
+      </if>
+      <if test="advanceDeposit != null">
+        #{advanceDeposit},
+      </if>
+      <if test="remainAmount != null">
+        #{remainAmount},
+      </if>
+      <if test="remainStartTime != null">
+        #{remainStartTime},
+      </if>
+      <if test="remainEndTime != null">
+        #{remainEndTime},
+      </if>
+      <if test="participateTime != null">
+        #{participateTime},
+      </if>
+      <if test="successTime != null">
+        #{successTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_ladder_group_order_extend`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.groupId != null">
+        `group_id` = #{record.groupId},
+      </if>
+      <if test="record.orderSn != null">
+        `order_sn` = #{record.orderSn},
+      </if>
+      <if test="record.memberId != null">
+        `member_id` = #{record.memberId},
+      </if>
+      <if test="record.memberName != null">
+        `member_name` = #{record.memberName},
+      </if>
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.goodsName != null">
+        `goods_name` = #{record.goodsName},
+      </if>
+      <if test="record.goodsImage != null">
+        `goods_image` = #{record.goodsImage},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.productNum != null">
+        `product_num` = #{record.productNum},
+      </if>
+      <if test="record.productPrice != null">
+        `product_price` = #{record.productPrice},
+      </if>
+      <if test="record.depositPaySn != null">
+        `deposit_pay_sn` = #{record.depositPaySn},
+      </if>
+      <if test="record.remainPaySn != null">
+        `remain_pay_sn` = #{record.remainPaySn},
+      </if>
+      <if test="record.orderSubState != null">
+        `order_sub_state` = #{record.orderSubState},
+      </if>
+      <if test="record.advanceDeposit != null">
+        `advance_deposit` = #{record.advanceDeposit},
+      </if>
+      <if test="record.remainAmount != null">
+        `remain_amount` = #{record.remainAmount},
+      </if>
+      <if test="record.remainStartTime != null">
+        `remain_start_time` = #{record.remainStartTime},
+      </if>
+      <if test="record.remainEndTime != null">
+        `remain_end_time` = #{record.remainEndTime},
+      </if>
+      <if test="record.participateTime != null">
+        `participate_time` = #{record.participateTime},
+      </if>
+      <if test="record.successTime != null">
+        `success_time` = #{record.successTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_ladder_group_order_extend`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="groupId != null">
+        `group_id` = #{groupId},
+      </if>
+      <if test="orderSn != null">
+        `order_sn` = #{orderSn},
+      </if>
+      <if test="memberId != null">
+        `member_id` = #{memberId},
+      </if>
+      <if test="memberName != null">
+        `member_name` = #{memberName},
+      </if>
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        `goods_name` = #{goodsName},
+      </if>
+      <if test="goodsImage != null">
+        `goods_image` = #{goodsImage},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="productNum != null">
+        `product_num` = #{productNum},
+      </if>
+      <if test="productPrice != null">
+        `product_price` = #{productPrice},
+      </if>
+      <if test="depositPaySn != null">
+        `deposit_pay_sn` = #{depositPaySn},
+      </if>
+      <if test="remainPaySn != null">
+        `remain_pay_sn` = #{remainPaySn},
+      </if>
+      <if test="orderSubState != null">
+        `order_sub_state` = #{orderSubState},
+      </if>
+      <if test="advanceDeposit != null">
+        `advance_deposit` = #{advanceDeposit},
+      </if>
+      <if test="remainAmount != null">
+        `remain_amount` = #{remainAmount},
+      </if>
+      <if test="remainStartTime != null">
+        `remain_start_time` = #{remainStartTime},
+      </if>
+      <if test="remainEndTime != null">
+        `remain_end_time` = #{remainEndTime},
+      </if>
+      <if test="participateTime != null">
+        `participate_time` = #{participateTime},
+      </if>
+      <if test="successTime != null">
+        `success_time` = #{successTime},
+      </if>
+    </trim>
+    WHERE `extend_id` = #{extendId}
+  </update>
+</mapper>

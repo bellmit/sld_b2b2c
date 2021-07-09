@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.seller.VendorLogWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.VendorLog">
+    <id column="log_id" property="logId" />
+    <result column="vendor_id" property="vendorId" />
+    <result column="vendor_name" property="vendorName" />
+    <result column="operation_url" property="operationUrl" />
+    <result column="operation_content" property="operationContent" />
+    <result column="opt_time" property="optTime" />
+    <result column="ip" property="ip" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="vendorId != null">
+        `vendor_id`,
+      </if>
+      <if test="vendorName != null">
+        `vendor_name`,
+      </if>
+      <if test="operationUrl != null">
+        `operation_url`,
+      </if>
+      <if test="operationContent != null">
+        `operation_content`,
+      </if>
+      <if test="optTime != null">
+        `opt_time`,
+      </if>
+      <if test="ip != null">
+        `ip`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `log_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.logIdNotEquals != null">
+          AND `log_id` != #{example.logIdNotEquals}
+        </if>
+        <if test="example.logIdIn != null">
+          AND `log_id` in (${example.logIdIn})
+        </if>
+        <if test="example.vendorId != null">
+          AND `vendor_id` = #{example.vendorId}
+        </if>
+        <if test="example.vendorName != null">
+          AND `vendor_name` = #{example.vendorName}
+        </if>
+        <if test="example.vendorNameLike != null">
+          AND `vendor_name` like concat('%',#{example.vendorNameLike},'%')
+        </if>
+        <if test="example.operationUrl != null">
+          AND `operation_url` = #{example.operationUrl}
+        </if>
+        <if test="example.operationContent != null">
+          AND `operation_content` = #{example.operationContent}
+        </if>
+        <if test="example.operationContentLike != null">
+          AND `operation_content` like concat('%',#{example.operationContentLike},'%')
+        </if>
+        <if test="example.optTimeAfter != null">
+          AND `opt_time` <![CDATA[ >= ]]> #{example.optTimeAfter}
+        </if>
+        <if test="example.optTimeBefore != null">
+          AND `opt_time` <![CDATA[ <= ]]> #{example.optTimeBefore}
+        </if>
+        <if test="example.ip != null">
+          AND `ip` = #{example.ip}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `log_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.VendorLogExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `vendor_log`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor_log`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `vendor_log`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `vendor_log`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="log_id" keyProperty="logId" parameterType="com.slodon.b2b2c.seller.pojo.VendorLog" useGeneratedKeys="true">
+    INSERT INTO `vendor_log`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="vendorId != null">
+        #{vendorId},
+      </if>
+      <if test="vendorName != null">
+        #{vendorName},
+      </if>
+      <if test="operationUrl != null">
+        #{operationUrl},
+      </if>
+      <if test="operationContent != null">
+        #{operationContent},
+      </if>
+      <if test="optTime != null">
+        #{optTime},
+      </if>
+      <if test="ip != null">
+        #{ip},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `vendor_log`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.vendorId != null">
+        `vendor_id` = #{record.vendorId},
+      </if>
+      <if test="record.vendorName != null">
+        `vendor_name` = #{record.vendorName},
+      </if>
+      <if test="record.operationUrl != null">
+        `operation_url` = #{record.operationUrl},
+      </if>
+      <if test="record.operationContent != null">
+        `operation_content` = #{record.operationContent},
+      </if>
+      <if test="record.optTime != null">
+        `opt_time` = #{record.optTime},
+      </if>
+      <if test="record.ip != null">
+        `ip` = #{record.ip},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `vendor_log`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="vendorId != null">
+        `vendor_id` = #{vendorId},
+      </if>
+      <if test="vendorName != null">
+        `vendor_name` = #{vendorName},
+      </if>
+      <if test="operationUrl != null">
+        `operation_url` = #{operationUrl},
+      </if>
+      <if test="operationContent != null">
+        `operation_content` = #{operationContent},
+      </if>
+      <if test="optTime != null">
+        `opt_time` = #{optTime},
+      </if>
+      <if test="ip != null">
+        `ip` = #{ip},
+      </if>
+    </trim>
+    WHERE `log_id` = #{logId}
+  </update>
+</mapper>

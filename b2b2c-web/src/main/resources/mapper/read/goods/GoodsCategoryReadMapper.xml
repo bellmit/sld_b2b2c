@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.goods.GoodsCategoryReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.goods.pojo.GoodsCategory">
+    <id column="category_id" property="categoryId" />
+    <result column="category_name" property="categoryName" />
+    <result column="category_alias" property="categoryAlias" />
+    <result column="pid" property="pid" />
+    <result column="description" property="description" />
+    <result column="path" property="path" />
+    <result column="scaling" property="scaling" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="update_admin_id" property="updateAdminId" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="sort" property="sort" />
+    <result column="state" property="state" />
+    <result column="grade" property="grade" />
+    <result column="category_image" property="categoryImage" />
+    <result column="recommend_picture" property="recommendPicture" />
+    <result column="mobile_image" property="mobileImage" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `category_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.categoryIdNotEquals != null">
+          AND `category_id` != #{example.categoryIdNotEquals}
+        </if>
+        <if test="example.categoryIdIn != null">
+          AND `category_id` in (${example.categoryIdIn})
+        </if>
+        <if test="example.categoryName != null">
+          AND `category_name` = #{example.categoryName}
+        </if>
+        <if test="example.categoryNameLike != null">
+          AND `category_name` like concat('%',#{example.categoryNameLike},'%')
+        </if>
+        <if test="example.categoryAlias != null">
+          AND `category_alias` = #{example.categoryAlias}
+        </if>
+        <if test="example.pid != null">
+          AND `pid` = #{example.pid}
+        </if>
+        <if test="example.description != null">
+          AND `description` = #{example.description}
+        </if>
+        <if test="example.path != null">
+          AND `path` = #{example.path}
+        </if>
+        <if test="example.scaling != null">
+          AND `scaling` = #{example.scaling}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.updateAdminId != null">
+          AND `update_admin_id` = #{example.updateAdminId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateIn != null">
+          AND `state` in (${example.stateIn})
+        </if>
+        <if test="example.stateNotIn != null">
+          AND `state` not in (${example.stateNotIn})
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.grade != null">
+          AND `grade` = #{example.grade}
+        </if>
+        <if test="example.categoryImage != null">
+          AND `category_image` = #{example.categoryImage}
+        </if>
+        <if test="example.recommendPicture != null">
+          AND `recommend_picture` = #{example.recommendPicture}
+        </if>
+        <if test="example.mobileImage != null">
+          AND `mobile_image` = #{example.mobileImage}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `category_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.goods.example.GoodsCategoryExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `goods_category`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_category`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

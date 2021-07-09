@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.goods.GoodsCategoryWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.goods.pojo.GoodsCategory">
+    <id column="category_id" property="categoryId" />
+    <result column="category_name" property="categoryName" />
+    <result column="category_alias" property="categoryAlias" />
+    <result column="pid" property="pid" />
+    <result column="description" property="description" />
+    <result column="path" property="path" />
+    <result column="scaling" property="scaling" />
+    <result column="create_admin_id" property="createAdminId" />
+    <result column="update_admin_id" property="updateAdminId" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+    <result column="sort" property="sort" />
+    <result column="state" property="state" />
+    <result column="grade" property="grade" />
+    <result column="category_image" property="categoryImage" />
+    <result column="recommend_picture" property="recommendPicture" />
+    <result column="mobile_image" property="mobileImage" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="categoryName != null">
+        `category_name`,
+      </if>
+      <if test="categoryAlias != null">
+        `category_alias`,
+      </if>
+      <if test="pid != null">
+        `pid`,
+      </if>
+      <if test="description != null">
+        `description`,
+      </if>
+      <if test="path != null">
+        `path`,
+      </if>
+      <if test="scaling != null">
+        `scaling`,
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id`,
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="grade != null">
+        `grade`,
+      </if>
+      <if test="categoryImage != null">
+        `category_image`,
+      </if>
+      <if test="recommendPicture != null">
+        `recommend_picture`,
+      </if>
+      <if test="mobileImage != null">
+        `mobile_image`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `category_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.categoryIdNotEquals != null">
+          AND `category_id` != #{example.categoryIdNotEquals}
+        </if>
+        <if test="example.categoryIdIn != null">
+          AND `category_id` in (${example.categoryIdIn})
+        </if>
+        <if test="example.categoryName != null">
+          AND `category_name` = #{example.categoryName}
+        </if>
+        <if test="example.categoryNameLike != null">
+          AND `category_name` like concat('%',#{example.categoryNameLike},'%')
+        </if>
+        <if test="example.categoryAlias != null">
+          AND `category_alias` = #{example.categoryAlias}
+        </if>
+        <if test="example.pid != null">
+          AND `pid` = #{example.pid}
+        </if>
+        <if test="example.description != null">
+          AND `description` = #{example.description}
+        </if>
+        <if test="example.path != null">
+          AND `path` = #{example.path}
+        </if>
+        <if test="example.scaling != null">
+          AND `scaling` = #{example.scaling}
+        </if>
+        <if test="example.createAdminId != null">
+          AND `create_admin_id` = #{example.createAdminId}
+        </if>
+        <if test="example.updateAdminId != null">
+          AND `update_admin_id` = #{example.updateAdminId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateIn != null">
+          AND `state` in (${example.stateIn})
+        </if>
+        <if test="example.stateNotIn != null">
+          AND `state` not in (${example.stateNotIn})
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.grade != null">
+          AND `grade` = #{example.grade}
+        </if>
+        <if test="example.categoryImage != null">
+          AND `category_image` = #{example.categoryImage}
+        </if>
+        <if test="example.recommendPicture != null">
+          AND `recommend_picture` = #{example.recommendPicture}
+        </if>
+        <if test="example.mobileImage != null">
+          AND `mobile_image` = #{example.mobileImage}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `category_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.goods.example.GoodsCategoryExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `goods_category`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_category`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `goods_category`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `goods_category`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="category_id" keyProperty="categoryId" parameterType="com.slodon.b2b2c.goods.pojo.GoodsCategory" useGeneratedKeys="true">
+    INSERT INTO `goods_category`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="categoryName != null">
+        #{categoryName},
+      </if>
+      <if test="categoryAlias != null">
+        #{categoryAlias},
+      </if>
+      <if test="pid != null">
+        #{pid},
+      </if>
+      <if test="description != null">
+        #{description},
+      </if>
+      <if test="path != null">
+        #{path},
+      </if>
+      <if test="scaling != null">
+        #{scaling},
+      </if>
+      <if test="createAdminId != null">
+        #{createAdminId},
+      </if>
+      <if test="updateAdminId != null">
+        #{updateAdminId},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="grade != null">
+        #{grade},
+      </if>
+      <if test="categoryImage != null">
+        #{categoryImage},
+      </if>
+      <if test="recommendPicture != null">
+        #{recommendPicture},
+      </if>
+      <if test="mobileImage != null">
+        #{mobileImage},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `goods_category`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.categoryName != null">
+        `category_name` = #{record.categoryName},
+      </if>
+      <if test="record.categoryAlias != null">
+        `category_alias` = #{record.categoryAlias},
+      </if>
+      <if test="record.pid != null">
+        `pid` = #{record.pid},
+      </if>
+      <if test="record.description != null">
+        `description` = #{record.description},
+      </if>
+      <if test="record.path != null">
+        `path` = #{record.path},
+      </if>
+      <if test="record.scaling != null">
+        `scaling` = #{record.scaling},
+      </if>
+      <if test="record.createAdminId != null">
+        `create_admin_id` = #{record.createAdminId},
+      </if>
+      <if test="record.updateAdminId != null">
+        `update_admin_id` = #{record.updateAdminId},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+      <if test="record.sort != null">
+        `sort` = #{record.sort},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state},
+      </if>
+      <if test="record.grade != null">
+        `grade` = #{record.grade},
+      </if>
+      <if test="record.categoryImage != null">
+        `category_image` = #{record.categoryImage},
+      </if>
+      <if test="record.recommendPicture != null">
+        `recommend_picture` = #{record.recommendPicture},
+      </if>
+      <if test="record.mobileImage != null">
+        `mobile_image` = #{record.mobileImage},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `goods_category`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="categoryName != null">
+        `category_name` = #{categoryName},
+      </if>
+      <if test="categoryAlias != null">
+        `category_alias` = #{categoryAlias},
+      </if>
+      <if test="pid != null">
+        `pid` = #{pid},
+      </if>
+      <if test="description != null">
+        `description` = #{description},
+      </if>
+      <if test="path != null">
+        `path` = #{path},
+      </if>
+      <if test="scaling != null">
+        `scaling` = #{scaling},
+      </if>
+      <if test="createAdminId != null">
+        `create_admin_id` = #{createAdminId},
+      </if>
+      <if test="updateAdminId != null">
+        `update_admin_id` = #{updateAdminId},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort},
+      </if>
+      <if test="state != null">
+        `state` = #{state},
+      </if>
+      <if test="grade != null">
+        `grade` = #{grade},
+      </if>
+      <if test="categoryImage != null">
+        `category_image` = #{categoryImage},
+      </if>
+      <if test="recommendPicture != null">
+        `recommend_picture` = #{recommendPicture},
+      </if>
+      <if test="mobileImage != null">
+        `mobile_image` = #{mobileImage},
+      </if>
+    </trim>
+    WHERE `category_id` = #{categoryId}
+  </update>
+</mapper>

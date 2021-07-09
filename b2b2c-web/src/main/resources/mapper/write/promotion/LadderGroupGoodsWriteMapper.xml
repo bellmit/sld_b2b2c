@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.LadderGroupGoodsWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.LadderGroupGoods">
+    <id column="group_goods_id" property="groupGoodsId" />
+    <result column="group_id" property="groupId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="goods_brief" property="goodsBrief" />
+    <result column="goods_image" property="goodsImage" />
+    <result column="spec_values" property="specValues" />
+    <result column="product_id" property="productId" />
+    <result column="product_price" property="productPrice" />
+    <result column="stock" property="stock" />
+    <result column="sales_volume" property="salesVolume" />
+    <result column="advance_deposit" property="advanceDeposit" />
+    <result column="ladder_price1" property="ladderPrice1" />
+    <result column="ladder_price2" property="ladderPrice2" />
+    <result column="ladder_price3" property="ladderPrice3" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="groupId != null">
+        `group_id`,
+      </if>
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="goodsName != null">
+        `goods_name`,
+      </if>
+      <if test="goodsBrief != null">
+        `goods_brief`,
+      </if>
+      <if test="goodsImage != null">
+        `goods_image`,
+      </if>
+      <if test="specValues != null">
+        `spec_values`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="productPrice != null">
+        `product_price`,
+      </if>
+      <if test="stock != null">
+        `stock`,
+      </if>
+      <if test="salesVolume != null">
+        `sales_volume`,
+      </if>
+      <if test="advanceDeposit != null">
+        `advance_deposit`,
+      </if>
+      <if test="ladderPrice1 != null">
+        `ladder_price1`,
+      </if>
+      <if test="ladderPrice2 != null">
+        `ladder_price2`,
+      </if>
+      <if test="ladderPrice3 != null">
+        `ladder_price3`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `group_goods_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.groupGoodsIdNotEquals != null">
+          AND `group_goods_id` != #{example.groupGoodsIdNotEquals}
+        </if>
+        <if test="example.groupGoodsIdIn != null">
+          AND `group_goods_id` in (${example.groupGoodsIdIn})
+        </if>
+        <if test="example.groupId != null">
+          AND `group_id` = #{example.groupId}
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.goodsBrief != null">
+          AND `goods_brief` = #{example.goodsBrief}
+        </if>
+        <if test="example.goodsImage != null">
+          AND `goods_image` = #{example.goodsImage}
+        </if>
+        <if test="example.specValues != null">
+          AND `spec_values` = #{example.specValues}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.productPrice != null">
+          AND `product_price` = #{example.productPrice}
+        </if>
+        <if test="example.stock != null">
+          AND `stock` = #{example.stock}
+        </if>
+        <if test="example.salesVolume != null">
+          AND `sales_volume` = #{example.salesVolume}
+        </if>
+        <if test="example.advanceDeposit != null">
+          AND `advance_deposit` = #{example.advanceDeposit}
+        </if>
+        <if test="example.ladderPrice1 != null">
+          AND `ladder_price1` = #{example.ladderPrice1}
+        </if>
+        <if test="example.ladderPrice2 != null">
+          AND `ladder_price2` = #{example.ladderPrice2}
+        </if>
+        <if test="example.ladderPrice3 != null">
+          AND `ladder_price3` = #{example.ladderPrice3}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `group_goods_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.LadderGroupGoodsExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_ladder_group_goods`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group_goods`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_ladder_group_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_ladder_group_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_ladder_group_goods`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_ladder_group_goods`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="group_goods_id" keyProperty="groupGoodsId" parameterType="com.slodon.b2b2c.promotion.pojo.LadderGroupGoods" useGeneratedKeys="true">
+    INSERT INTO `promotion_ladder_group_goods`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="groupId != null">
+        #{groupId},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName},
+      </if>
+      <if test="goodsBrief != null">
+        #{goodsBrief},
+      </if>
+      <if test="goodsImage != null">
+        #{goodsImage},
+      </if>
+      <if test="specValues != null">
+        #{specValues},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice},
+      </if>
+      <if test="stock != null">
+        #{stock},
+      </if>
+      <if test="salesVolume != null">
+        #{salesVolume},
+      </if>
+      <if test="advanceDeposit != null">
+        #{advanceDeposit},
+      </if>
+      <if test="ladderPrice1 != null">
+        #{ladderPrice1},
+      </if>
+      <if test="ladderPrice2 != null">
+        #{ladderPrice2},
+      </if>
+      <if test="ladderPrice3 != null">
+        #{ladderPrice3},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_ladder_group_goods`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.groupId != null">
+        `group_id` = #{record.groupId},
+      </if>
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.goodsName != null">
+        `goods_name` = #{record.goodsName},
+      </if>
+      <if test="record.goodsBrief != null">
+        `goods_brief` = #{record.goodsBrief},
+      </if>
+      <if test="record.goodsImage != null">
+        `goods_image` = #{record.goodsImage},
+      </if>
+      <if test="record.specValues != null">
+        `spec_values` = #{record.specValues},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.productPrice != null">
+        `product_price` = #{record.productPrice},
+      </if>
+      <if test="record.stock != null">
+        `stock` = #{record.stock},
+      </if>
+      <if test="record.salesVolume != null">
+        `sales_volume` = #{record.salesVolume},
+      </if>
+      <if test="record.advanceDeposit != null">
+        `advance_deposit` = #{record.advanceDeposit},
+      </if>
+      <if test="record.ladderPrice1 != null">
+        `ladder_price1` = #{record.ladderPrice1},
+      </if>
+      <if test="record.ladderPrice2 != null">
+        `ladder_price2` = #{record.ladderPrice2},
+      </if>
+      <if test="record.ladderPrice3 != null">
+        `ladder_price3` = #{record.ladderPrice3},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_ladder_group_goods`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="groupId != null">
+        `group_id` = #{groupId},
+      </if>
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        `goods_name` = #{goodsName},
+      </if>
+      <if test="goodsBrief != null">
+        `goods_brief` = #{goodsBrief},
+      </if>
+      <if test="goodsImage != null">
+        `goods_image` = #{goodsImage},
+      </if>
+      <if test="specValues != null">
+        `spec_values` = #{specValues},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="productPrice != null">
+        `product_price` = #{productPrice},
+      </if>
+      <if test="stock != null">
+        `stock` = #{stock},
+      </if>
+      <if test="salesVolume != null">
+        `sales_volume` = #{salesVolume},
+      </if>
+      <if test="advanceDeposit != null">
+        `advance_deposit` = #{advanceDeposit},
+      </if>
+      <if test="ladderPrice1 != null">
+        `ladder_price1` = #{ladderPrice1},
+      </if>
+      <if test="ladderPrice2 != null">
+        `ladder_price2` = #{ladderPrice2},
+      </if>
+      <if test="ladderPrice3 != null">
+        `ladder_price3` = #{ladderPrice3},
+      </if>
+    </trim>
+    WHERE `group_goods_id` = #{groupGoodsId}
+  </update>
+</mapper>

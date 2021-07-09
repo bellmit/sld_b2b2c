@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.integral.IntegralOrderPayReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.integral.pojo.IntegralOrderPay">
+    <id column="pay_sn" property="paySn" />
+    <result column="order_sn" property="orderSn" />
+    <result column="pay_amount" property="payAmount" />
+    <result column="member_id" property="memberId" />
+    <result column="api_pay_state" property="apiPayState" />
+    <result column="callback_time" property="callbackTime" />
+    <result column="trade_sn" property="tradeSn" />
+    <result column="payment_name" property="paymentName" />
+    <result column="payment_code" property="paymentCode" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `pay_sn` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.paySnNotEquals != null">
+          AND `pay_sn` != #{example.paySnNotEquals}
+        </if>
+        <if test="example.paySnIn != null">
+          AND `pay_sn` in (${example.paySnIn})
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.payAmount != null">
+          AND `pay_amount` = #{example.payAmount}
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.apiPayState != null">
+          AND `api_pay_state` = #{example.apiPayState}
+        </if>
+        <if test="example.apiPayStateIn != null">
+          AND `api_pay_state` in (${example.apiPayStateIn})
+        </if>
+        <if test="example.apiPayStateNotIn != null">
+          AND `api_pay_state` not in (${example.apiPayStateNotIn})
+        </if>
+        <if test="example.apiPayStateNotEquals != null">
+          AND `api_pay_state` != #{example.apiPayStateNotEquals}
+        </if>
+        <if test="example.callbackTimeAfter != null">
+          AND `callback_time` <![CDATA[ >= ]]> #{example.callbackTimeAfter}
+        </if>
+        <if test="example.callbackTimeBefore != null">
+          AND `callback_time` <![CDATA[ <= ]]> #{example.callbackTimeBefore}
+        </if>
+        <if test="example.tradeSn != null">
+          AND `trade_sn` = #{example.tradeSn}
+        </if>
+        <if test="example.tradeSnLike != null">
+          AND `trade_sn` like concat('%',#{example.tradeSnLike},'%')
+        </if>
+        <if test="example.paymentName != null">
+          AND `payment_name` = #{example.paymentName}
+        </if>
+        <if test="example.paymentNameLike != null">
+          AND `payment_name` like concat('%',#{example.paymentNameLike},'%')
+        </if>
+        <if test="example.paymentCode != null">
+          AND `payment_code` = #{example.paymentCode}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `pay_sn` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.integral.example.IntegralOrderPayExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `integral_order_pay`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_order_pay`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_order_pay`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `integral_order_pay`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_order_pay`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `integral_order_pay`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

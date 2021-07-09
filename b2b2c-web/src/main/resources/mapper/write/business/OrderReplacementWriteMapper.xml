@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.business.OrderReplacementWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.business.pojo.OrderReplacement">
+    <id column="replacement_id" property="replacementId" />
+    <result column="afs_sn" property="afsSn" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="order_sn" property="orderSn" />
+    <result column="replacement_num" property="replacementNum" />
+    <result column="new_product_id" property="newProductId" />
+    <result column="buyer_receive_address" property="buyerReceiveAddress" />
+    <result column="buyer_receive_name" property="buyerReceiveName" />
+    <result column="buyer_receive_phone" property="buyerReceivePhone" />
+    <result column="store_express_name" property="storeExpressName" />
+    <result column="store_express_code" property="storeExpressCode" />
+    <result column="store_delivery_number" property="storeDeliveryNumber" />
+    <result column="store_delivery_time" property="storeDeliveryTime" />
+    <result column="complete_time" property="completeTime" />
+    <result column="state" property="state" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="afsSn != null">
+        `afs_sn`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="storeName != null">
+        `store_name`,
+      </if>
+      <if test="orderSn != null">
+        `order_sn`,
+      </if>
+      <if test="replacementNum != null">
+        `replacement_num`,
+      </if>
+      <if test="newProductId != null">
+        `new_product_id`,
+      </if>
+      <if test="buyerReceiveAddress != null">
+        `buyer_receive_address`,
+      </if>
+      <if test="buyerReceiveName != null">
+        `buyer_receive_name`,
+      </if>
+      <if test="buyerReceivePhone != null">
+        `buyer_receive_phone`,
+      </if>
+      <if test="storeExpressName != null">
+        `store_express_name`,
+      </if>
+      <if test="storeExpressCode != null">
+        `store_express_code`,
+      </if>
+      <if test="storeDeliveryNumber != null">
+        `store_delivery_number`,
+      </if>
+      <if test="storeDeliveryTime != null">
+        `store_delivery_time`,
+      </if>
+      <if test="completeTime != null">
+        `complete_time`,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `replacement_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.replacementIdNotEquals != null">
+          AND `replacement_id` != #{example.replacementIdNotEquals}
+        </if>
+        <if test="example.replacementIdIn != null">
+          AND `replacement_id` in (${example.replacementIdIn})
+        </if>
+        <if test="example.afsSn != null">
+          AND `afs_sn` = #{example.afsSn}
+        </if>
+        <if test="example.afsSnLike != null">
+          AND `afs_sn` like concat('%',#{example.afsSnLike},'%')
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.replacementNum != null">
+          AND `replacement_num` = #{example.replacementNum}
+        </if>
+        <if test="example.newProductId != null">
+          AND `new_product_id` = #{example.newProductId}
+        </if>
+        <if test="example.buyerReceiveAddress != null">
+          AND `buyer_receive_address` = #{example.buyerReceiveAddress}
+        </if>
+        <if test="example.buyerReceiveName != null">
+          AND `buyer_receive_name` = #{example.buyerReceiveName}
+        </if>
+        <if test="example.buyerReceiveNameLike != null">
+          AND `buyer_receive_name` like concat('%',#{example.buyerReceiveNameLike},'%')
+        </if>
+        <if test="example.buyerReceivePhone != null">
+          AND `buyer_receive_phone` = #{example.buyerReceivePhone}
+        </if>
+        <if test="example.storeExpressName != null">
+          AND `store_express_name` = #{example.storeExpressName}
+        </if>
+        <if test="example.storeExpressNameLike != null">
+          AND `store_express_name` like concat('%',#{example.storeExpressNameLike},'%')
+        </if>
+        <if test="example.storeExpressCode != null">
+          AND `store_express_code` = #{example.storeExpressCode}
+        </if>
+        <if test="example.storeDeliveryNumber != null">
+          AND `store_delivery_number` = #{example.storeDeliveryNumber}
+        </if>
+        <if test="example.storeDeliveryTimeAfter != null">
+          AND `store_delivery_time` <![CDATA[ >= ]]> #{example.storeDeliveryTimeAfter}
+        </if>
+        <if test="example.storeDeliveryTimeBefore != null">
+          AND `store_delivery_time` <![CDATA[ <= ]]> #{example.storeDeliveryTimeBefore}
+        </if>
+        <if test="example.completeTimeAfter != null">
+          AND `complete_time` <![CDATA[ >= ]]> #{example.completeTimeAfter}
+        </if>
+        <if test="example.completeTimeBefore != null">
+          AND `complete_time` <![CDATA[ <= ]]> #{example.completeTimeBefore}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `replacement_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.business.example.OrderReplacementExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_replacement`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `bz_order_replacement`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `bz_order_replacement`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="replacement_id" keyProperty="replacementId" parameterType="com.slodon.b2b2c.business.pojo.OrderReplacement" useGeneratedKeys="true">
+    INSERT INTO `bz_order_replacement`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="afsSn != null">
+        #{afsSn},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="storeName != null">
+        #{storeName},
+      </if>
+      <if test="orderSn != null">
+        #{orderSn},
+      </if>
+      <if test="replacementNum != null">
+        #{replacementNum},
+      </if>
+      <if test="newProductId != null">
+        #{newProductId},
+      </if>
+      <if test="buyerReceiveAddress != null">
+        #{buyerReceiveAddress},
+      </if>
+      <if test="buyerReceiveName != null">
+        #{buyerReceiveName},
+      </if>
+      <if test="buyerReceivePhone != null">
+        #{buyerReceivePhone},
+      </if>
+      <if test="storeExpressName != null">
+        #{storeExpressName},
+      </if>
+      <if test="storeExpressCode != null">
+        #{storeExpressCode},
+      </if>
+      <if test="storeDeliveryNumber != null">
+        #{storeDeliveryNumber},
+      </if>
+      <if test="storeDeliveryTime != null">
+        #{storeDeliveryTime},
+      </if>
+      <if test="completeTime != null">
+        #{completeTime},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `bz_order_replacement`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.afsSn != null">
+        `afs_sn` = #{record.afsSn},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.storeName != null">
+        `store_name` = #{record.storeName},
+      </if>
+      <if test="record.orderSn != null">
+        `order_sn` = #{record.orderSn},
+      </if>
+      <if test="record.replacementNum != null">
+        `replacement_num` = #{record.replacementNum},
+      </if>
+      <if test="record.newProductId != null">
+        `new_product_id` = #{record.newProductId},
+      </if>
+      <if test="record.buyerReceiveAddress != null">
+        `buyer_receive_address` = #{record.buyerReceiveAddress},
+      </if>
+      <if test="record.buyerReceiveName != null">
+        `buyer_receive_name` = #{record.buyerReceiveName},
+      </if>
+      <if test="record.buyerReceivePhone != null">
+        `buyer_receive_phone` = #{record.buyerReceivePhone},
+      </if>
+      <if test="record.storeExpressName != null">
+        `store_express_name` = #{record.storeExpressName},
+      </if>
+      <if test="record.storeExpressCode != null">
+        `store_express_code` = #{record.storeExpressCode},
+      </if>
+      <if test="record.storeDeliveryNumber != null">
+        `store_delivery_number` = #{record.storeDeliveryNumber},
+      </if>
+      <if test="record.storeDeliveryTime != null">
+        `store_delivery_time` = #{record.storeDeliveryTime},
+      </if>
+      <if test="record.completeTime != null">
+        `complete_time` = #{record.completeTime},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `bz_order_replacement`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="afsSn != null">
+        `afs_sn` = #{afsSn},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="storeName != null">
+        `store_name` = #{storeName},
+      </if>
+      <if test="orderSn != null">
+        `order_sn` = #{orderSn},
+      </if>
+      <if test="replacementNum != null">
+        `replacement_num` = #{replacementNum},
+      </if>
+      <if test="newProductId != null">
+        `new_product_id` = #{newProductId},
+      </if>
+      <if test="buyerReceiveAddress != null">
+        `buyer_receive_address` = #{buyerReceiveAddress},
+      </if>
+      <if test="buyerReceiveName != null">
+        `buyer_receive_name` = #{buyerReceiveName},
+      </if>
+      <if test="buyerReceivePhone != null">
+        `buyer_receive_phone` = #{buyerReceivePhone},
+      </if>
+      <if test="storeExpressName != null">
+        `store_express_name` = #{storeExpressName},
+      </if>
+      <if test="storeExpressCode != null">
+        `store_express_code` = #{storeExpressCode},
+      </if>
+      <if test="storeDeliveryNumber != null">
+        `store_delivery_number` = #{storeDeliveryNumber},
+      </if>
+      <if test="storeDeliveryTime != null">
+        `store_delivery_time` = #{storeDeliveryTime},
+      </if>
+      <if test="completeTime != null">
+        `complete_time` = #{completeTime},
+      </if>
+      <if test="state != null">
+        `state` = #{state},
+      </if>
+    </trim>
+    WHERE `replacement_id` = #{replacementId}
+  </update>
+</mapper>

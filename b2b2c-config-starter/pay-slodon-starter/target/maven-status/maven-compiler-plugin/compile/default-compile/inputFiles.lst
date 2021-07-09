@@ -1,0 +1,11 @@
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/entity/SlodonPayResponse.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/entity/SlodonRefundResponse.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/entity/SlodonPayRequest.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/entity/WxPayProperties.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/entity/AliPayProperties.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/entity/SlodonRefundRequest.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/pay/SlodonPay.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/client/SlodonPayClient.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/config/SlodonPayAutoConfiguration.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/client/SlodonWxPayClient.java
+/home/java/jianianhua/daima/b2b2c/b2b2c-config-starter/pay-slodon-starter/src/main/java/com/slodon/b2b2c/starter/client/SlodonAliPayClient.java

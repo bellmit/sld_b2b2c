@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.slodon.b2b2c.starter.mq.SlodonMqAutoConfig

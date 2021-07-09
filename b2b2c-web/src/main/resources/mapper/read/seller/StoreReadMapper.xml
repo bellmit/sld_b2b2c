@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.seller.StoreReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.Store">
+    <id column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="store_logo" property="storeLogo" />
+    <result column="store_grade_id" property="storeGradeId" />
+    <result column="store_grade_name" property="storeGradeName" />
+    <result column="store_seo_keyword" property="storeSeoKeyword" />
+    <result column="store_seo_desc" property="storeSeoDesc" />
+    <result column="service_score" property="serviceScore" />
+    <result column="deliver_score" property="deliverScore" />
+    <result column="description_score" property="descriptionScore" />
+    <result column="goods_number" property="goodsNumber" />
+    <result column="follow_number" property="followNumber" />
+    <result column="create_time" property="createTime" />
+    <result column="store_expire_time" property="storeExpireTime" />
+    <result column="store_total_sale" property="storeTotalSale" />
+    <result column="order_total_count" property="orderTotalCount" />
+    <result column="order_finished_count" property="orderFinishedCount" />
+    <result column="state" property="state" />
+    <result column="is_own_store" property="isOwnStore" />
+    <result column="store_category_id" property="storeCategoryId" />
+    <result column="store_category_name" property="storeCategoryName" />
+    <result column="main_business" property="mainBusiness" />
+    <result column="service_phone" property="servicePhone" />
+    <result column="open_time" property="openTime" />
+    <result column="is_recommend" property="isRecommend" />
+    <result column="service_detail" property="serviceDetail" />
+    <result column="store_banner_pc" property="storeBannerPc" />
+    <result column="store_banner_mobile" property="storeBannerMobile" />
+    <result column="store_backdrop" property="storeBackdrop" />
+    <result column="province_code" property="provinceCode" />
+    <result column="city_code" property="cityCode" />
+    <result column="area_code" property="areaCode" />
+    <result column="area_info" property="areaInfo" />
+    <result column="address" property="address" />
+    <result column="bill_type" property="billType" />
+    <result column="bill_day" property="billDay" />
+    <result column="free_freight_limit" property="freeFreightLimit" />
+    <result column="store_sales_volume" property="storeSalesVolume" />
+    <result column="store_look_volume" property="storeLookVolume" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `store_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.storeIdNotEquals != null">
+          AND `store_id` != #{example.storeIdNotEquals}
+        </if>
+        <if test="example.storeIdIn != null">
+          AND `store_id` in (${example.storeIdIn})
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.storeLogo != null">
+          AND `store_logo` = #{example.storeLogo}
+        </if>
+        <if test="example.storeGradeId != null">
+          AND `store_grade_id` = #{example.storeGradeId}
+        </if>
+        <if test="example.storeGradeName != null">
+          AND `store_grade_name` = #{example.storeGradeName}
+        </if>
+        <if test="example.storeGradeNameLike != null">
+          AND `store_grade_name` like concat('%',#{example.storeGradeNameLike},'%')
+        </if>
+        <if test="example.storeSeoKeyword != null">
+          AND `store_seo_keyword` = #{example.storeSeoKeyword}
+        </if>
+        <if test="example.storeSeoDesc != null">
+          AND `store_seo_desc` = #{example.storeSeoDesc}
+        </if>
+        <if test="example.serviceScore != null">
+          AND `service_score` = #{example.serviceScore}
+        </if>
+        <if test="example.deliverScore != null">
+          AND `deliver_score` = #{example.deliverScore}
+        </if>
+        <if test="example.descriptionScore != null">
+          AND `description_score` = #{example.descriptionScore}
+        </if>
+        <if test="example.goodsNumber != null">
+          AND `goods_number` = #{example.goodsNumber}
+        </if>
+        <if test="example.goodsNumberNotNull != null">
+          AND `goods_number` > 0
+        </if>
+        <if test="example.goodsNumber != null">
+          AND `goods_number` = #{example.goodsNumber}
+        </if>
+        <if test="example.followNumber != null">
+          AND `follow_number` = #{example.followNumber}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.storeExpireTimeAfter != null">
+          AND `store_expire_time` <![CDATA[ >= ]]> #{example.storeExpireTimeAfter}
+        </if>
+        <if test="example.storeExpireTimeBefore != null">
+          AND `store_expire_time` <![CDATA[ <= ]]> #{example.storeExpireTimeBefore}
+        </if>
+        <if test="example.storeTotalSale != null">
+          AND `store_total_sale` = #{example.storeTotalSale}
+        </if>
+        <if test="example.orderTotalCount != null">
+          AND `order_total_count` = #{example.orderTotalCount}
+        </if>
+        <if test="example.orderFinishedCount != null">
+          AND `order_finished_count` = #{example.orderFinishedCount}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.isOwnStore != null">
+          AND `is_own_store` = #{example.isOwnStore}
+        </if>
+        <if test="example.storeCategoryId != null">
+          AND `store_category_id` = #{example.storeCategoryId}
+        </if>
+        <if test="example.storeCategoryName != null">
+          AND `store_category_name` = #{example.storeCategoryName}
+        </if>
+        <if test="example.storeCategoryNameLike != null">
+          AND `store_category_name` like concat('%',#{example.storeCategoryNameLike},'%')
+        </if>
+        <if test="example.mainBusiness != null">
+          AND `main_business` = #{example.mainBusiness}
+        </if>
+        <if test="example.servicePhone != null">
+          AND `service_phone` = #{example.servicePhone}
+        </if>
+        <if test="example.openTime != null">
+          AND `open_time` = #{example.openTime}
+        </if>
+        <if test="example.isRecommend != null">
+          AND `is_recommend` = #{example.isRecommend}
+        </if>
+        <if test="example.serviceDetail != null">
+          AND `service_detail` = #{example.serviceDetail}
+        </if>
+        <if test="example.storeBannerPc != null">
+          AND `store_banner_pc` = #{example.storeBannerPc}
+        </if>
+        <if test="example.storeBannerMobile != null">
+          AND `store_banner_mobile` = #{example.storeBannerMobile}
+        </if>
+        <if test="example.storeBackdrop != null">
+          AND `store_backdrop` = #{example.storeBackdrop}
+        </if>
+        <if test="example.provinceCode != null">
+          AND `province_code` = #{example.provinceCode}
+        </if>
+        <if test="example.cityCode != null">
+          AND `city_code` = #{example.cityCode}
+        </if>
+        <if test="example.areaCode != null">
+          AND `area_code` = #{example.areaCode}
+        </if>
+        <if test="example.areaInfo != null">
+          AND `area_info` = #{example.areaInfo}
+        </if>
+        <if test="example.address != null">
+          AND `address` = #{example.address}
+        </if>
+        <if test="example.billType != null">
+          AND `bill_type` = #{example.billType}
+        </if>
+        <if test="example.billDay != null">
+          AND FIND_IN_SET(#{example.billDay}, `bill_day`)
+        </if>
+        <if test="example.vendorNameLike != null">
+          AND `store_id` in (select `store_id` from `vendor` where `vendor_name` like concat('%',#{example.vendorNameLike},'%'))
+        </if>
+        <if test="example.freeFreightLimit != null">
+          AND `free_freight_limit` = #{example.freeFreightLimit}
+        </if>
+        <if test="example.storeSalesVolume != null">
+          AND `store_sales_volume` = #{example.storeSalesVolume}
+        </if>
+        <if test="example.storeLookVolume != null">
+          AND `store_look_volume` = #{example.storeLookVolume}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `store_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.StoreExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `store`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

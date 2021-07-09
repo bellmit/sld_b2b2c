@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.system.SearchFilterWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.SearchFilter">
+    <id column="filter_id" property="filterId" />
+    <result column="keyword" property="keyword" />
+    <result column="create_time" property="createTime" />
+    <result column="create_id" property="createId" />
+    <result column="create_name" property="createName" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="keyword != null">
+        `keyword`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="createId != null">
+        `create_id`,
+      </if>
+      <if test="createName != null">
+        `create_name`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `filter_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.filterIdNotEquals != null">
+          AND `filter_id` != #{example.filterIdNotEquals}
+        </if>
+        <if test="example.filterIdIn != null">
+          AND `filter_id` in (${example.filterIdIn})
+        </if>
+        <if test="example.keyword != null">
+          AND `keyword` = #{example.keyword}
+        </if>
+        <if test="example.keywordLike != null">
+          AND `keyword` like concat('%',#{example.keywordLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.createId != null">
+          AND `create_id` = #{example.createId}
+        </if>
+        <if test="example.createName != null">
+          AND `create_name` = #{example.createName}
+        </if>
+        <if test="example.createNameLike != null">
+          AND `create_name` like concat('%',#{example.createNameLike},'%')
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `filter_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.SearchFilterExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_search_filter`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_search_filter`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_search_filter`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_search_filter`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_search_filter`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_search_filter`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `sys_search_filter`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `sys_search_filter`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="filter_id" keyProperty="filterId" parameterType="com.slodon.b2b2c.system.pojo.SearchFilter" useGeneratedKeys="true">
+    INSERT INTO `sys_search_filter`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="keyword != null">
+        #{keyword},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="createId != null">
+        #{createId},
+      </if>
+      <if test="createName != null">
+        #{createName},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `sys_search_filter`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.keyword != null">
+        `keyword` = #{record.keyword},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.createId != null">
+        `create_id` = #{record.createId},
+      </if>
+      <if test="record.createName != null">
+        `create_name` = #{record.createName},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `sys_search_filter`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="keyword != null">
+        `keyword` = #{keyword},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="createId != null">
+        `create_id` = #{createId},
+      </if>
+      <if test="createName != null">
+        `create_name` = #{createName},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+    </trim>
+    WHERE `filter_id` = #{filterId}
+  </update>
+</mapper>

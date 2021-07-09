@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.system.AdminLogReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.AdminLog">
+    <id column="log_id" property="logId" />
+    <result column="admin_id" property="adminId" />
+    <result column="admin_name" property="adminName" />
+    <result column="log_url" property="logUrl" />
+    <result column="log_content" property="logContent" />
+    <result column="log_time" property="logTime" />
+    <result column="log_ip" property="logIp" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `log_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.logIdNotEquals != null">
+          AND `log_id` != #{example.logIdNotEquals}
+        </if>
+        <if test="example.logIdIn != null">
+          AND `log_id` in (${example.logIdIn})
+        </if>
+        <if test="example.adminId != null">
+          AND `admin_id` = #{example.adminId}
+        </if>
+        <if test="example.adminName != null">
+          AND `admin_name` = #{example.adminName}
+        </if>
+        <if test="example.adminNameLike != null">
+          AND `admin_name` like concat('%',#{example.adminNameLike},'%')
+        </if>
+        <if test="example.logUrl != null">
+          AND `log_url` = #{example.logUrl}
+        </if>
+        <if test="example.logContent != null">
+          AND `log_content` = #{example.logContent}
+        </if>
+        <if test="example.logContentLike != null">
+          AND `log_content` like concat('%',#{example.logContentLike},'%')
+        </if>
+        <if test="example.logTimeAfter != null">
+          AND `log_time` <![CDATA[ >= ]]> #{example.logTimeAfter}
+        </if>
+        <if test="example.logTimeBefore != null">
+          AND `log_time` <![CDATA[ <= ]]> #{example.logTimeBefore}
+        </if>
+        <if test="example.logIp != null">
+          AND `log_ip` = #{example.logIp}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `log_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.AdminLogExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_admin_log`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_admin_log`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_admin_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_admin_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_admin_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_admin_log`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

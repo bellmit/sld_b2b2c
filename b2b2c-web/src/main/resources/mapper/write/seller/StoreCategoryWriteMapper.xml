@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.seller.StoreCategoryWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.StoreCategory">
+    <id column="category_id" property="categoryId" />
+    <result column="category_name" property="categoryName" />
+    <result column="parent_id" property="parentId" />
+    <result column="sort" property="sort" />
+    <result column="grade" property="grade" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="categoryName != null">
+        `category_name`,
+      </if>
+      <if test="parentId != null">
+        `parent_id`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="grade != null">
+        `grade`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `category_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.categoryIdNotEquals != null">
+          AND `category_id` != #{example.categoryIdNotEquals}
+        </if>
+        <if test="example.categoryIdIn != null">
+          AND `category_id` in (${example.categoryIdIn})
+        </if>
+        <if test="example.categoryName != null">
+          AND `category_name` = #{example.categoryName}
+        </if>
+        <if test="example.categoryNameLike != null">
+          AND `category_name` like concat('%',#{example.categoryNameLike},'%')
+        </if>
+        <if test="example.parentId != null">
+          AND `parent_id` = #{example.parentId}
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.grade != null">
+          AND `grade` = #{example.grade}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `category_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.StoreCategoryExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `store_category`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_category`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `store_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `store_category`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `store_category`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `store_category`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="category_id" keyProperty="categoryId" parameterType="com.slodon.b2b2c.seller.pojo.StoreCategory" useGeneratedKeys="true">
+    INSERT INTO `store_category`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="categoryName != null">
+        #{categoryName},
+      </if>
+      <if test="parentId != null">
+        #{parentId},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="grade != null">
+        #{grade},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `store_category`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.categoryName != null">
+        `category_name` = #{record.categoryName},
+      </if>
+      <if test="record.parentId != null">
+        `parent_id` = #{record.parentId},
+      </if>
+      <if test="record.sort != null">
+        `sort` = #{record.sort},
+      </if>
+      <if test="record.grade != null">
+        `grade` = #{record.grade},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `store_category`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="categoryName != null">
+        `category_name` = #{categoryName},
+      </if>
+      <if test="parentId != null">
+        `parent_id` = #{parentId},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort},
+      </if>
+      <if test="grade != null">
+        `grade` = #{grade},
+      </if>
+    </trim>
+    WHERE `category_id` = #{categoryId}
+  </update>
+</mapper>

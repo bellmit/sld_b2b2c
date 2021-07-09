@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.business.ComplainTalkWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.business.pojo.ComplainTalk">
+    <id column="complain_talk_id" property="complainTalkId" />
+    <result column="complain_id" property="complainId" />
+    <result column="talk_user_id" property="talkUserId" />
+    <result column="talk_user_name" property="talkUserName" />
+    <result column="talk_user_type" property="talkUserType" />
+    <result column="talk_content" property="talkContent" />
+    <result column="talk_time" property="talkTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="complainId != null">
+        `complain_id`,
+      </if>
+      <if test="talkUserId != null">
+        `talk_user_id`,
+      </if>
+      <if test="talkUserName != null">
+        `talk_user_name`,
+      </if>
+      <if test="talkUserType != null">
+        `talk_user_type`,
+      </if>
+      <if test="talkContent != null">
+        `talk_content`,
+      </if>
+      <if test="talkTime != null">
+        `talk_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `complain_talk_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.complainTalkIdNotEquals != null">
+          AND `complain_talk_id` != #{example.complainTalkIdNotEquals}
+        </if>
+        <if test="example.complainTalkIdIn != null">
+          AND `complain_talk_id` in (${example.complainTalkIdIn})
+        </if>
+        <if test="example.complainId != null">
+          AND `complain_id` = #{example.complainId}
+        </if>
+        <if test="example.talkUserId != null">
+          AND `talk_user_id` = #{example.talkUserId}
+        </if>
+        <if test="example.talkUserName != null">
+          AND `talk_user_name` = #{example.talkUserName}
+        </if>
+        <if test="example.talkUserNameLike != null">
+          AND `talk_user_name` like concat('%',#{example.talkUserNameLike},'%')
+        </if>
+        <if test="example.talkUserType != null">
+          AND `talk_user_type` = #{example.talkUserType}
+        </if>
+        <if test="example.talkContent != null">
+          AND `talk_content` = #{example.talkContent}
+        </if>
+        <if test="example.talkContentLike != null">
+          AND `talk_content` like concat('%',#{example.talkContentLike},'%')
+        </if>
+        <if test="example.talkTimeAfter != null">
+          AND `talk_time` <![CDATA[ >= ]]> #{example.talkTimeAfter}
+        </if>
+        <if test="example.talkTimeBefore != null">
+          AND `talk_time` <![CDATA[ <= ]]> #{example.talkTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `complain_talk_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.business.example.ComplainTalkExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `bz_complain_talk`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_complain_talk`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_complain_talk`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `bz_complain_talk`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_complain_talk`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `bz_complain_talk`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `bz_complain_talk`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `bz_complain_talk`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="complain_talk_id" keyProperty="complainTalkId" parameterType="com.slodon.b2b2c.business.pojo.ComplainTalk" useGeneratedKeys="true">
+    INSERT INTO `bz_complain_talk`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="complainId != null">
+        #{complainId},
+      </if>
+      <if test="talkUserId != null">
+        #{talkUserId},
+      </if>
+      <if test="talkUserName != null">
+        #{talkUserName},
+      </if>
+      <if test="talkUserType != null">
+        #{talkUserType},
+      </if>
+      <if test="talkContent != null">
+        #{talkContent},
+      </if>
+      <if test="talkTime != null">
+        #{talkTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `bz_complain_talk`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.complainId != null">
+        `complain_id` = #{record.complainId},
+      </if>
+      <if test="record.talkUserId != null">
+        `talk_user_id` = #{record.talkUserId},
+      </if>
+      <if test="record.talkUserName != null">
+        `talk_user_name` = #{record.talkUserName},
+      </if>
+      <if test="record.talkUserType != null">
+        `talk_user_type` = #{record.talkUserType},
+      </if>
+      <if test="record.talkContent != null">
+        `talk_content` = #{record.talkContent},
+      </if>
+      <if test="record.talkTime != null">
+        `talk_time` = #{record.talkTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `bz_complain_talk`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="complainId != null">
+        `complain_id` = #{complainId},
+      </if>
+      <if test="talkUserId != null">
+        `talk_user_id` = #{talkUserId},
+      </if>
+      <if test="talkUserName != null">
+        `talk_user_name` = #{talkUserName},
+      </if>
+      <if test="talkUserType != null">
+        `talk_user_type` = #{talkUserType},
+      </if>
+      <if test="talkContent != null">
+        `talk_content` = #{talkContent},
+      </if>
+      <if test="talkTime != null">
+        `talk_time` = #{talkTime},
+      </if>
+    </trim>
+    WHERE `complain_talk_id` = #{complainTalkId}
+  </update>
+</mapper>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.system.SystemResourceWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.system.pojo.SystemResource">
+    <id column="resource_id" property="resourceId" />
+    <result column="pid" property="pid" />
+    <result column="content" property="content" />
+    <result column="create_time" property="createTime" />
+    <result column="state" property="state" />
+    <result column="grade" property="grade" />
+    <result column="url" property="url" />
+    <result column="front_path" property="frontPath" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="pid != null">
+        `pid`,
+      </if>
+      <if test="content != null">
+        `content`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="grade != null">
+        `grade`,
+      </if>
+      <if test="url != null">
+        `url`,
+      </if>
+      <if test="frontPath != null">
+        `front_path`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `resource_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.resourceIdNotEquals != null">
+          AND `resource_id` != #{example.resourceIdNotEquals}
+        </if>
+        <if test="example.resourceIdIn != null">
+          AND `resource_id` in (${example.resourceIdIn})
+        </if>
+        <if test="example.pid != null">
+          AND `pid` = #{example.pid}
+        </if>
+        <if test="example.content != null">
+          AND `content` = #{example.content}
+        </if>
+        <if test="example.contentLike != null">
+          AND `content` like concat('%',#{example.contentLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.grade != null">
+          AND `grade` = #{example.grade}
+        </if>
+        <if test="example.url != null">
+          AND `url` = #{example.url}
+        </if>
+        <if test="example.frontPath != null">
+          AND `front_path` = #{example.frontPath}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `resource_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.system.example.SystemResourceExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `sys_system_resource`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_system_resource`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_system_resource`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `sys_system_resource`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_system_resource`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `sys_system_resource`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `sys_system_resource`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `sys_system_resource`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="resource_id" keyProperty="resourceId" parameterType="com.slodon.b2b2c.system.pojo.SystemResource" useGeneratedKeys="true">
+    INSERT INTO `sys_system_resource`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="pid != null">
+        #{pid},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="grade != null">
+        #{grade},
+      </if>
+      <if test="url != null">
+        #{url},
+      </if>
+      <if test="frontPath != null">
+        #{frontPath},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `sys_system_resource`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.pid != null">
+        `pid` = #{record.pid},
+      </if>
+      <if test="record.content != null">
+        `content` = #{record.content},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state},
+      </if>
+      <if test="record.grade != null">
+        `grade` = #{record.grade},
+      </if>
+      <if test="record.url != null">
+        `url` = #{record.url},
+      </if>
+      <if test="record.frontPath != null">
+        `front_path` = #{record.frontPath},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `sys_system_resource`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="pid != null">
+        `pid` = #{pid},
+      </if>
+      <if test="content != null">
+        `content` = #{content},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="state != null">
+        `state` = #{state},
+      </if>
+      <if test="grade != null">
+        `grade` = #{grade},
+      </if>
+      <if test="url != null">
+        `url` = #{url},
+      </if>
+      <if test="frontPath != null">
+        `front_path` = #{frontPath},
+      </if>
+    </trim>
+    WHERE `resource_id` = #{resourceId}
+  </update>
+</mapper>

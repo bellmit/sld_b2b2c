@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.goods.GoodsBindLabelWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.goods.pojo.GoodsBindLabel">
+    <id column="bind_id" property="bindId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="label_id" property="labelId" />
+    <result column="label_name" property="labelName" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="labelId != null">
+        `label_id`,
+      </if>
+      <if test="labelName != null">
+        `label_name`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `bind_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.bindIdNotEquals != null">
+          AND `bind_id` != #{example.bindIdNotEquals}
+        </if>
+        <if test="example.bindIdIn != null">
+          AND `bind_id` in (${example.bindIdIn})
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.labelId != null">
+          AND `label_id` = #{example.labelId}
+        </if>
+        <if test="example.labelName != null">
+          AND `label_name` = #{example.labelName}
+        </if>
+        <if test="example.labelNameLike != null">
+          AND `label_name` like concat('%',#{example.labelNameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `bind_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.goods.example.GoodsBindLabelExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `goods_bind_label`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_bind_label`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_bind_label`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_bind_label`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_bind_label`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_bind_label`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `goods_bind_label`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `goods_bind_label`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="bind_id" keyProperty="bindId" parameterType="com.slodon.b2b2c.goods.pojo.GoodsBindLabel" useGeneratedKeys="true">
+    INSERT INTO `goods_bind_label`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="labelId != null">
+        #{labelId},
+      </if>
+      <if test="labelName != null">
+        #{labelName},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `goods_bind_label`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.labelId != null">
+        `label_id` = #{record.labelId},
+      </if>
+      <if test="record.labelName != null">
+        `label_name` = #{record.labelName},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `goods_bind_label`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="labelId != null">
+        `label_id` = #{labelId},
+      </if>
+      <if test="labelName != null">
+        `label_name` = #{labelName},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+    </trim>
+    WHERE `bind_id` = #{bindId}
+  </update>
+</mapper>

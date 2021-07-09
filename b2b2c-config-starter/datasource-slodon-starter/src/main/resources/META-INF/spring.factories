@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.slodon.b2b2c.starter.datasource.WriteDataSourceAutoConfiguration,\
+com.slodon.b2b2c.starter.datasource.ReadDataSourceAutoConfiguration

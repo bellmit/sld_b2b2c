@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.promotion.CouponMemberReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.CouponMember">
+    <id column="coupon_member_id" property="couponMemberId" />
+    <result column="coupon_id" property="couponId" />
+    <result column="coupon_code" property="couponCode" />
+    <result column="store_id" property="storeId" />
+    <result column="member_id" property="memberId" />
+    <result column="member_name" property="memberName" />
+    <result column="receive_time" property="receiveTime" />
+    <result column="use_time" property="useTime" />
+    <result column="use_state" property="useState" />
+    <result column="order_sn" property="orderSn" />
+    <result column="effective_start" property="effectiveStart" />
+    <result column="effective_end" property="effectiveEnd" />
+    <result column="use_type" property="useType" />
+    <result column="random_amount" property="randomAmount" />
+    <result column="expired_notice_state" property="expiredNoticeState" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `coupon_member_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.couponMemberIdNotEquals != null">
+          AND `coupon_member_id` != #{example.couponMemberIdNotEquals}
+        </if>
+        <if test="example.couponMemberIdIn != null">
+          AND `coupon_member_id` in (${example.couponMemberIdIn})
+        </if>
+        <if test="example.couponId != null">
+          AND `coupon_id` = #{example.couponId}
+        </if>
+        <if test="example.couponCode != null">
+          AND `coupon_code` = #{example.couponCode}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.memberId != null">
+          AND `member_id` = #{example.memberId}
+        </if>
+        <if test="example.memberName != null">
+          AND `member_name` = #{example.memberName}
+        </if>
+        <if test="example.memberNameLike != null">
+          AND `member_name` like concat('%',#{example.memberNameLike},'%')
+        </if>
+        <if test="example.receiveTimeAfter != null">
+          AND `receive_time` <![CDATA[ >= ]]> #{example.receiveTimeAfter}
+        </if>
+        <if test="example.receiveTimeBefore != null">
+          AND `receive_time` <![CDATA[ <= ]]> #{example.receiveTimeBefore}
+        </if>
+        <if test="example.useTimeAfter != null">
+          AND `use_time` <![CDATA[ >= ]]> #{example.useTimeAfter}
+        </if>
+        <if test="example.useTimeBefore != null">
+          AND `use_time` <![CDATA[ <= ]]> #{example.useTimeBefore}
+        </if>
+        <if test="example.useState != null">
+          AND `use_state` = #{example.useState}
+        </if>
+        <if test="example.useStateIn != null">
+          AND `use_state` in (${example.useStateIn})
+        </if>
+        <if test="example.useStateNotIn != null">
+          AND `use_state` not in (${example.useStateNotIn})
+        </if>
+        <if test="example.useStateNotEquals != null">
+          AND `use_state` != #{example.useStateNotEquals}
+        </if>
+        <if test="example.orderSn != null">
+          AND `order_sn` = #{example.orderSn}
+        </if>
+        <if test="example.orderSnLike != null">
+          AND `order_sn` like concat('%',#{example.orderSnLike},'%')
+        </if>
+        <if test="example.effectiveStartAfter != null">
+          AND `effective_start` <![CDATA[ >= ]]> #{example.effectiveStartAfter}
+        </if>
+        <if test="example.effectiveStartBefore != null">
+          AND `effective_start` <![CDATA[ <= ]]> #{example.effectiveStartBefore}
+        </if>
+        <if test="example.effectiveEndAfter != null">
+          AND `effective_end` <![CDATA[ >= ]]> #{example.effectiveEndAfter}
+        </if>
+        <if test="example.effectiveEndBefore != null">
+          AND ( `effective_end` <![CDATA[ <= ]]> #{example.effectiveEndBefore} OR  `use_state` = 3 )
+        </if>
+        <if test="example.useType != null">
+          AND `use_type` = #{example.useType}
+        </if>
+        <if test="example.randomAmount != null">
+          AND `random_amount` = #{example.randomAmount}
+        </if>
+        <if test="example.expiredNoticeState != null">
+          AND `expired_notice_state` = #{example.expiredNoticeState}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `coupon_member_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.CouponMemberExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_coupon_member`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_coupon_member`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_coupon_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_coupon_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_coupon_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_coupon_member`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

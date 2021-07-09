@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.member.MemberFeedbackTypeWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.member.pojo.MemberFeedbackType">
+    <id column="type_id" property="typeId" />
+    <result column="type_name" property="typeName" />
+    <result column="sort" property="sort" />
+    <result column="is_use" property="isUse" />
+    <result column="create_time" property="createTime" />
+    <result column="creator" property="creator" />
+    <result column="update_time" property="updateTime" />
+    <result column="updater" property="updater" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="typeName != null">
+        `type_name`,
+      </if>
+      <if test="sort != null">
+        `sort`,
+      </if>
+      <if test="isUse != null">
+        `is_use`,
+      </if>
+      <if test="createTime != null">
+        `create_time`,
+      </if>
+      <if test="creator != null">
+        `creator`,
+      </if>
+      <if test="updateTime != null">
+        `update_time`,
+      </if>
+      <if test="updater != null">
+        `updater`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `type_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.typeIdNotEquals != null">
+          AND `type_id` != #{example.typeIdNotEquals}
+        </if>
+        <if test="example.typeIdIn != null">
+          AND `type_id` in (${example.typeIdIn})
+        </if>
+        <if test="example.typeName != null">
+          AND `type_name` = #{example.typeName}
+        </if>
+        <if test="example.typeNameLike != null">
+          AND `type_name` like concat('%',#{example.typeNameLike},'%')
+        </if>
+        <if test="example.sort != null">
+          AND `sort` = #{example.sort}
+        </if>
+        <if test="example.isUse != null">
+          AND `is_use` = #{example.isUse}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.creator != null">
+          AND `creator` = #{example.creator}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.updater != null">
+          AND `updater` = #{example.updater}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `type_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.member.example.MemberFeedbackTypeExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `member_feedback_type`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_feedback_type`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_feedback_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `member_feedback_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_feedback_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `member_feedback_type`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `member_feedback_type`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `member_feedback_type`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="type_id" keyProperty="typeId" parameterType="com.slodon.b2b2c.member.pojo.MemberFeedbackType" useGeneratedKeys="true">
+    INSERT INTO `member_feedback_type`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="typeName != null">
+        #{typeName},
+      </if>
+      <if test="sort != null">
+        #{sort},
+      </if>
+      <if test="isUse != null">
+        #{isUse},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="creator != null">
+        #{creator},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+      <if test="updater != null">
+        #{updater},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `member_feedback_type`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.typeName != null">
+        `type_name` = #{record.typeName},
+      </if>
+      <if test="record.sort != null">
+        `sort` = #{record.sort},
+      </if>
+      <if test="record.isUse != null">
+        `is_use` = #{record.isUse},
+      </if>
+      <if test="record.createTime != null">
+        `create_time` = #{record.createTime},
+      </if>
+      <if test="record.creator != null">
+        `creator` = #{record.creator},
+      </if>
+      <if test="record.updateTime != null">
+        `update_time` = #{record.updateTime},
+      </if>
+      <if test="record.updater != null">
+        `updater` = #{record.updater},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `member_feedback_type`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="typeName != null">
+        `type_name` = #{typeName},
+      </if>
+      <if test="sort != null">
+        `sort` = #{sort},
+      </if>
+      <if test="isUse != null">
+        `is_use` = #{isUse},
+      </if>
+      <if test="createTime != null">
+        `create_time` = #{createTime},
+      </if>
+      <if test="creator != null">
+        `creator` = #{creator},
+      </if>
+      <if test="updateTime != null">
+        `update_time` = #{updateTime},
+      </if>
+      <if test="updater != null">
+        `updater` = #{updater},
+      </if>
+    </trim>
+    WHERE `type_id` = #{typeId}
+  </update>
+</mapper>

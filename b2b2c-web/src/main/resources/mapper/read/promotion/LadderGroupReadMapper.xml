@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.promotion.LadderGroupReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.LadderGroup">
+    <id column="group_id" property="groupId" />
+    <result column="group_name" property="groupName" />
+    <result column="start_time" property="startTime" />
+    <result column="end_time" property="endTime" />
+    <result column="label_id" property="labelId" />
+    <result column="label_name" property="labelName" />
+    <result column="balance_time" property="balanceTime" />
+    <result column="buy_limit_num" property="buyLimitNum" />
+    <result column="is_refund_deposit" property="isRefundDeposit" />
+    <result column="discount_type" property="discountType" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="state" property="state" />
+    <result column="execute_state" property="executeState" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="create_vendor_id" property="createVendorId" />
+    <result column="create_time" property="createTime" />
+    <result column="update_time" property="updateTime" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `group_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.groupIdNotEquals != null">
+          AND `group_id` != #{example.groupIdNotEquals}
+        </if>
+        <if test="example.groupIdIn != null">
+          AND `group_id` in (${example.groupIdIn})
+        </if>
+        <if test="example.groupName != null">
+          AND `group_name` = #{example.groupName}
+        </if>
+        <if test="example.groupNameLike != null">
+          AND `group_name` like concat('%',#{example.groupNameLike},'%')
+        </if>
+        <if test="example.startTimeAfter != null">
+          AND `start_time` <![CDATA[ >= ]]> #{example.startTimeAfter}
+        </if>
+        <if test="example.startTimeBefore != null">
+          AND `start_time` <![CDATA[ <= ]]> #{example.startTimeBefore}
+        </if>
+        <if test="example.endTimeAfter != null">
+          AND `end_time` <![CDATA[ >= ]]> #{example.endTimeAfter}
+        </if>
+        <if test="example.endTimeBefore != null">
+          AND `end_time` <![CDATA[ <= ]]> #{example.endTimeBefore}
+        </if>
+        <if test="example.labelId != null">
+          AND `label_id` = #{example.labelId}
+        </if>
+        <if test="example.labelName != null">
+          AND `label_name` = #{example.labelName}
+        </if>
+        <if test="example.labelNameLike != null">
+          AND `label_name` like concat('%',#{example.labelNameLike},'%')
+        </if>
+        <if test="example.balanceTime != null">
+          AND `balance_time` = #{example.balanceTime}
+        </if>
+        <if test="example.buyLimitNum != null">
+          AND `buy_limit_num` = #{example.buyLimitNum}
+        </if>
+        <if test="example.isRefundDeposit != null">
+          AND `is_refund_deposit` = #{example.isRefundDeposit}
+        </if>
+        <if test="example.discountType != null">
+          AND `discount_type` = #{example.discountType}
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateIn != null">
+          AND `state` in (${example.stateIn})
+        </if>
+        <if test="example.stateNotIn != null">
+          AND `state` not in (${example.stateNotIn})
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.executeState != null">
+          AND `execute_state` = #{example.executeState}
+        </if>
+        <if test="example.executeStateIn != null">
+          AND `execute_state` in (${example.executeStateIn})
+        </if>
+        <if test="example.executeStateNotIn != null">
+          AND `execute_state` not in (${example.executeStateNotIn})
+        </if>
+        <if test="example.executeStateNotEquals != null">
+          AND `execute_state` != #{example.executeStateNotEquals}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.createVendorId != null">
+          AND `create_vendor_id` = #{example.createVendorId}
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.updateTimeAfter != null">
+          AND `update_time` <![CDATA[ >= ]]> #{example.updateTimeAfter}
+        </if>
+        <if test="example.updateTimeBefore != null">
+          AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `group_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.LadderGroupExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_ladder_group`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_ladder_group`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_ladder_group`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_ladder_group`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.seller.VendorWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.seller.pojo.Vendor">
+    <id column="vendor_id" property="vendorId" />
+    <result column="vendor_name" property="vendorName" />
+    <result column="vendor_password" property="vendorPassword" />
+    <result column="vendor_mobile" property="vendorMobile" />
+    <result column="vendor_email" property="vendorEmail" />
+    <result column="store_id" property="storeId" />
+    <result column="is_store_admin" property="isStoreAdmin" />
+    <result column="register_time" property="registerTime" />
+    <result column="latest_login_time" property="latestLoginTime" />
+    <result column="latest_login_ip" property="latestLoginIp" />
+    <result column="avatar_url" property="avatarUrl" />
+    <result column="is_allow_login" property="isAllowLogin" />
+    <result column="roles_id" property="rolesId" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="vendorId != null">
+        `vendor_id`,
+      </if>
+      <if test="vendorName != null">
+        `vendor_name`,
+      </if>
+      <if test="vendorPassword != null">
+        `vendor_password`,
+      </if>
+      <if test="vendorMobile != null">
+        `vendor_mobile`,
+      </if>
+      <if test="vendorEmail != null">
+        `vendor_email`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="isStoreAdmin != null">
+        `is_store_admin`,
+      </if>
+      <if test="registerTime != null">
+        `register_time`,
+      </if>
+      <if test="latestLoginTime != null">
+        `latest_login_time`,
+      </if>
+      <if test="latestLoginIp != null">
+        `latest_login_ip`,
+      </if>
+      <if test="avatarUrl != null">
+        `avatar_url`,
+      </if>
+      <if test="isAllowLogin != null">
+        `is_allow_login`,
+      </if>
+      <if test="rolesId != null">
+        `roles_id`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `vendor_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.vendorIdNotEquals != null">
+          AND `vendor_id` != #{example.vendorIdNotEquals}
+        </if>
+        <if test="example.vendorIdIn != null">
+          AND `vendor_id` in (${example.vendorIdIn})
+        </if>
+        <if test="example.vendorName != null">
+          AND `vendor_name` = #{example.vendorName}
+        </if>
+        <if test="example.vendorNameLike != null">
+          AND `vendor_name` like concat('%',#{example.vendorNameLike},'%')
+        </if>
+        <if test="example.vendorPassword != null">
+          AND `vendor_password` = #{example.vendorPassword}
+        </if>
+        <if test="example.vendorMobile != null">
+          AND `vendor_mobile` = #{example.vendorMobile}
+        </if>
+        <if test="example.vendorEmail != null">
+          AND `vendor_email` = #{example.vendorEmail}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.isStoreAdmin != null">
+          AND `is_store_admin` = #{example.isStoreAdmin}
+        </if>
+        <if test="example.registerTimeAfter != null">
+          AND `register_time` <![CDATA[ >= ]]> #{example.registerTimeAfter}
+        </if>
+        <if test="example.registerTimeBefore != null">
+          AND `register_time` <![CDATA[ <= ]]> #{example.registerTimeBefore}
+        </if>
+        <if test="example.latestLoginTimeAfter != null">
+          AND `latest_login_time` <![CDATA[ >= ]]> #{example.latestLoginTimeAfter}
+        </if>
+        <if test="example.latestLoginTimeBefore != null">
+          AND `latest_login_time` <![CDATA[ <= ]]> #{example.latestLoginTimeBefore}
+        </if>
+        <if test="example.latestLoginIp != null">
+          AND `latest_login_ip` = #{example.latestLoginIp}
+        </if>
+        <if test="example.avatarUrl != null">
+          AND `avatar_url` = #{example.avatarUrl}
+        </if>
+        <if test="example.isAllowLogin != null">
+          AND `is_allow_login` = #{example.isAllowLogin}
+        </if>
+        <if test="example.rolesId != null">
+          AND `roles_id` = #{example.rolesId}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `vendor_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.seller.example.VendorExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `vendor`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `vendor`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `vendor`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `vendor`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="vendor_id" keyProperty="vendorId" parameterType="com.slodon.b2b2c.seller.pojo.Vendor" useGeneratedKeys="true">
+    INSERT INTO `vendor`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="vendorId != null">
+        #{vendorId},
+      </if>
+      <if test="vendorName != null">
+        #{vendorName},
+      </if>
+      <if test="vendorPassword != null">
+        #{vendorPassword},
+      </if>
+      <if test="vendorMobile != null">
+        #{vendorMobile},
+      </if>
+      <if test="vendorEmail != null">
+        #{vendorEmail},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="isStoreAdmin != null">
+        #{isStoreAdmin},
+      </if>
+      <if test="registerTime != null">
+        #{registerTime},
+      </if>
+      <if test="latestLoginTime != null">
+        #{latestLoginTime},
+      </if>
+      <if test="latestLoginIp != null">
+        #{latestLoginIp},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl},
+      </if>
+      <if test="isAllowLogin != null">
+        #{isAllowLogin},
+      </if>
+      <if test="rolesId != null">
+        #{rolesId},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `vendor`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.vendorName != null">
+        `vendor_name` = #{record.vendorName},
+      </if>
+      <if test="record.vendorPassword != null">
+        `vendor_password` = #{record.vendorPassword},
+      </if>
+      <if test="record.vendorMobile != null">
+        `vendor_mobile` = #{record.vendorMobile},
+      </if>
+      <if test="record.vendorEmail != null">
+        `vendor_email` = #{record.vendorEmail},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.isStoreAdmin != null">
+        `is_store_admin` = #{record.isStoreAdmin},
+      </if>
+      <if test="record.registerTime != null">
+        `register_time` = #{record.registerTime},
+      </if>
+      <if test="record.latestLoginTime != null">
+        `latest_login_time` = #{record.latestLoginTime},
+      </if>
+      <if test="record.latestLoginIp != null">
+        `latest_login_ip` = #{record.latestLoginIp},
+      </if>
+      <if test="record.avatarUrl != null">
+        `avatar_url` = #{record.avatarUrl},
+      </if>
+      <if test="record.isAllowLogin != null">
+        `is_allow_login` = #{record.isAllowLogin},
+      </if>
+      <if test="record.rolesId != null">
+        `roles_id` = #{record.rolesId},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `vendor`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="vendorName != null">
+        `vendor_name` = #{vendorName},
+      </if>
+      <if test="vendorPassword != null">
+        `vendor_password` = #{vendorPassword},
+      </if>
+      <if test="vendorMobile != null">
+        `vendor_mobile` = #{vendorMobile},
+      </if>
+      <if test="vendorEmail != null">
+        `vendor_email` = #{vendorEmail},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="isStoreAdmin != null">
+        `is_store_admin` = #{isStoreAdmin},
+      </if>
+      <if test="registerTime != null">
+        `register_time` = #{registerTime},
+      </if>
+      <if test="latestLoginTime != null">
+        `latest_login_time` = #{latestLoginTime},
+      </if>
+      <if test="latestLoginIp != null">
+        `latest_login_ip` = #{latestLoginIp},
+      </if>
+      <if test="avatarUrl != null">
+        `avatar_url` = #{avatarUrl},
+      </if>
+      <if test="isAllowLogin != null">
+        `is_allow_login` = #{isAllowLogin},
+      </if>
+      <if test="rolesId != null">
+        `roles_id` = #{rolesId},
+      </if>
+    </trim>
+    WHERE `vendor_id` = #{vendorId}
+  </update>
+</mapper>

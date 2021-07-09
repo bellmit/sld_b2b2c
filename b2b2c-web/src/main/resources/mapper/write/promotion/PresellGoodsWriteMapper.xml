@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.PresellGoodsWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.PresellGoods">
+    <id column="presell_goods_id" property="presellGoodsId" />
+    <result column="presell_id" property="presellId" />
+    <result column="product_id" property="productId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="goods_name" property="goodsName" />
+    <result column="goods_image" property="goodsImage" />
+    <result column="spec_values" property="specValues" />
+    <result column="product_price" property="productPrice" />
+    <result column="presell_price" property="presellPrice" />
+    <result column="first_money" property="firstMoney" />
+    <result column="second_money" property="secondMoney" />
+    <result column="first_expand" property="firstExpand" />
+    <result column="presell_description" property="presellDescription" />
+    <result column="deposit_compensate" property="depositCompensate" />
+    <result column="actual_sale" property="actualSale" />
+    <result column="virtual_sale" property="virtualSale" />
+    <result column="stock" property="stock" />
+    <result column="presell_stock" property="presellStock" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="presellId != null">
+        `presell_id`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="goodsName != null">
+        `goods_name`,
+      </if>
+      <if test="goodsImage != null">
+        `goods_image`,
+      </if>
+      <if test="specValues != null">
+        `spec_values`,
+      </if>
+      <if test="productPrice != null">
+        `product_price`,
+      </if>
+      <if test="presellPrice != null">
+        `presell_price`,
+      </if>
+      <if test="firstMoney != null">
+        `first_money`,
+      </if>
+      <if test="secondMoney != null">
+        `second_money`,
+      </if>
+      <if test="firstExpand != null">
+        `first_expand`,
+      </if>
+      <if test="presellDescription != null">
+        `presell_description`,
+      </if>
+      <if test="depositCompensate != null">
+        `deposit_compensate`,
+      </if>
+      <if test="actualSale != null">
+        `actual_sale`,
+      </if>
+      <if test="virtualSale != null">
+        `virtual_sale`,
+      </if>
+      <if test="stock != null">
+        `stock`,
+      </if>
+      <if test="presellStock != null">
+        `presell_stock`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `presell_goods_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.presellGoodsIdNotEquals != null">
+          AND `presell_goods_id` != #{example.presellGoodsIdNotEquals}
+        </if>
+        <if test="example.presellGoodsIdIn != null">
+          AND `presell_goods_id` in (${example.presellGoodsIdIn})
+        </if>
+        <if test="example.presellId != null">
+          AND `presell_id` = #{example.presellId}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.goodsName != null">
+          AND `goods_name` = #{example.goodsName}
+        </if>
+        <if test="example.goodsNameLike != null">
+          AND `goods_name` like concat('%',#{example.goodsNameLike},'%')
+        </if>
+        <if test="example.goodsImage != null">
+          AND `goods_image` = #{example.goodsImage}
+        </if>
+        <if test="example.specValues != null">
+          AND `spec_values` = #{example.specValues}
+        </if>
+        <if test="example.productPrice != null">
+          AND `product_price` = #{example.productPrice}
+        </if>
+        <if test="example.presellPrice != null">
+          AND `presell_price` = #{example.presellPrice}
+        </if>
+        <if test="example.firstMoney != null">
+          AND `first_money` = #{example.firstMoney}
+        </if>
+        <if test="example.secondMoney != null">
+          AND `second_money` = #{example.secondMoney}
+        </if>
+        <if test="example.firstExpand != null">
+          AND `first_expand` = #{example.firstExpand}
+        </if>
+        <if test="example.presellDescription != null">
+          AND `presell_description` = #{example.presellDescription}
+        </if>
+        <if test="example.depositCompensate != null">
+          AND `deposit_compensate` = #{example.depositCompensate}
+        </if>
+        <if test="example.actualSale != null">
+          AND `actual_sale` = #{example.actualSale}
+        </if>
+        <if test="example.virtualSale != null">
+          AND `virtual_sale` = #{example.virtualSale}
+        </if>
+        <if test="example.stock != null">
+          AND `stock` = #{example.stock}
+        </if>
+        <if test="example.presellStock != null">
+          AND `presell_stock` = #{example.presellStock}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `presell_goods_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.PresellGoodsExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_presell_goods`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_presell_goods`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_presell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_presell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_presell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_presell_goods`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_presell_goods`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_presell_goods`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="presell_goods_id" keyProperty="presellGoodsId" parameterType="com.slodon.b2b2c.promotion.pojo.PresellGoods" useGeneratedKeys="true">
+    INSERT INTO `promotion_presell_goods`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="presellId != null">
+        #{presellId},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        #{goodsName},
+      </if>
+      <if test="goodsImage != null">
+        #{goodsImage},
+      </if>
+      <if test="specValues != null">
+        #{specValues},
+      </if>
+      <if test="productPrice != null">
+        #{productPrice},
+      </if>
+      <if test="presellPrice != null">
+        #{presellPrice},
+      </if>
+      <if test="firstMoney != null">
+        #{firstMoney},
+      </if>
+      <if test="secondMoney != null">
+        #{secondMoney},
+      </if>
+      <if test="firstExpand != null">
+        #{firstExpand},
+      </if>
+      <if test="presellDescription != null">
+        #{presellDescription},
+      </if>
+      <if test="depositCompensate != null">
+        #{depositCompensate},
+      </if>
+      <if test="actualSale != null">
+        #{actualSale},
+      </if>
+      <if test="virtualSale != null">
+        #{virtualSale},
+      </if>
+      <if test="stock != null">
+        #{stock},
+      </if>
+      <if test="presellStock != null">
+        #{presellStock},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_presell_goods`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.presellId != null">
+        `presell_id` = #{record.presellId},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.goodsName != null">
+        `goods_name` = #{record.goodsName},
+      </if>
+      <if test="record.goodsImage != null">
+        `goods_image` = #{record.goodsImage},
+      </if>
+      <if test="record.specValues != null">
+        `spec_values` = #{record.specValues},
+      </if>
+      <if test="record.productPrice != null">
+        `product_price` = #{record.productPrice},
+      </if>
+      <if test="record.presellPrice != null">
+        `presell_price` = #{record.presellPrice},
+      </if>
+      <if test="record.firstMoney != null">
+        `first_money` = #{record.firstMoney},
+      </if>
+      <if test="record.secondMoney != null">
+        `second_money` = #{record.secondMoney},
+      </if>
+      <if test="record.firstExpand != null">
+        `first_expand` = #{record.firstExpand},
+      </if>
+      <if test="record.presellDescription != null">
+        `presell_description` = #{record.presellDescription},
+      </if>
+      <if test="record.depositCompensate != null">
+        `deposit_compensate` = #{record.depositCompensate},
+      </if>
+      <if test="record.actualSale != null">
+        `actual_sale` = #{record.actualSale},
+      </if>
+      <if test="record.virtualSale != null">
+        `virtual_sale` = #{record.virtualSale},
+      </if>
+      <if test="record.stock != null">
+        `stock` = #{record.stock},
+      </if>
+      <if test="record.presellStock != null">
+        `presell_stock` = #{record.presellStock},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_presell_goods`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="presellId != null">
+        `presell_id` = #{presellId},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="goodsName != null">
+        `goods_name` = #{goodsName},
+      </if>
+      <if test="goodsImage != null">
+        `goods_image` = #{goodsImage},
+      </if>
+      <if test="specValues != null">
+        `spec_values` = #{specValues},
+      </if>
+      <if test="productPrice != null">
+        `product_price` = #{productPrice},
+      </if>
+      <if test="presellPrice != null">
+        `presell_price` = #{presellPrice},
+      </if>
+      <if test="firstMoney != null">
+        `first_money` = #{firstMoney},
+      </if>
+      <if test="secondMoney != null">
+        `second_money` = #{secondMoney},
+      </if>
+      <if test="firstExpand != null">
+        `first_expand` = #{firstExpand},
+      </if>
+      <if test="presellDescription != null">
+        `presell_description` = #{presellDescription},
+      </if>
+      <if test="depositCompensate != null">
+        `deposit_compensate` = #{depositCompensate},
+      </if>
+      <if test="actualSale != null">
+        `actual_sale` = #{actualSale},
+      </if>
+      <if test="virtualSale != null">
+        `virtual_sale` = #{virtualSale},
+      </if>
+      <if test="stock != null">
+        `stock` = #{stock},
+      </if>
+      <if test="presellStock != null">
+        `presell_stock` = #{presellStock},
+      </if>
+    </trim>
+    WHERE `presell_goods_id` = #{presellGoodsId}
+  </update>
+</mapper>

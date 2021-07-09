@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.read.promotion.CouponReadMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.Coupon">
+    <id column="coupon_id" property="couponId" />
+    <result column="coupon_name" property="couponName" />
+    <result column="coupon_content" property="couponContent" />
+    <result column="description" property="description" />
+    <result column="publish_type" property="publishType" />
+    <result column="coupon_type" property="couponType" />
+    <result column="consume_integral" property="consumeIntegral" />
+    <result column="received_num" property="receivedNum" />
+    <result column="used_num" property="usedNum" />
+    <result column="publish_value" property="publishValue" />
+    <result column="random_max" property="randomMax" />
+    <result column="random_min" property="randomMin" />
+    <result column="publish_amount" property="publishAmount" />
+    <result column="publish_num" property="publishNum" />
+    <result column="publish_start_time" property="publishStartTime" />
+    <result column="publish_end_time" property="publishEndTime" />
+    <result column="limit_receive" property="limitReceive" />
+    <result column="effective_time_type" property="effectiveTimeType" />
+    <result column="effective_start" property="effectiveStart" />
+    <result column="effective_end" property="effectiveEnd" />
+    <result column="cycle" property="cycle" />
+    <result column="state" property="state" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="use_type" property="useType" />
+    <result column="limit_quota" property="limitQuota" />
+    <result column="discount_limit_amount" property="discountLimitAmount" />
+    <result column="plus_qualification" property="plusQualification" />
+    <result column="is_per_quota" property="isPerQuota" />
+    <result column="is_recommend" property="isRecommend" />
+    <result column="channel" property="channel" />
+    <result column="create_user_id" property="createUserId" />
+    <result column="create_user_name" property="createUserName" />
+    <result column="create_time" property="createTime" />
+  </resultMap>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `coupon_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.couponIdNotEquals != null">
+          AND `coupon_id` != #{example.couponIdNotEquals}
+        </if>
+        <if test="example.couponIdIn != null">
+          AND `coupon_id` in (${example.couponIdIn})
+        </if>
+        <if test="example.couponName != null">
+          AND `coupon_name` = #{example.couponName}
+        </if>
+        <if test="example.couponNameLike != null">
+          AND `coupon_name` like concat('%',#{example.couponNameLike},'%')
+        </if>
+        <if test="example.couponContent != null">
+          AND `coupon_content` = #{example.couponContent}
+        </if>
+        <if test="example.couponContentLike != null">
+          AND `coupon_content` like concat('%',#{example.couponContentLike},'%')
+        </if>
+        <if test="example.description != null">
+          AND `description` = #{example.description}
+        </if>
+        <if test="example.publishType != null">
+          AND `publish_type` = #{example.publishType}
+        </if>
+        <if test="example.couponType != null">
+          AND `coupon_type` = #{example.couponType}
+        </if>
+        <if test="example.consumeIntegral != null">
+          AND `consume_integral` = #{example.consumeIntegral}
+        </if>
+        <if test="example.receivedNum != null">
+          AND `received_num` = #{example.receivedNum}
+        </if>
+        <if test="example.usedNum != null">
+          AND `used_num` = #{example.usedNum}
+        </if>
+        <if test="example.publishValue != null">
+          AND `publish_value` = #{example.publishValue}
+        </if>
+        <if test="example.randomMax != null">
+          AND `random_max` = #{example.randomMax}
+        </if>
+        <if test="example.randomMin != null">
+          AND `random_min` = #{example.randomMin}
+        </if>
+        <if test="example.publishAmount != null">
+          AND `publish_amount` = #{example.publishAmount}
+        </if>
+        <if test="example.publishNum != null">
+          AND `publish_num` = #{example.publishNum}
+        </if>
+        <if test="example.publishStartTimeAfter != null">
+          AND `publish_start_time` <![CDATA[ >= ]]> #{example.publishStartTimeAfter}
+        </if>
+        <if test="example.publishStartTimeBefore != null">
+          AND `publish_start_time` <![CDATA[ <= ]]> #{example.publishStartTimeBefore}
+        </if>
+        <if test="example.publishEndTimeAfter != null">
+          AND `publish_end_time` <![CDATA[ >= ]]> #{example.publishEndTimeAfter}
+        </if>
+        <if test="example.publishEndTimeBefore != null">
+          AND `publish_end_time` <![CDATA[ <= ]]> #{example.publishEndTimeBefore}
+        </if>
+        <if test="example.limitReceive != null">
+          AND `limit_receive` = #{example.limitReceive}
+        </if>
+        <if test="example.effectiveTimeType != null">
+          AND `effective_time_type` = #{example.effectiveTimeType}
+        </if>
+        <if test="example.effectiveStartAfter != null">
+          AND `effective_start` <![CDATA[ >= ]]> #{example.effectiveStartAfter}
+        </if>
+        <if test="example.effectiveStartBefore != null">
+          AND `effective_start` <![CDATA[ <= ]]> #{example.effectiveStartBefore}
+        </if>
+        <if test="example.effectiveEndAfter != null">
+          AND `effective_end` <![CDATA[ >= ]]> #{example.effectiveEndAfter}
+        </if>
+        <if test="example.effectiveEndBefore != null">
+          AND `effective_end` <![CDATA[ <= ]]> #{example.effectiveEndBefore}
+        </if>
+        <if test="example.cycle != null">
+          AND `cycle` = #{example.cycle}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.stateIn != null">
+          AND `state` in (${example.stateIn})
+        </if>
+        <if test="example.stateNotIn != null">
+          AND `state` not in (${example.stateNotIn})
+        </if>
+        <if test="example.stateNotEquals != null">
+          AND `state` != #{example.stateNotEquals}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.useType != null">
+          AND `use_type` = #{example.useType}
+        </if>
+        <if test="example.limitQuota != null">
+          AND `limit_quota` = #{example.limitQuota}
+        </if>
+        <if test="example.discountLimitAmount != null">
+          AND `discount_limit_amount` = #{example.discountLimitAmount}
+        </if>
+        <if test="example.plusQualification != null">
+          AND `plus_qualification` = #{example.plusQualification}
+        </if>
+        <if test="example.isPerQuota != null">
+          AND `is_per_quota` = #{example.isPerQuota}
+        </if>
+        <if test="example.isRecommend != null">
+          AND `is_recommend` = #{example.isRecommend}
+        </if>
+        <if test="example.channel != null">
+          AND `channel` = #{example.channel}
+        </if>
+        <if test="example.createUserId != null">
+          AND `create_user_id` = #{example.createUserId}
+        </if>
+        <if test="example.createUserName != null">
+          AND `create_user_name` = #{example.createUserName}
+        </if>
+        <if test="example.createUserNameLike != null">
+          AND `create_user_name` like concat('%',#{example.createUserNameLike},'%')
+        </if>
+        <if test="example.createTimeAfter != null">
+          AND `create_time` <![CDATA[ >= ]]> #{example.createTimeAfter}
+        </if>
+        <if test="example.createTimeBefore != null">
+          AND `create_time` <![CDATA[ <= ]]> #{example.createTimeBefore}
+        </if>
+        <if test="example.categoryId != null">
+          AND `coupon_id` IN (SELECT coupon_id FROM promotion_coupon_goods_category WHERE `category_id`= #{example.categoryId})
+        </if>
+        <if test="example.storeIdNotEquals != null">
+          AND `store_id` != #{example.storeIdNotEquals}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `coupon_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.CouponExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_coupon`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_coupon`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_coupon`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_coupon`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_coupon`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_coupon`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+</mapper>

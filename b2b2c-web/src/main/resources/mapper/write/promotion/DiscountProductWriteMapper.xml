@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.promotion.DiscountProductWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.promotion.pojo.DiscountProduct">
+    <id column="discount_product_id" property="discountProductId" />
+    <result column="goods_id" property="goodsId" />
+    <result column="product_id" property="productId" />
+    <result column="store_id" property="storeId" />
+    <result column="is_custom_price" property="isCustomPrice" />
+    <result column="discount_price" property="discountPrice" />
+    <result column="spec_attr_id" property="specAttrId" />
+    <result column="spec_name" property="specName" />
+    <result column="stock" property="stock" />
+    <result column="stock_warning" property="stockWarning" />
+    <result column="state" property="state" />
+    <result column="weight" property="weight" />
+    <result column="volume" property="volume" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="discountProductId != null">
+        `discount_product_id`,
+      </if>
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="isCustomPrice != null">
+        `is_custom_price`,
+      </if>
+      <if test="discountPrice != null">
+        `discount_price`,
+      </if>
+      <if test="specAttrId != null">
+        `spec_attr_id`,
+      </if>
+      <if test="specName != null">
+        `spec_name`,
+      </if>
+      <if test="stock != null">
+        `stock`,
+      </if>
+      <if test="stockWarning != null">
+        `stock_warning`,
+      </if>
+      <if test="state != null">
+        `state`,
+      </if>
+      <if test="weight != null">
+        `weight`,
+      </if>
+      <if test="volume != null">
+        `volume`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `discount_product_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.discountProductIdNotEquals != null">
+          AND `discount_product_id` != #{example.discountProductIdNotEquals}
+        </if>
+        <if test="example.discountProductIdIn != null">
+          AND `discount_product_id` in (${example.discountProductIdIn})
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.isCustomPrice != null">
+          AND `is_custom_price` = #{example.isCustomPrice}
+        </if>
+        <if test="example.discountPrice != null">
+          AND `discount_price` = #{example.discountPrice}
+        </if>
+        <if test="example.specAttrId != null">
+          AND `spec_attr_id` = #{example.specAttrId}
+        </if>
+        <if test="example.specName != null">
+          AND `spec_name` = #{example.specName}
+        </if>
+        <if test="example.specNameLike != null">
+          AND `spec_name` like concat('%',#{example.specNameLike},'%')
+        </if>
+        <if test="example.stock != null">
+          AND `stock` = #{example.stock}
+        </if>
+        <if test="example.stockWarning != null">
+          AND `stock_warning` = #{example.stockWarning}
+        </if>
+        <if test="example.state != null">
+          AND `state` = #{example.state}
+        </if>
+        <if test="example.weight != null">
+          AND `weight` = #{example.weight}
+        </if>
+        <if test="example.volume != null">
+          AND `volume` = #{example.volume}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `discount_product_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.promotion.example.DiscountProductExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `promotion_discount_product`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount_product`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `promotion_discount_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_discount_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `promotion_discount_product`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `promotion_discount_product`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `promotion_discount_product`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="discount_product_id" keyProperty="discountProductId" parameterType="com.slodon.b2b2c.promotion.pojo.DiscountProduct" useGeneratedKeys="true">
+    INSERT INTO `promotion_discount_product`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="discountProductId != null">
+        #{discountProductId},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="isCustomPrice != null">
+        #{isCustomPrice},
+      </if>
+      <if test="discountPrice != null">
+        #{discountPrice},
+      </if>
+      <if test="specAttrId != null">
+        #{specAttrId},
+      </if>
+      <if test="specName != null">
+        #{specName},
+      </if>
+      <if test="stock != null">
+        #{stock},
+      </if>
+      <if test="stockWarning != null">
+        #{stockWarning},
+      </if>
+      <if test="state != null">
+        #{state},
+      </if>
+      <if test="weight != null">
+        #{weight},
+      </if>
+      <if test="volume != null">
+        #{volume},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `promotion_discount_product`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.isCustomPrice != null">
+        `is_custom_price` = #{record.isCustomPrice},
+      </if>
+      <if test="record.discountPrice != null">
+        `discount_price` = #{record.discountPrice},
+      </if>
+      <if test="record.specAttrId != null">
+        `spec_attr_id` = #{record.specAttrId},
+      </if>
+      <if test="record.specName != null">
+        `spec_name` = #{record.specName},
+      </if>
+      <if test="record.stock != null">
+        `stock` = #{record.stock},
+      </if>
+      <if test="record.stockWarning != null">
+        `stock_warning` = #{record.stockWarning},
+      </if>
+      <if test="record.state != null">
+        `state` = #{record.state},
+      </if>
+      <if test="record.weight != null">
+        `weight` = #{record.weight},
+      </if>
+      <if test="record.volume != null">
+        `volume` = #{record.volume},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `promotion_discount_product`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="isCustomPrice != null">
+        `is_custom_price` = #{isCustomPrice},
+      </if>
+      <if test="discountPrice != null">
+        `discount_price` = #{discountPrice},
+      </if>
+      <if test="specAttrId != null">
+        `spec_attr_id` = #{specAttrId},
+      </if>
+      <if test="specName != null">
+        `spec_name` = #{specName},
+      </if>
+      <if test="stock != null">
+        `stock` = #{stock},
+      </if>
+      <if test="stockWarning != null">
+        `stock_warning` = #{stockWarning},
+      </if>
+      <if test="state != null">
+        `state` = #{state},
+      </if>
+      <if test="weight != null">
+        `weight` = #{weight},
+      </if>
+      <if test="volume != null">
+        `volume` = #{volume},
+      </if>
+    </trim>
+    WHERE `discount_product_id` = #{discountProductId}
+  </update>
+</mapper>

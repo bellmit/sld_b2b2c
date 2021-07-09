@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.slodon.b2b2c.dao.write.goods.GoodsPromotionHistoryWriteMapper">
+  <resultMap id="resultMap" type="com.slodon.b2b2c.goods.pojo.GoodsPromotionHistory">
+    <id column="history_id" property="historyId" />
+    <result column="goods_promotion_id" property="goodsPromotionId" />
+    <result column="bind_time" property="bindTime" />
+    <result column="store_id" property="storeId" />
+    <result column="store_name" property="storeName" />
+    <result column="goods_id" property="goodsId" />
+    <result column="product_id" property="productId" />
+    <result column="promotion_id" property="promotionId" />
+    <result column="promotion_type" property="promotionType" />
+    <result column="start_time" property="startTime" />
+    <result column="end_time" property="endTime" />
+    <result column="description" property="description" />
+  </resultMap>
+  <!--除主键外的所有字段，用于插入操作-->
+  <sql id="columns">
+    <trim suffixOverrides=",">
+      <if test="goodsPromotionId != null">
+        `goods_promotion_id`,
+      </if>
+      <if test="bindTime != null">
+        `bind_time`,
+      </if>
+      <if test="storeId != null">
+        `store_id`,
+      </if>
+      <if test="storeName != null">
+        `store_name`,
+      </if>
+      <if test="goodsId != null">
+        `goods_id`,
+      </if>
+      <if test="productId != null">
+        `product_id`,
+      </if>
+      <if test="promotionId != null">
+        `promotion_id`,
+      </if>
+      <if test="promotionType != null">
+        `promotion_type`,
+      </if>
+      <if test="startTime != null">
+        `start_time`,
+      </if>
+      <if test="endTime != null">
+        `end_time`,
+      </if>
+      <if test="description != null">
+        `description`,
+      </if>
+    </trim>
+  </sql>
+  <!--按照主键值进行操作-->
+  <sql id="pkWhere">
+    WHERE `history_id` = #{primaryKey}
+  </sql>
+  <!--操作条件-->
+  <sql id="whereCondition">
+    <if test="example != null">
+      <trim prefix="WHERE" prefixOverrides="AND|OR">
+        <if test="example.historyIdNotEquals != null">
+          AND `history_id` != #{example.historyIdNotEquals}
+        </if>
+        <if test="example.historyIdIn != null">
+          AND `history_id` in (${example.historyIdIn})
+        </if>
+        <if test="example.goodsPromotionId != null">
+          AND `goods_promotion_id` = #{example.goodsPromotionId}
+        </if>
+        <if test="example.bindTimeAfter != null">
+          AND `bind_time` <![CDATA[ >= ]]> #{example.bindTimeAfter}
+        </if>
+        <if test="example.bindTimeBefore != null">
+          AND `bind_time` <![CDATA[ <= ]]> #{example.bindTimeBefore}
+        </if>
+        <if test="example.storeId != null">
+          AND `store_id` = #{example.storeId}
+        </if>
+        <if test="example.storeName != null">
+          AND `store_name` = #{example.storeName}
+        </if>
+        <if test="example.storeNameLike != null">
+          AND `store_name` like concat('%',#{example.storeNameLike},'%')
+        </if>
+        <if test="example.goodsId != null">
+          AND `goods_id` = #{example.goodsId}
+        </if>
+        <if test="example.productId != null">
+          AND `product_id` = #{example.productId}
+        </if>
+        <if test="example.promotionId != null">
+          AND `promotion_id` = #{example.promotionId}
+        </if>
+        <if test="example.promotionType != null">
+          AND `promotion_type` = #{example.promotionType}
+        </if>
+        <if test="example.startTimeAfter != null">
+          AND `start_time` <![CDATA[ >= ]]> #{example.startTimeAfter}
+        </if>
+        <if test="example.startTimeBefore != null">
+          AND `start_time` <![CDATA[ <= ]]> #{example.startTimeBefore}
+        </if>
+        <if test="example.endTimeAfter != null">
+          AND `end_time` <![CDATA[ >= ]]> #{example.endTimeAfter}
+        </if>
+        <if test="example.endTimeBefore != null">
+          AND `end_time` <![CDATA[ <= ]]> #{example.endTimeBefore}
+        </if>
+        <if test="example.description != null">
+          AND `description` = #{example.description}
+        </if>
+      </trim>
+    </if>
+  </sql>
+  <!--排序条件-->
+  <sql id="orderBy">
+    ORDER BY `history_id` DESC
+  </sql>
+  <sql id="orderByOther">
+    order by ${example.orderBy}
+  </sql>
+  <!--分组条件-->
+  <sql id="groupBy">
+    group by ${example.groupBy}
+  </sql>
+  <!--分页条件-->
+  <sql id="limit">
+    <if test="size != null and size &gt; 0">
+      limit #{startRow},#{size}
+    </if>
+  </sql>
+  <!--查询符合条件的记录数-->
+  <select id="countByExample" parameterType="com.slodon.b2b2c.goods.example.GoodsPromotionHistoryExample" resultType="java.lang.Integer">
+    SELECT
+      COUNT(*)
+    FROM `goods_promotion_history`
+    <include refid="whereCondition" />
+  </select>
+  <!--根据主键查询记录-->
+  <select id="getByPrimaryKey" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_promotion_history`
+    <include refid="pkWhere" />
+  </select>
+  <!--查询符合条件的记录(所有字段)-->
+  <select id="listByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_promotion_history`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(所有字段)-->
+  <select id="listPageByExample" resultMap="resultMap">
+    SELECT
+      *
+    FROM `goods_promotion_history`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--查询符合条件的记录(指定字段)-->
+  <select id="listFieldsByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_promotion_history`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+  </select>
+  <!--分页查询符合条件的记录(指定字段)-->
+  <select id="listFieldsPageByExample" resultMap="resultMap">
+    SELECT
+      ${fields}
+    FROM `goods_promotion_history`
+    <include refid="whereCondition" />
+    <if test="example.groupBy != null">
+      <include refid="groupBy" />
+    </if>
+    <choose>
+      <when test="example.orderBy != null">
+        <include refid="orderByOther" />
+      </when>
+      <otherwise>
+        <include refid="orderBy" />
+      </otherwise>
+    </choose>
+    <include refid="limit" />
+  </select>
+  <!--根据条件删除记录，可多条删除-->
+  <delete id="deleteByExample">
+    DELETE FROM `goods_promotion_history`
+    <include refid="whereCondition" />
+  </delete>
+  <!--根据主键删除记录-->
+  <delete id="deleteByPrimaryKey">
+    DELETE FROM `goods_promotion_history`
+    <include refid="pkWhere" />
+  </delete>
+  <!--插入一条记录-->
+  <insert id="insert" keyColumn="history_id" keyProperty="historyId" parameterType="com.slodon.b2b2c.goods.pojo.GoodsPromotionHistory" useGeneratedKeys="true">
+    INSERT INTO `goods_promotion_history`(
+    <include refid="columns" />
+    )
+    VALUES(
+    <trim suffixOverrides=",">
+      <if test="goodsPromotionId != null">
+        #{goodsPromotionId},
+      </if>
+      <if test="bindTime != null">
+        #{bindTime},
+      </if>
+      <if test="storeId != null">
+        #{storeId},
+      </if>
+      <if test="storeName != null">
+        #{storeName},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId},
+      </if>
+      <if test="productId != null">
+        #{productId},
+      </if>
+      <if test="promotionId != null">
+        #{promotionId},
+      </if>
+      <if test="promotionType != null">
+        #{promotionType},
+      </if>
+      <if test="startTime != null">
+        #{startTime},
+      </if>
+      <if test="endTime != null">
+        #{endTime},
+      </if>
+      <if test="description != null">
+        #{description},
+      </if>
+    </trim>
+    )
+  </insert>
+  <!--按条件更新记录中不为空的字段-->
+  <update id="updateByExampleSelective">
+    UPDATE `goods_promotion_history`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="record.goodsPromotionId != null">
+        `goods_promotion_id` = #{record.goodsPromotionId},
+      </if>
+      <if test="record.bindTime != null">
+        `bind_time` = #{record.bindTime},
+      </if>
+      <if test="record.storeId != null">
+        `store_id` = #{record.storeId},
+      </if>
+      <if test="record.storeName != null">
+        `store_name` = #{record.storeName},
+      </if>
+      <if test="record.goodsId != null">
+        `goods_id` = #{record.goodsId},
+      </if>
+      <if test="record.productId != null">
+        `product_id` = #{record.productId},
+      </if>
+      <if test="record.promotionId != null">
+        `promotion_id` = #{record.promotionId},
+      </if>
+      <if test="record.promotionType != null">
+        `promotion_type` = #{record.promotionType},
+      </if>
+      <if test="record.startTime != null">
+        `start_time` = #{record.startTime},
+      </if>
+      <if test="record.endTime != null">
+        `end_time` = #{record.endTime},
+      </if>
+      <if test="record.description != null">
+        `description` = #{record.description},
+      </if>
+    </trim>
+    <include refid="whereCondition" />
+  </update>
+  <!--按照主键更新记录中不为空的字段-->
+  <update id="updateByPrimaryKeySelective">
+    UPDATE `goods_promotion_history`
+    <trim prefix="SET" suffixOverrides=",">
+      <if test="goodsPromotionId != null">
+        `goods_promotion_id` = #{goodsPromotionId},
+      </if>
+      <if test="bindTime != null">
+        `bind_time` = #{bindTime},
+      </if>
+      <if test="storeId != null">
+        `store_id` = #{storeId},
+      </if>
+      <if test="storeName != null">
+        `store_name` = #{storeName},
+      </if>
+      <if test="goodsId != null">
+        `goods_id` = #{goodsId},
+      </if>
+      <if test="productId != null">
+        `product_id` = #{productId},
+      </if>
+      <if test="promotionId != null">
+        `promotion_id` = #{promotionId},
+      </if>
+      <if test="promotionType != null">
+        `promotion_type` = #{promotionType},
+      </if>
+      <if test="startTime != null">
+        `start_time` = #{startTime},
+      </if>
+      <if test="endTime != null">
+        `end_time` = #{endTime},
+      </if>
+      <if test="description != null">
+        `description` = #{description},
+      </if>
+    </trim>
+    WHERE `history_id` = #{historyId}
+  </update>
+</mapper>
