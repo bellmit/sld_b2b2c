@@ -6,11 +6,14 @@ import com.slodon.b2b2c.dao.read.system.RegionDistrictReadMapper;
 import com.slodon.b2b2c.dao.write.system.RegionDistrictWriteMapper;
 import com.slodon.b2b2c.system.example.RegionDistrictExample;
 import com.slodon.b2b2c.system.pojo.RegionDistrict;
+import com.slodon.b2b2c.vo.system.RegionVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -93,10 +96,39 @@ public class RegionDistrictModel {
         List<RegionDistrict> regionDistrictList;
         if (pager != null) {
             pager.setRowsCount(regionDistrictReadMapper.countByExample(example));
-            regionDistrictList = regionDistrictReadMapper.listPageByExample(example, pager.getStart(), pager.getPageSize());
+            regionDistrictList = regionDistrictReadMapper.listPageByExample(example, pager.getStart(),
+                    pager.getPageSize());
         } else {
             regionDistrictList = regionDistrictReadMapper.listByExample(example);
         }
         return regionDistrictList;
+    }
+
+    /**
+     * 根据条件获取区信息表
+     *
+     * @return
+     */
+    public List<RegionVO> getDistrictList(String remarkCode, String cityCode) {
+        List<RegionVO> list = new ArrayList<>();
+        RegionDistrictExample example = new RegionDistrictExample();
+        example.setRemarkCode(remarkCode);
+        if (!StringUtils.isEmpty(cityCode)) {
+            example.setCityCode(cityCode);
+        }
+        example.setOrderBy("native_code asc");
+        List<RegionDistrict> districtList = regionDistrictReadMapper.listByExample(example);
+        if (!CollectionUtils.isEmpty(districtList)) {
+            for (RegionDistrict district : districtList) {
+                RegionVO vo = new RegionVO();
+                vo.setParentCode(district.getCityCode());
+                vo.setRegionCode(district.getRemarkCode());
+                vo.setRegionName(district.getDistrictName());
+                vo.setRegionLevel(district.getRegionLevel());
+                vo.setChildren(new ArrayList<>());
+                list.add(vo);
+            }
+        }
+        return list;
     }
 }

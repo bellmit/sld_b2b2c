@@ -6,6 +6,8 @@ import com.slodon.b2b2c.core.controller.BaseController;
 import com.slodon.b2b2c.core.response.JsonResult;
 import com.slodon.b2b2c.core.response.SldResponse;
 import com.slodon.b2b2c.model.system.RegionProvinceModel;
+import com.slodon.b2b2c.model.system.RegionCityModel;
+import com.slodon.b2b2c.model.system.RegionDistrictModel;
 import com.slodon.b2b2c.system.pojo.RegionCity;
 import com.slodon.b2b2c.system.pojo.RegionDistrict;
 import com.slodon.b2b2c.system.pojo.RegionProvince;
@@ -34,21 +36,23 @@ public class AdminRegionController extends BaseController {
     private RegionProvinceModel regionProvinceModel;
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private RegionCityModel regionCityModel;
+    @Resource
+    private RegionDistrictModel regionDistrictModel;
 
     @ApiOperation("地区列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "remarkCode", value = "地区编码", paramType = "query"),
-            @ApiImplicitParam(name = "regionLevel", value = "子地区级别[1省级，2市级，3区级]", paramType = "query")
-    })
+    @ApiImplicitParams({ @ApiImplicitParam(name = "remarkCode", value = "地区编码", paramType = "query"),
+            @ApiImplicitParam(name = "regionLevel", value = "子地区级别[1省级，2市级，3区级]", paramType = "query") })
     @GetMapping("list")
     public JsonResult<List<RegionVO>> getRegionList(String remarkCode, Integer regionLevel) {
         List<RegionVO> list = new ArrayList<>();
         if (null == remarkCode) {
             if (null == regionLevel || regionLevel == 3) {
-                //获取所有地址，先查redis缓存是否有数据
+                // 获取所有地址，先查redis缓存是否有数据
                 String allRegion = stringRedisTemplate.opsForValue().get(RedisConst.REGION);
                 if (StringUtils.isEmpty(allRegion)) {
-                    //redis缓存数据无效，从数据库查，并放入缓存
+                    // redis缓存数据无效，从数据库查，并放入缓存
                     List<RegionProvince> allRegionList = regionProvinceModel.getAllRegion(null);
                     List<RegionVO> resultList = this.getRegionList(allRegionList);
                     stringRedisTemplate.opsForValue().set(RedisConst.REGION, JSONArray.toJSONString(resultList));
@@ -58,6 +62,51 @@ public class AdminRegionController extends BaseController {
                 }
             } else if (regionLevel == 2) {
                 list = regionProvinceModel.getProvinceAndCity(null);
+            } else if (regionLevel == 1) {
+                list = regionProvinceModel.getProvinceList(null);
+            } else {
+                return SldResponse.success(null);
+            }
+            return SldResponse.success(list);
+        } else {
+            if (StringUtils.isEmpty(regionLevel) || regionLevel < 0 || regionLevel > 3)
+                return SldResponse.badArgumentValue();
+            if (regionLevel == 1) {
+                list = regionProvinceModel.getProvinceList(remarkCode);
+            } else if (regionLevel == 2) {
+                list = regionProvinceModel.getProvinceAndCity(remarkCode);
+            } else if (regionLevel == 3) {
+                List<RegionProvince> allRegionList = regionProvinceModel.getAllRegion(remarkCode);
+                list = this.getRegionList(allRegionList);
+            }
+            return SldResponse.success(list);
+        }
+    }
+
+    @ApiOperation("获取地区列表接口")
+    @ApiImplicitParams({ @ApiImplicitParam(name = "remarkCode", value = "地区编码", paramType = "query"),
+            @ApiImplicitParam(name = "regionLevel", value = "子地区级别[1省级，2市级，3区级]", paramType = "query"),
+            @ApiImplicitParam(name = "parentCode", value = "上级地区编码", paramType = "query") })
+    @GetMapping("/store/list")
+    public JsonResult<List<RegionVO>> getRegionList(String remarkCode, Integer regionLevel, String parentCode) {
+        List<RegionVO> list = new ArrayList<>();
+        if (null == remarkCode) {
+            if (null == regionLevel) {
+                // 获取所有地址，先查redis缓存是否有数据
+                String allRegion = stringRedisTemplate.opsForValue().get(RedisConst.REGION);
+                if (StringUtils.isEmpty(allRegion)) {
+                    // redis缓存数据无效，从数据库查，并放入缓存
+                    List<RegionProvince> allRegionList = regionProvinceModel.getAllRegion(null);
+                    List<RegionVO> resultList = this.getRegionList(allRegionList);
+                    stringRedisTemplate.opsForValue().set(RedisConst.REGION, JSONArray.toJSONString(resultList));
+                    return SldResponse.success(resultList);
+                } else {
+                    return SldResponse.success(JSONArray.parseArray(allRegion, RegionVO.class));
+                }
+            } else if (regionLevel == 3) {
+                list = regionDistrictModel.getDistrictList(null, parentCode);
+            } else if (regionLevel == 2) {
+                list = regionCityModel.getCityList(null, parentCode);
             } else if (regionLevel == 1) {
                 list = regionProvinceModel.getProvinceList(null);
             } else {

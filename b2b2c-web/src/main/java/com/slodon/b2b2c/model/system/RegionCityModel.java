@@ -6,11 +6,14 @@ import com.slodon.b2b2c.dao.read.system.RegionCityReadMapper;
 import com.slodon.b2b2c.dao.write.system.RegionCityWriteMapper;
 import com.slodon.b2b2c.system.example.RegionCityExample;
 import com.slodon.b2b2c.system.pojo.RegionCity;
+import com.slodon.b2b2c.vo.system.RegionVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -98,5 +101,33 @@ public class RegionCityModel {
             regionCityList = regionCityReadMapper.listByExample(example);
         }
         return regionCityList;
+    }
+
+    /**
+     * 根据条件获取市信息表
+     *
+     * @return
+     */
+    public List<RegionVO> getCityList(String remarkCode, String provinceCode) {
+        List<RegionVO> list = new ArrayList<>();
+        RegionCityExample example = new RegionCityExample();
+        example.setRemarkCode(remarkCode);
+        if (!StringUtils.isEmpty(provinceCode)) {
+            example.setProvinceCode(provinceCode);
+        }
+        example.setOrderBy("native_code asc");
+        List<RegionCity> cityList = regionCityReadMapper.listByExample(example);
+        if (!CollectionUtils.isEmpty(cityList)) {
+            for (RegionCity city : cityList) {
+                RegionVO vo = new RegionVO();
+                vo.setParentCode(city.getProvinceCode());
+                vo.setRegionCode(city.getRemarkCode());
+                vo.setRegionName(city.getCityName());
+                vo.setRegionLevel(city.getRegionLevel());
+                vo.setChildren(new ArrayList<>());
+                list.add(vo);
+            }
+        }
+        return list;
     }
 }
