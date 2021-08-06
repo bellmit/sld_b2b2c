@@ -88,6 +88,16 @@ public class SellerRegionController extends BaseController {
         }
     }
 
+    @ApiOperation("获取省市列表接口")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "remarkCode", value = "地区编码", paramType = "query")
+    })
+    @GetMapping("provinceAndCityList")
+    public JsonResult<List<RegionVO>> getProvinceAndCityList(String remarkCode) {
+        List<RegionVO> list = regionProvinceModel.getProvinceAndCity(null);
+        return SldResponse.success(list);
+    }
+
     /**
      * 组装省级地区
      *
