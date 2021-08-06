@@ -1,6 +1,0 @@
-com/slodon/b2b2c/starter/mq/SlodonMqAutoConfig.class
-META-INF/spring-configuration-metadata.json
-com/slodon/b2b2c/starter/mq/entity/MessageSendVO.class
-com/slodon/b2b2c/starter/mq/SlodonMqProperties.class
-com/slodon/b2b2c/starter/mq/entity/MessageSendProperty.class
-com/slodon/b2b2c/starter/mq/entity/MemberIntegralVO.class

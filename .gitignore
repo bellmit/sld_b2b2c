@@ -144,3 +144,7 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+default-compile/
+
+*.lst

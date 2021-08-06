@@ -1,7 +1,0 @@
-com/slodon/smartid/client/factory/impl/IdGeneratorFactoryClient.class
-com/slodon/smartid/client/service/impl/HttpSegmentIdServiceImpl.class
-com/slodon/smartid/client/config/SmartIdClientConfig.class
-com/slodon/smartid/client/utils/SmartIdNumberUtils.class
-com/slodon/smartid/client/utils/SmartIdHttpUtils.class
-com/slodon/smartid/client/utils/PropertiesLoader.class
-com/slodon/smartid/client/utils/SmartId.class
