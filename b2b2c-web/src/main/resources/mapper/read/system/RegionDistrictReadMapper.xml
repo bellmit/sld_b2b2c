@@ -67,6 +67,9 @@
         <if test="example.regionLevel != null">
           AND `region_level` = #{example.regionLevel}
         </if>
+        <if test="example.nativeCode != null">
+          AND `native_code` = #{example.nativeCode}
+        </if>
       </trim>
     </if>
   </sql>

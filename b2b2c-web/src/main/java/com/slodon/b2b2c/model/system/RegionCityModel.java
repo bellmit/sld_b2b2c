@@ -7,12 +7,21 @@ import com.slodon.b2b2c.dao.write.system.RegionCityWriteMapper;
 import com.slodon.b2b2c.system.example.RegionCityExample;
 import com.slodon.b2b2c.system.pojo.RegionCity;
 import com.slodon.b2b2c.vo.system.RegionVO;
+<<<<<<< HEAD
+=======
+
+>>>>>>> wangyl
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+<<<<<<< HEAD
+=======
+
+>>>>>>> wangyl
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,4 +139,8 @@ public class RegionCityModel {
         }
         return list;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> wangyl
 }
