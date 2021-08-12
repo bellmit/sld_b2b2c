@@ -6,6 +6,7 @@ import com.slodon.b2b2c.dao.read.system.RegionDistrictReadMapper;
 import com.slodon.b2b2c.dao.write.system.RegionDistrictWriteMapper;
 import com.slodon.b2b2c.system.example.RegionDistrictExample;
 import com.slodon.b2b2c.system.pojo.RegionDistrict;
+import com.slodon.b2b2c.vo.system.PostInfoVO;
 import com.slodon.b2b2c.vo.system.RegionVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -127,6 +128,32 @@ public class RegionDistrictModel {
                 vo.setRegionName(district.getDistrictName());
                 vo.setRegionLevel(district.getRegionLevel());
                 vo.setChildren(new ArrayList<>());
+                list.add(vo);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * 根据邮政编码获取区信息表
+     *
+     * @return
+     */
+    public List<PostInfoVO> getDistrictByPostcode(String postCode) {
+        List<PostInfoVO> list = new ArrayList<>();
+        RegionDistrictExample example = new RegionDistrictExample();
+        example.setNativeCode(postCode);
+        example.setOrderBy("native_code asc");
+        List<RegionDistrict> districtList = regionDistrictReadMapper.listByExample(example);
+        if (!CollectionUtils.isEmpty(districtList)) {
+            for (RegionDistrict district : districtList) {
+                PostInfoVO vo = new PostInfoVO();
+                vo.setPostCode(district.getNativeCode());
+                vo.setProviceCode(district.getProvinceCode());
+                vo.setProviceName(district.getProvinceName());
+                vo.setCityCode(district.getCityCode());
+                vo.setCityName(district.getCityName());
+                vo.setAddressLine(district.getDistrictName());
                 list.add(vo);
             }
         }

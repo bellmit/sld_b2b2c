@@ -1,16 +1,16 @@
-package com.slodon.b2b2c.controller.seller.seller;
+package com.slodon.b2b2c.controller.system.seller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.slodon.b2b2c.core.constant.RedisConst;
 import com.slodon.b2b2c.core.controller.BaseController;
 import com.slodon.b2b2c.core.response.JsonResult;
 import com.slodon.b2b2c.core.response.SldResponse;
-import com.slodon.b2b2c.model.system.RegionCityModel;
 import com.slodon.b2b2c.model.system.RegionDistrictModel;
 import com.slodon.b2b2c.model.system.RegionProvinceModel;
 import com.slodon.b2b2c.system.pojo.RegionCity;
 import com.slodon.b2b2c.system.pojo.RegionDistrict;
 import com.slodon.b2b2c.system.pojo.RegionProvince;
+import com.slodon.b2b2c.vo.system.PostInfoVO;
 import com.slodon.b2b2c.vo.system.RegionVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -29,13 +29,11 @@ import java.util.List;
 
 @Api(tags = "seller-区域列表")
 @RestController
-@RequestMapping("v3/seller/seller/region")
+@RequestMapping("v3/system/seller/region")
 public class SellerRegionController extends BaseController {
 
     @Resource
-    private RegionProvinceModel regionProvinceModel;    
-    @Resource
-    private RegionCityModel regionCityModel;    
+    private RegionProvinceModel regionProvinceModel;
     @Resource
     private RegionDistrictModel regionDistrictModel;
     @Resource
@@ -43,15 +41,14 @@ public class SellerRegionController extends BaseController {
 
     @ApiOperation("获取地区列表接口")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "remarkCode", value = "地区编码", paramType = "query"),
-            @ApiImplicitParam(name = "regionLevel", value = "子地区级别[1省级，2市级，3区级]", paramType = "query"),
-            @ApiImplicitParam(name = "parentCode", value = "上级地区编码", paramType = "query")
+        @ApiImplicitParam(name = "remarkCode", value = "地区编码", paramType = "query"),
+        @ApiImplicitParam(name = "regionLevel", value = "子地区级别[1省级，2市级，3区级]", paramType = "query")
     })
     @GetMapping("list")
-    public JsonResult<List<RegionVO>> getRegionList(String remarkCode, Integer regionLevel, String parentCode) {
+    public JsonResult<List<RegionVO>> getRegionList(String remarkCode, Integer regionLevel) {
         List<RegionVO> list = new ArrayList<>();
         if (null == remarkCode) {
-            if (null == regionLevel) {
+            if (null == regionLevel || regionLevel == 3) {
                 //获取所有地址，先查redis缓存是否有数据
                 String allRegion = stringRedisTemplate.opsForValue().get(RedisConst.REGION);
                 if (StringUtils.isEmpty(allRegion)) {
@@ -63,10 +60,8 @@ public class SellerRegionController extends BaseController {
                 } else {
                     return SldResponse.success(JSONArray.parseArray(allRegion, RegionVO.class));
                 }
-            } else if (regionLevel == 3) {
-                list = regionDistrictModel.getDistrictList(null, parentCode);
             } else if (regionLevel == 2) {
-                list = regionCityModel.getCityList(null, parentCode);
+                list = regionProvinceModel.getProvinceAndCity(null);
             } else if (regionLevel == 1) {
                 list = regionProvinceModel.getProvinceList(null);
             } else {
@@ -88,14 +83,17 @@ public class SellerRegionController extends BaseController {
         }
     }
 
-    @ApiOperation("获取省市列表接口")
+    @ApiOperation("根据邮政编码获取地址")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "remarkCode", value = "地区编码", paramType = "query")
+        @ApiImplicitParam(name = "postCode", value = "邮政编码", paramType = "query")
     })
-    @GetMapping("provinceAndCityList")
-    public JsonResult<List<RegionVO>> getProvinceAndCityList(String remarkCode) {
-        List<RegionVO> list = regionProvinceModel.getProvinceAndCity(null);
-        return SldResponse.success(list);
+    @GetMapping("postInfo")
+    public JsonResult<List<PostInfoVO>> getPostInfoList(String postCode) {
+        if (StringUtils.isEmpty(postCode)) {
+            return SldResponse.badArgumentValue();
+        }
+        List<PostInfoVO> resultList = this.regionDistrictModel.getDistrictByPostcode(postCode);
+        return SldResponse.success(resultList);
     }
 
     /**
