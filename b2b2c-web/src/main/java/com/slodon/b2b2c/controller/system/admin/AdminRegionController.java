@@ -11,6 +11,7 @@ import com.slodon.b2b2c.model.system.RegionDistrictModel;
 import com.slodon.b2b2c.system.pojo.RegionCity;
 import com.slodon.b2b2c.system.pojo.RegionDistrict;
 import com.slodon.b2b2c.system.pojo.RegionProvince;
+import com.slodon.b2b2c.vo.system.PostInfoVO;
 import com.slodon.b2b2c.vo.system.RegionVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -126,6 +127,19 @@ public class AdminRegionController extends BaseController {
             }
             return SldResponse.success(list);
         }
+    }
+
+    @ApiOperation("根据邮政编码获取地址")
+    @ApiImplicitParams({
+        @ApiImplicitParam(name = "postCode", value = "邮政编码", paramType = "query")
+    })
+    @GetMapping("postInfo")
+    public JsonResult<List<PostInfoVO>> getPostInfoList(String postCode) {
+        if (StringUtils.isEmpty(postCode)) {
+            return SldResponse.badArgumentValue();
+        }
+        List<PostInfoVO> resultList = this.regionDistrictModel.getDistrictByPostcode(postCode);
+        return SldResponse.success(resultList);
     }
 
     /**
