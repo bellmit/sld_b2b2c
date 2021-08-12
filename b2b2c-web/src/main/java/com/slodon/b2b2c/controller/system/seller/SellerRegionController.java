@@ -61,7 +61,16 @@ public class SellerRegionController extends BaseController {
                     return SldResponse.success(JSONArray.parseArray(allRegion, RegionVO.class));
                 }
             } else if (regionLevel == 2) {
-                list = regionProvinceModel.getProvinceAndCity(null);
+                //获取地址，先查redis缓存是否有数据
+                String allRegion = stringRedisTemplate.opsForValue().get(RedisConst.REGION_CITY);
+                if (StringUtils.isEmpty(allRegion)) {
+                    //redis缓存数据无效，从数据库查，并放入缓存
+                    List<RegionVO> resultList = regionProvinceModel.getProvinceAndCity(null);
+                    stringRedisTemplate.opsForValue().set(RedisConst.REGION_CITY, JSONArray.toJSONString(resultList));
+                    return SldResponse.success(resultList);
+                } else {
+                    return SldResponse.success(JSONArray.parseArray(allRegion, RegionVO.class));
+                }
             } else if (regionLevel == 1) {
                 list = regionProvinceModel.getProvinceList(null);
             } else {
