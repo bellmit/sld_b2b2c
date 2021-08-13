@@ -22,6 +22,9 @@ public class OwnStoreUpdateDTO implements Serializable {
     @ApiModelProperty(value = "联系人手机号")
     private String contactPhone;
 
+    @ApiModelProperty(value = "邮政编码")
+    private String postCode;
+
     @ApiModelProperty(value = "省份编码")
     private String provinceCode;
 

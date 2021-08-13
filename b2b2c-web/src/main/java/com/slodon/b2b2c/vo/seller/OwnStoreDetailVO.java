@@ -29,6 +29,9 @@ public class OwnStoreDetailVO {
     @ApiModelProperty("联系电话")
     private String contactPhone;
 
+    @ApiModelProperty("邮政编码")
+    private String postCode;
+
     @ApiModelProperty("注册省编码")
     private String provinceCode;
 
@@ -58,6 +61,7 @@ public class OwnStoreDetailVO {
         storeName = store.getStoreName();
         contactName = storeCertificate.getContactName();
         contactPhone = CommonUtil.dealMobile(storeCertificate.getContactPhone());
+        postCode = store.getPostCode();
         provinceCode = store.getProvinceCode();
         cityCode = store.getCityCode();
         areaCode = store.getAreaCode();
@@ -70,7 +74,8 @@ public class OwnStoreDetailVO {
 
     public static String getRealBillTypeValue(Integer billType) {
         String value = null;
-        if (StringUtils.isEmpty(billType)) return Language.translate("未知");
+        if (StringUtils.isEmpty(billType))
+            return Language.translate("未知");
         switch (billType) {
             case StoreConst.BILL_TYPE_MONTH:
                 value = "按月结算";
@@ -79,7 +84,7 @@ public class OwnStoreDetailVO {
                 value = "按周结算";
                 break;
         }
-        //翻译
+        // 翻译
         value = Language.translate(value);
         return value;
     }
