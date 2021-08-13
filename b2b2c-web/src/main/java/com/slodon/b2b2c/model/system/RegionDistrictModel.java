@@ -6,25 +6,15 @@ import com.slodon.b2b2c.dao.read.system.RegionDistrictReadMapper;
 import com.slodon.b2b2c.dao.write.system.RegionDistrictWriteMapper;
 import com.slodon.b2b2c.system.example.RegionDistrictExample;
 import com.slodon.b2b2c.system.pojo.RegionDistrict;
-<<<<<<< HEAD
 import com.slodon.b2b2c.vo.system.PostInfoVO;
 import com.slodon.b2b2c.vo.system.RegionVO;
 
-=======
-import com.slodon.b2b2c.vo.system.RegionVO;
-import com.slodon.b2b2c.vo.system.PostInfoVO;
-import com.slodon.b2b2c.vo.system.RegionVO;
->>>>>>> wu_dev
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-<<<<<<< HEAD
-=======
-
->>>>>>> wu_dev
 import java.util.ArrayList;
 import java.util.List;
 
