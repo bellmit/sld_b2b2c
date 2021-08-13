@@ -207,6 +207,11 @@ public class StoreExample implements Serializable {
     private String storeBackdrop;
 
     /**
+     * 邮政编码
+     */
+    private String postCode;
+
+    /**
      * 省份编码
      */
     private String provinceCode;

@@ -31,6 +31,7 @@
     <result column="store_banner_pc" property="storeBannerPc" />
     <result column="store_banner_mobile" property="storeBannerMobile" />
     <result column="store_backdrop" property="storeBackdrop" />
+    <result column="post_code" property="postCode" />
     <result column="province_code" property="provinceCode" />
     <result column="city_code" property="cityCode" />
     <result column="area_code" property="areaCode" />
@@ -163,6 +164,9 @@
         </if>
         <if test="example.storeBackdrop != null">
           AND `store_backdrop` = #{example.storeBackdrop}
+        </if>
+        <if test="example.postCode != null">
+          AND `post_code` = #{example.postCode}
         </if>
         <if test="example.provinceCode != null">
           AND `province_code` = #{example.provinceCode}

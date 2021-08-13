@@ -28,6 +28,9 @@ public class OwnStoreAddDTO implements Serializable {
     @ApiModelProperty(value = "登陆密码",required = true)
     private String vendorPassword;
 
+    @ApiModelProperty(value = "邮政编码",required = true)
+    private String postCode;
+
     @ApiModelProperty(value = "省份编码",required = true)
     private String provinceCode;
 
