@@ -60,6 +60,9 @@ public class StoreAddressVO {
     @ApiModelProperty("类型值：1-发货地址；2-收货地址")
     private String typeValue;
 
+    @ApiModelProperty("邮政编码")
+    private String postcode;
+
     public StoreAddressVO(StoreAddress storeAddress) {
         addressId = storeAddress.getAddressId();
         contactName = storeAddress.getContactName();
@@ -75,6 +78,7 @@ public class StoreAddressVO {
         isDefault = storeAddress.getIsDefault();
         type = storeAddress.getType();
         typeValue = getRealTypeValue(type);
+        postcode = storeAddress.getPostcode();
     }
 
     public static String getRealTypeValue(Integer type) {

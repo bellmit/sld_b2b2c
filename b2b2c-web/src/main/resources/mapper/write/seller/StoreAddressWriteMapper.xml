@@ -17,6 +17,7 @@
     <result column="update_time" property="updateTime" />
     <result column="is_default" property="isDefault" />
     <result column="type" property="type" />
+    <result column="postcode" property="postcode" />
   </resultMap>
   <!--除主键外的所有字段，用于插入操作-->
   <sql id="columns">
@@ -62,6 +63,9 @@
       </if>
       <if test="type != null">
         `type`,
+      </if>
+      <if test="postcode != null">
+        `postcode`,
       </if>
     </trim>
   </sql>
@@ -129,6 +133,9 @@
         </if>
         <if test="example.type != null">
           AND `type` = #{example.type}
+        </if>
+        <if test="example.postcode != null">
+          AND `postcode` = #{example.postcode}
         </if>
       </trim>
     </if>
@@ -297,6 +304,9 @@
       <if test="type != null">
         #{type},
       </if>
+      <if test="postcode != null">
+        #{postcode},
+      </if>
     </trim>
     )
   </insert>
@@ -346,6 +356,9 @@
       <if test="record.type != null">
         `type` = #{record.type},
       </if>
+      <if test="record.postcode != null">
+        `postcode` = #{record.postcode},
+      </if>
     </trim>
     <include refid="whereCondition" />
   </update>
@@ -394,6 +407,9 @@
       </if>
       <if test="type != null">
         `type` = #{type},
+      </if>
+      <if test="postcode != null">
+        `postcode` = #{postcode},
       </if>
     </trim>
     WHERE `address_id` = #{addressId}

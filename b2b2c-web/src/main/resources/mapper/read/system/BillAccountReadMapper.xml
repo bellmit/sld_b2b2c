@@ -19,6 +19,7 @@
     <result column="create_vendor_id" property="createVendorId" />
     <result column="create_time" property="createTime" />
     <result column="update_time" property="updateTime" />
+    <result column="postcode" property="postcode" />
   </resultMap>
   <!--按照主键值进行操作-->
   <sql id="pkWhere">
@@ -96,6 +97,9 @@
         </if>
         <if test="example.updateTimeBefore != null">
           AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
+        </if>
+        <if test="example.postcode != null">
+          AND `postcode` = #{example.postcode}
         </if>
       </trim>
     </if>

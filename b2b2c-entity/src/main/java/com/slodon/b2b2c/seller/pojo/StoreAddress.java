@@ -11,6 +11,7 @@ import java.util.Date;
  */
 @Data
 public class StoreAddress implements Serializable {
+    
     private static final long serialVersionUID = -7225830441510829340L;
 
     @ApiModelProperty("地址ID")
@@ -57,4 +58,8 @@ public class StoreAddress implements Serializable {
 
     @ApiModelProperty("类型：1-发货地址；2-收货地址")
     private Integer type;
+
+    @ApiModelProperty("邮政编码")
+    private String postcode;
+
 }

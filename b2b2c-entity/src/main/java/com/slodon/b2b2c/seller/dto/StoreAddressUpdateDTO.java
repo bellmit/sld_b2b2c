@@ -40,4 +40,8 @@ public class StoreAddressUpdateDTO implements Serializable {
 
     @ApiModelProperty("是否设为默认地址:1-是;0-否")
     private Integer isDefault;
+
+    @ApiModelProperty(value = "邮政编码")
+    private String postcode;
+    
 }
