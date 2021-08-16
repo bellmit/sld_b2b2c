@@ -20,6 +20,7 @@
     <result column="more_qualification1" property="moreQualification1" />
     <result column="more_qualification2" property="moreQualification2" />
     <result column="more_qualification3" property="moreQualification3" />
+    <result column="postcode" property="postcode" />
   </resultMap>
   <!--除主键外的所有字段，用于插入操作-->
   <sql id="columns">
@@ -74,6 +75,9 @@
       </if>
       <if test="moreQualification3 != null">
         `more_qualification3`,
+      </if>
+      <if test="postcode != null">
+        `postcode`,
       </if>
     </trim>
   </sql>
@@ -150,6 +154,9 @@
         </if>
         <if test="example.moreQualification3 != null">
           AND `more_qualification3` = #{example.moreQualification3}
+        </if>
+        <if test="example.postcode != null">
+          AND `postcode` = #{example.postcode}
         </if>
       </trim>
     </if>
@@ -327,6 +334,9 @@
       <if test="moreQualification3 != null">
         #{moreQualification3},
       </if>
+      <if test="postcode != null">
+        #{postcode},
+      </if>
     </trim>
     )
   </insert>
@@ -385,6 +395,9 @@
       <if test="record.moreQualification3 != null">
         `more_qualification3` = #{record.moreQualification3},
       </if>
+      <if test="record.postcode != null">
+        `postcode` = #{record.postcode},
+      </if>
     </trim>
     <include refid="whereCondition" />
   </update>
@@ -442,6 +455,9 @@
       </if>
       <if test="moreQualification3 != null">
         `more_qualification3` = #{moreQualification3},
+      </if>
+      <if test="postcode != null">
+        `postcode` = #{postcode},
       </if>
     </trim>
     WHERE `certificate_id` = #{certificateId}

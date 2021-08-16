@@ -20,6 +20,7 @@
     <result column="more_qualification1" property="moreQualification1" />
     <result column="more_qualification2" property="moreQualification2" />
     <result column="more_qualification3" property="moreQualification3" />
+    <result column="postcode" property="postcode" />
   </resultMap>
   <!--按照主键值进行操作-->
   <sql id="pkWhere">
@@ -94,6 +95,9 @@
         </if>
         <if test="example.moreQualification3 != null">
           AND `more_qualification3` = #{example.moreQualification3}
+        </if>
+        <if test="example.postcode != null">
+          AND `postcode` = #{example.postcode}
         </if>
       </trim>
     </if>
