@@ -17,6 +17,7 @@
     <result column="update_time" property="updateTime" />
     <result column="is_default" property="isDefault" />
     <result column="type" property="type" />
+    <result column="postcode" property="postcode" />
   </resultMap>
   <!--按照主键值进行操作-->
   <sql id="pkWhere">
@@ -85,6 +86,9 @@
         </if>
         <if test="example.type != null">
           AND `type` = #{example.type}
+        </if>
+        <if test="example.postcode != null">
+          AND `postcode` = #{example.postcode}
         </if>
       </trim>
     </if>

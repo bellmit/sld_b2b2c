@@ -10,6 +10,7 @@ import java.io.Serializable;
  */
 @Data
 public class StoreCertificate implements Serializable {
+
     private static final long serialVersionUID = 4007324042835782893L;
 
     @ApiModelProperty("资质id")
@@ -65,4 +66,8 @@ public class StoreCertificate implements Serializable {
 
     @ApiModelProperty("补充认证三")
     private String moreQualification3;
+
+    @ApiModelProperty("邮政编码")
+    private String postcode;
+
 }

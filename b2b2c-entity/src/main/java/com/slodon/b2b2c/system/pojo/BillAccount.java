@@ -11,7 +11,9 @@ import java.util.Date;
  */
 @Data
 public class BillAccount implements Serializable {
+
     private static final long serialVersionUID = 6002546372977804064L;
+
     @ApiModelProperty("账号id")
     private Integer accountId;
 
@@ -62,4 +64,8 @@ public class BillAccount implements Serializable {
 
     @ApiModelProperty("修改时间")
     private Date updateTime;
+
+    @ApiModelProperty("邮政编码")
+    private String postcode;
+
 }

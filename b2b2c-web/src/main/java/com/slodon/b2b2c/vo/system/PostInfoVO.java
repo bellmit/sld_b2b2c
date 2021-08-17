@@ -1,5 +1,6 @@
 package com.slodon.b2b2c.vo.system;
 
+<<<<<<< HEAD
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -15,6 +16,23 @@ import java.util.List;
 public class PostInfoVO implements Serializable {
 
     private static final long serialVersionUID = 2888069396815951441L;
+=======
+import java.io.Serializable;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+/**
+ * @program: slodon
+ * @Description 封装地区VO对象
+ * @Author wang.yl
+ */
+@Data
+public class PostInfoVO implements Serializable {
+    
+    private static final long serialVersionUID = 2888069396815951442L;
+    
+>>>>>>> 5f07dcb0961a56baf9fbb7893b6a774c59d652fd
     @ApiModelProperty("郵政番号")
     private String postCode;
 
@@ -32,4 +50,8 @@ public class PostInfoVO implements Serializable {
 
     @ApiModelProperty("町域名")
     private String addressLine;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5f07dcb0961a56baf9fbb7893b6a774c59d652fd
 }

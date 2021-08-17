@@ -7,6 +7,7 @@ import java.io.Serializable;
 
 @Data
 public class StoreCertificateExample implements Serializable {
+
     private static final long serialVersionUID = 5232952302532147827L;
 
     /**
@@ -123,6 +124,11 @@ public class StoreCertificateExample implements Serializable {
      * 补充认证三
      */
     private String moreQualification3;
+
+    /**
+     * 邮政编码
+     */
+    private String postcode;
 
     /**
      * 排序条件，条件之间用逗号隔开，如果不传则按照certificateId倒序排列

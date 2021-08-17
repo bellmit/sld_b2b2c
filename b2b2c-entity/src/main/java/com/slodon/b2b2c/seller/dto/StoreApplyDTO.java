@@ -76,4 +76,7 @@ public class StoreApplyDTO implements Serializable {
     @ApiModelProperty(value = "申请分类id字符串,例1级-2级-3级,1级-2级-3级",required = true)
     private String goodsCategoryIds;
 
+    @ApiModelProperty(value = "邮政编码", required = true)
+    private String postcode;
+
 }

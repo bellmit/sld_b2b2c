@@ -14,6 +14,7 @@ import java.io.Serializable;
 public class BillAccountUpdateDTO implements Serializable {
 
     private static final long serialVersionUID = -3467419575510316111L;
+
     @ApiModelProperty(value = "账号id", required = true)
     private Integer accountId;
 
@@ -49,4 +50,8 @@ public class BillAccountUpdateDTO implements Serializable {
 
     @ApiModelProperty(value = "是否默认账号：1-默认账号，0-非默认账号", required = true)
     private Integer isDefault;
+
+    @ApiModelProperty("邮政编码")
+    private String postcode;
+
 }

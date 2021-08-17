@@ -11,8 +11,8 @@ import java.io.Serializable;
 @Data
 public class StoreAddressAddDTO implements Serializable {
 
-
     private static final long serialVersionUID = 808302827177066710L;
+
     @ApiModelProperty(value = "类型：1-发货地址；2-收货地址",required = true)
     private Integer type;
 
@@ -39,4 +39,8 @@ public class StoreAddressAddDTO implements Serializable {
 
     @ApiModelProperty("是否设为默认地址:1-是;0-否")
     private Integer isDefault;
+
+    @ApiModelProperty(value="邮政编码", required = true)
+    private String postcode;
+
 }

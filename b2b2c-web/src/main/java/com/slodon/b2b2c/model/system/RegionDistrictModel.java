@@ -134,31 +134,31 @@ public class RegionDistrictModel {
         return list;
     }
 
-//    /**
-//     * 根据邮政编码获取区信息表
-//     *
-//     * @return
-//     */
-//    public List<PostInfoVO> getDistrictByPostcode(String postCode) {
-//        List<PostInfoVO> list = new ArrayList<>();
-//        RegionDistrictExample example = new RegionDistrictExample();
-//        example.setNativeCode(postCode);
-//        example.setOrderBy("native_code asc");
-//        List<RegionDistrict> districtList = regionDistrictReadMapper.listByExample(example);
-//        if (!CollectionUtils.isEmpty(districtList)) {
-//            for (RegionDistrict district : districtList) {
-//                PostInfoVO vo = new PostInfoVO();
-//                vo.setPostCode(district.getNativeCode());
-//                vo.setProviceCode(district.getProvinceCode());
-//                vo.setProviceName(district.getProvinceName());
-//                vo.setCityCode(district.getCityCode());
-//                vo.setCityName(district.getCityName());
-//                vo.setAddressLine(district.getDistrictName());
-//                list.add(vo);
-//            }
-//        }
-//        return list;
-//    }
+    /**
+     * 根据邮政编码获取区信息表
+     *
+     * @return
+     */
+    public List<PostInfoVO> getDistrictByPostcode(String postCode) {
+        List<PostInfoVO> list = new ArrayList<>();
+        RegionDistrictExample example = new RegionDistrictExample();
+        example.setNativeCode(postCode);
+        example.setOrderBy("native_code asc");
+        List<RegionDistrict> districtList = regionDistrictReadMapper.listByExample(example);
+        if (!CollectionUtils.isEmpty(districtList)) {
+            for (RegionDistrict district : districtList) {
+                PostInfoVO vo = new PostInfoVO();
+                vo.setPostCode(district.getNativeCode());
+                vo.setProviceCode(district.getProvinceCode());
+                vo.setProviceName(district.getProvinceName());
+                vo.setCityCode(district.getCityCode());
+                vo.setCityName(district.getCityName());
+                vo.setAddressLine(district.getDistrictName());
+                list.add(vo);
+            }
+        }
+        return list;
+    }
 
 
     /**

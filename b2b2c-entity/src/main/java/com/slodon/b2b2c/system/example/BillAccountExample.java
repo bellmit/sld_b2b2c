@@ -133,6 +133,11 @@ public class BillAccountExample implements Serializable {
     private Date updateTimeBefore;
 
     /**
+     * 邮政编码
+     */
+    private String postcode;
+
+    /**
      * 排序条件，条件之间用逗号隔开，如果不传则按照accountId倒序排列
      */
     private String orderBy;

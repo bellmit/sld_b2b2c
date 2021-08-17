@@ -101,6 +101,9 @@ public class Store implements Serializable {
     @ApiModelProperty("店铺背景")
     private String storeBackdrop;
 
+    @ApiModelProperty("邮政编码")
+    private String postCode;
+
     @ApiModelProperty("省份编码")
     private String provinceCode;
 

@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Data
 public class StoreAddressExample implements Serializable {
+    
     private static final long serialVersionUID = -4375707414284856111L;
 
     /**
@@ -114,6 +115,11 @@ public class StoreAddressExample implements Serializable {
      * 类型：1-发货地址；2-收货地址
      */
     private Integer type;
+
+    /**
+     * 邮政编码
+     */
+    private String postcode;
 
     /**
      * 排序条件，条件之间用逗号隔开，如果不传则按照addressId倒序排列
