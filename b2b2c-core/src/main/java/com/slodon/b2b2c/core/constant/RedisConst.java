@@ -8,7 +8,8 @@ public class RedisConst {
     /**
      * redis中的 key值
      */
-    public final static String REGION = "region";//地址
+    public final static String REGION = "region";//全部地址
+    public final static String REGION_CITY = "region_city";//二级地址
 
     /**
      * 取缓存的条件：
