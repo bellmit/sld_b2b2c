@@ -25,8 +25,8 @@ public class MemberAddressVO implements Serializable {
     @ApiModelProperty("城市编码")
     private String cityCode;
 
-    @ApiModelProperty("区县编码")
-    private String districtCode;
+    @ApiModelProperty("邮政编码")
+    private String postCode;
 
     @ApiModelProperty("省市区组合")
     private String addressAll;
@@ -49,7 +49,7 @@ public class MemberAddressVO implements Serializable {
         memberName = memberaddress.getMemberName();
         provinceCode = memberaddress.getProvinceCode();
         cityCode = memberaddress.getCityCode();
-        districtCode = memberaddress.getDistrictCode();
+        postCode = memberaddress.getPostCode();
         addressAll = memberaddress.getAddressAll();
         detailAddress = memberaddress.getDetailAddress();
         telMobile = CommonUtil.dealMobile(memberaddress.getTelMobile());

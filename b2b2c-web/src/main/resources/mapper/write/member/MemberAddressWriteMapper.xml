@@ -7,7 +7,7 @@
     <result column="member_name" property="memberName" />
     <result column="province_code" property="provinceCode" />
     <result column="city_code" property="cityCode" />
-    <result column="district_code" property="districtCode" />
+    <result column="post_code" property="postCode" />
     <result column="address_all" property="addressAll" />
     <result column="detail_address" property="detailAddress" />
     <result column="tel_mobile" property="telMobile" />
@@ -31,8 +31,8 @@
       <if test="cityCode != null">
         `city_code`,
       </if>
-      <if test="districtCode != null">
-        `district_code`,
+      <if test="postCode != null">
+        `post_code`,
       </if>
       <if test="addressAll != null">
         `address_all`,
@@ -86,8 +86,8 @@
         <if test="example.cityCode != null">
           AND `city_code` = #{example.cityCode}
         </if>
-        <if test="example.districtCode != null">
-          AND `district_code` = #{example.districtCode}
+        <if test="example.postCode != null">
+          AND `post_code` = #{example.postCode}
         </if>
         <if test="example.addressAll != null">
           AND `address_all` = #{example.addressAll}
@@ -253,8 +253,8 @@
       <if test="cityCode != null">
         #{cityCode},
       </if>
-      <if test="districtCode != null">
-        #{districtCode},
+      <if test="postCode != null">
+        #{postCode},
       </if>
       <if test="addressAll != null">
         #{addressAll},
@@ -296,8 +296,8 @@
       <if test="record.cityCode != null">
         `city_code` = #{record.cityCode},
       </if>
-      <if test="record.districtCode != null">
-        `district_code` = #{record.districtCode},
+      <if test="record.postCode != null">
+        `post_code` = #{record.postCode},
       </if>
       <if test="record.addressAll != null">
         `address_all` = #{record.addressAll},
@@ -339,8 +339,8 @@
       <if test="cityCode != null">
         `city_code` = #{cityCode},
       </if>
-      <if test="districtCode != null">
-        `district_code` = #{districtCode},
+      <if test="postCode != null">
+        `post_code` = #{postCode},
       </if>
       <if test="addressAll != null">
         `address_all` = #{addressAll},
