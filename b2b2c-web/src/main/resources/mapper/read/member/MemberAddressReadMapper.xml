@@ -7,7 +7,7 @@
     <result column="member_name" property="memberName" />
     <result column="province_code" property="provinceCode" />
     <result column="city_code" property="cityCode" />
-    <result column="district_code" property="districtCode" />
+    <result column="post_code" property="postCode" />
     <result column="address_all" property="addressAll" />
     <result column="detail_address" property="detailAddress" />
     <result column="tel_mobile" property="telMobile" />
@@ -45,8 +45,8 @@
         <if test="example.cityCode != null">
           AND `city_code` = #{example.cityCode}
         </if>
-        <if test="example.districtCode != null">
-          AND `district_code` = #{example.districtCode}
+        <if test="example.postCode != null">
+          AND `post_code` = #{example.postCode}
         </if>
         <if test="example.addressAll != null">
           AND `address_all` = #{example.addressAll}
