@@ -92,7 +92,7 @@ public class FrontRegionController extends BaseController {
     @GetMapping("postInfo")
     public JsonResult<List<PostInfoVO>> getPostInfoList(String postCode){
         List<PostInfoVO> postInfo = new ArrayList<>();
-        postInfo= regionDistrictModel.getPostList(postCode);
+        postInfo= regionDistrictModel.getDistrictByPostcode(postCode);
         return  SldResponse.success(postInfo);
     }
 
