@@ -52,6 +52,6 @@ public class BillAccountUpdateDTO implements Serializable {
     private Integer isDefault;
 
     @ApiModelProperty("邮政编码")
-    private String postcode;
+    private String postCode;
 
 }

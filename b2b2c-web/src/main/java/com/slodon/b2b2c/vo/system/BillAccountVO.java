@@ -61,7 +61,7 @@ public class BillAccountVO implements Serializable {
     private String billNumber;
 
     @ApiModelProperty("邮政编码")
-    private String postcode;
+    private String postCode;
 
     public BillAccountVO(BillAccount billAccount) {
         accountId = billAccount.getAccountId();
@@ -78,7 +78,7 @@ public class BillAccountVO implements Serializable {
         addressAll = billAccount.getAddressAll();
         isDefault = billAccount.getIsDefault();
         billNumber = billAccount.getAccountType() == 1 ? billAccount.getBankAccountNumber() : billAccount.getAlipayAccount();
-        postcode = billAccount.getPostcode();
+        postCode = billAccount.getPostCode();
     }
 
     public static String dealAccountTypeValue(Integer accountType) {

@@ -42,6 +42,6 @@ public class StoreAddressUpdateDTO implements Serializable {
     private Integer isDefault;
 
     @ApiModelProperty(value = "邮政编码")
-    private String postcode;
+    private String postCode;
     
 }

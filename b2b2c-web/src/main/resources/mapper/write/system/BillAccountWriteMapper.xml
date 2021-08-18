@@ -19,7 +19,7 @@
     <result column="create_vendor_id" property="createVendorId" />
     <result column="create_time" property="createTime" />
     <result column="update_time" property="updateTime" />
-    <result column="postcode" property="postcode" />
+    <result column="post_code" property="postCode" />
   </resultMap>
   <!--除主键外的所有字段，用于插入操作-->
   <sql id="columns">
@@ -72,8 +72,8 @@
       <if test="updateTime != null">
         `update_time`,
       </if>
-      <if test="postcode != null">
-        `postcode`,
+      <if test="postCode != null">
+        `post_code`,
       </if>
     </trim>
   </sql>
@@ -154,8 +154,8 @@
         <if test="example.updateTimeBefore != null">
           AND `update_time` <![CDATA[ <= ]]> #{example.updateTimeBefore}
         </if>
-        <if test="example.postcode != null">
-          AND `postcode` = #{example.postcode}
+        <if test="example.postCode != null">
+          AND `post_code` = #{example.postCode}
         </if>
       </trim>
     </if>
@@ -330,8 +330,8 @@
       <if test="updateTime != null">
         #{updateTime},
       </if>
-      <if test="postcode != null">
-        #{postcode},
+      <if test="postCode != null">
+        #{postCode},
       </if>
     </trim>
     )
@@ -388,8 +388,8 @@
       <if test="record.updateTime != null">
         `update_time` = #{record.updateTime},
       </if>
-      <if test="record.postcode != null">
-        `postcode` = #{record.postcode},
+      <if test="record.postCode != null">
+        `post_code` = #{record.postCode},
       </if>
     </trim>
     <include refid="whereCondition" />
@@ -446,8 +446,8 @@
       <if test="updateTime != null">
         `update_time` = #{updateTime},
       </if>
-      <if test="postcode != null">
-        `postcode` = #{postcode},
+      <if test="postCode != null">
+        `post_code` = #{postCode},
       </if>
     </trim>
     WHERE `account_id` = #{accountId}
