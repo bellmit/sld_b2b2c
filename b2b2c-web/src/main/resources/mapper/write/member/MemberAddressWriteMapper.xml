@@ -297,7 +297,7 @@
         `city_code` = #{record.cityCode},
       </if>
       <if test="record.postCode != null">
-        `district_code` = #{record.postCode},
+        `post_code` = #{record.postCode},
       </if>
       <if test="record.addressAll != null">
         `address_all` = #{record.addressAll},
@@ -340,7 +340,7 @@
         `city_code` = #{cityCode},
       </if>
       <if test="postCode != null">
-        `district_code` = #{postCode},
+        `post_code` = #{postCode},
       </if>
       <if test="addressAll != null">
         `address_all` = #{addressAll},
