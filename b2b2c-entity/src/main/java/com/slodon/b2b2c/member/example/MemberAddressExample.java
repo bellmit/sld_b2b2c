@@ -51,9 +51,9 @@ public class MemberAddressExample implements Serializable {
     private String cityCode;
 
     /**
-     * 区县编码
+     * 邮政编码
      */
-    private String districtCode;
+    private String postCode;
 
     /**
      * 省市区组合

@@ -19,8 +19,8 @@ public class MemberAddressAddDTO implements Serializable {
     @ApiModelProperty(value = "城市编码",required = true)
     private String cityCode;
 
-    @ApiModelProperty(value = "区县编码",required = true)
-    private String districtCode;
+    @ApiModelProperty(value = "邮政编码",required = true)
+    private String postCode;
 
     @ApiModelProperty(value = "省市区组合")
     private String addressAll;
