@@ -1,14 +1,17 @@
 package com.slodon.b2b2c.controller.system.front;
 
 import com.alibaba.fastjson.JSONArray;
+import com.slodon.b2b2c.aop.OperationLogger;
 import com.slodon.b2b2c.core.constant.RedisConst;
 import com.slodon.b2b2c.core.controller.BaseController;
 import com.slodon.b2b2c.core.response.JsonResult;
 import com.slodon.b2b2c.core.response.SldResponse;
+import com.slodon.b2b2c.model.system.RegionDistrictModel;
 import com.slodon.b2b2c.model.system.RegionProvinceModel;
 import com.slodon.b2b2c.system.pojo.RegionCity;
 import com.slodon.b2b2c.system.pojo.RegionDistrict;
 import com.slodon.b2b2c.system.pojo.RegionProvince;
+import com.slodon.b2b2c.vo.system.PostInfoVO;
 import com.slodon.b2b2c.vo.system.RegionVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -18,6 +21,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,6 +36,8 @@ public class FrontRegionController extends BaseController {
 
     @Resource
     private RegionProvinceModel regionProvinceModel;
+    @Resource
+    private RegionDistrictModel regionDistrictModel;
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
@@ -78,6 +84,18 @@ public class FrontRegionController extends BaseController {
             return SldResponse.success(list);
         }
     }
+
+    @ApiOperation("根据邮政编码获取地址")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "postCode", value = "邮政编码", paramType = "query", required = true),
+    })
+    @GetMapping("postInfo")
+    public JsonResult<List<PostInfoVO>> getPostInfoList(String postCode){
+        List<PostInfoVO> postInfo = new ArrayList<>();
+        postInfo= regionDistrictModel.getDistrictByPostcode(postCode);
+        return  SldResponse.success(postInfo);
+    }
+
 
     /**
      * 组装省级地区
@@ -146,4 +164,6 @@ public class FrontRegionController extends BaseController {
         }
         return voList;
     }
+
 }
+

@@ -56,7 +56,7 @@ local.properties
 # IntelliJ
 ######################
 .idea/
-#*.iml
+*iml
 *.iws
 *.ipr
 *.ids
@@ -148,3 +148,5 @@ Desktop.ini
 default-compile/
 
 *.lst
+
+**/.settings/

@@ -160,4 +160,29 @@ public class RegionDistrictModel {
         return list;
     }
 
+
+    /**
+     * 根据条件获取区县信息表列表
+     *
+     */
+    public List<PostInfoVO> getPostList(String remarkCode) {
+        List<PostInfoVO> postInfo = new ArrayList<>();
+        RegionDistrictExample example = new RegionDistrictExample();
+        example.setRemarkCode(remarkCode);
+        example.setOrderBy("native_code asc");
+        List<RegionDistrict> postList = regionDistrictReadMapper.listByExample(example);
+        if (!CollectionUtils.isEmpty(postList)) {
+            for (RegionDistrict post : postList) {
+                PostInfoVO vo = new PostInfoVO();
+                vo.setPostCode(post.getNativeCode());
+                vo.setProviceCode(post.getProvinceCode());
+                vo.setProviceName(post.getProvinceName());
+                vo.setCityCode(post.getCityCode());
+                vo.setCityName(post.getCityName());
+                vo.setAddressLine(post.getDistrictName());
+                postInfo.add(vo);
+            }
+        }
+        return postInfo;
+    }
 }

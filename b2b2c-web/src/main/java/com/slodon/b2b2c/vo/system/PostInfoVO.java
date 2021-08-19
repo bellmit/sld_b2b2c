@@ -12,9 +12,9 @@ import lombok.Data;
  */
 @Data
 public class PostInfoVO implements Serializable {
-    
+
     private static final long serialVersionUID = 2888069396815951442L;
-    
+
     @ApiModelProperty("郵政番号")
     private String postCode;
 

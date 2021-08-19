@@ -220,4 +220,5 @@ public class RegionProvinceModel {
         }
         return list;
     }
+
 }
