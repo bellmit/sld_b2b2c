@@ -50,6 +50,10 @@ public class MemberAddressExample implements Serializable {
      */
     private String cityCode;
 
+    /**
+     * 区县编码
+     */
+    private String districtCode;
 
     /**
      * 邮政编码

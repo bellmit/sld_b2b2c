@@ -30,5 +30,5 @@ public class WriteDataSourceProperties {
     /**
      * 数据库连接密码
      */
-    private String password = "111111";
+    private String password = "110";
 }
