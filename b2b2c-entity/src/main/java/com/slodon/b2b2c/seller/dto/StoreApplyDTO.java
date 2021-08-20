@@ -77,6 +77,6 @@ public class StoreApplyDTO implements Serializable {
     private String goodsCategoryIds;
 
     @ApiModelProperty(value = "邮政编码", required = true)
-    private String postcode;
+    private String postCode;
 
 }

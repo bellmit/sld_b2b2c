@@ -60,6 +60,6 @@ public class StoreAddress implements Serializable {
     private Integer type;
 
     @ApiModelProperty("邮政编码")
-    private String postcode;
+    private String postCode;
 
 }

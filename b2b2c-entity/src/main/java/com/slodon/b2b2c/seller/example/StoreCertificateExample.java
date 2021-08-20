@@ -128,7 +128,7 @@ public class StoreCertificateExample implements Serializable {
     /**
      * 邮政编码
      */
-    private String postcode;
+    private String postCode;
 
     /**
      * 排序条件，条件之间用逗号隔开，如果不传则按照certificateId倒序排列

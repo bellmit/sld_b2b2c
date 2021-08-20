@@ -66,6 +66,6 @@ public class BillAccount implements Serializable {
     private Date updateTime;
 
     @ApiModelProperty("邮政编码")
-    private String postcode;
+    private String postCode;
 
 }

@@ -20,7 +20,7 @@
     <result column="more_qualification1" property="moreQualification1" />
     <result column="more_qualification2" property="moreQualification2" />
     <result column="more_qualification3" property="moreQualification3" />
-    <result column="postcode" property="postcode" />
+    <result column="post_code" property="postCode" />
   </resultMap>
   <!--除主键外的所有字段，用于插入操作-->
   <sql id="columns">
@@ -76,8 +76,8 @@
       <if test="moreQualification3 != null">
         `more_qualification3`,
       </if>
-      <if test="postcode != null">
-        `postcode`,
+      <if test="postCode != null">
+        `post_code`,
       </if>
     </trim>
   </sql>
@@ -155,8 +155,8 @@
         <if test="example.moreQualification3 != null">
           AND `more_qualification3` = #{example.moreQualification3}
         </if>
-        <if test="example.postcode != null">
-          AND `postcode` = #{example.postcode}
+        <if test="example.postCode != null">
+          AND `post_code` = #{example.postCode}
         </if>
       </trim>
     </if>
@@ -334,8 +334,8 @@
       <if test="moreQualification3 != null">
         #{moreQualification3},
       </if>
-      <if test="postcode != null">
-        #{postcode},
+      <if test="postCode != null">
+        #{postCode},
       </if>
     </trim>
     )
@@ -395,8 +395,8 @@
       <if test="record.moreQualification3 != null">
         `more_qualification3` = #{record.moreQualification3},
       </if>
-      <if test="record.postcode != null">
-        `postcode` = #{record.postcode},
+      <if test="record.postCode != null">
+        `post_code` = #{record.postCode},
       </if>
     </trim>
     <include refid="whereCondition" />
@@ -456,8 +456,8 @@
       <if test="moreQualification3 != null">
         `more_qualification3` = #{moreQualification3},
       </if>
-      <if test="postcode != null">
-        `postcode` = #{postcode},
+      <if test="postCode != null">
+        `post_code` = #{postCode},
       </if>
     </trim>
     WHERE `certificate_id` = #{certificateId}

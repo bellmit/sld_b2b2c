@@ -41,6 +41,6 @@ public class StoreAddressAddDTO implements Serializable {
     private Integer isDefault;
 
     @ApiModelProperty(value="邮政编码", required = true)
-    private String postcode;
+    private String postCode;
 
 }

@@ -68,6 +68,6 @@ public class StoreCertificate implements Serializable {
     private String moreQualification3;
 
     @ApiModelProperty("邮政编码")
-    private String postcode;
+    private String postCode;
 
 }
