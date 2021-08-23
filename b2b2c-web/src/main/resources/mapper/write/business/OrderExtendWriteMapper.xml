@@ -20,7 +20,6 @@
     <result column="receiver_province_code" property="receiverProvinceCode" />
     <result column="receiver_city_code" property="receiverCityCode" />
     <result column="receiver_district_code" property="receiverDistrictCode" />
-    <result column="receiver_post_code" property="receiverPostCode" />
     <result column="receiver_name" property="receiverName" />
     <result column="receiver_info" property="receiverInfo" />
     <result column="invoice_info" property="invoiceInfo" />
@@ -84,9 +83,6 @@
       </if>
       <if test="receiverDistrictCode != null">
         `receiver_district_code`,
-      </if>
-      <if test="receiverPostCode != null">
-        `receiver_post_code`,
       </if>
       <if test="receiverName != null">
         `receiver_name`,
@@ -190,9 +186,6 @@
         </if>
         <if test="example.receiverDistrictCode != null">
           AND `receiver_district_code` = #{example.receiverDistrictCode}
-        </if>
-        <if test="example.receiverPostCode != null">
-          AND `receiver_post_code` = #{example.receiverPostCode}
         </if>
         <if test="example.receiverName != null">
           AND `receiver_name` = #{example.receiverName}
@@ -400,9 +393,6 @@
       <if test="receiverDistrictCode != null">
         #{receiverDistrictCode},
       </if>
-      <if test="receiverPostCode != null">
-        #{receiverPostCode},
-      </if>
       <if test="receiverName != null">
         #{receiverName},
       </if>
@@ -488,9 +478,6 @@
       <if test="record.receiverDistrictCode != null">
         `receiver_district_code` = #{record.receiverDistrictCode},
       </if>
-      <if test="record.receiverPostCode != null">
-        `receiver_post_code` = #{record.receiverPostCode},
-      </if>
       <if test="record.receiverName != null">
         `receiver_name` = #{record.receiverName},
       </if>
@@ -575,9 +562,6 @@
       </if>
       <if test="receiverDistrictCode != null">
         `receiver_district_code` = #{receiverDistrictCode},
-      </if>
-      <if test="receiverPostCode != null">
-        `receiver_post_code` = #{receiverPostCode},
       </if>
       <if test="receiverName != null">
         `receiver_name` = #{receiverName},
