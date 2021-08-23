@@ -107,9 +107,10 @@ public class OrderExtendExample implements Serializable {
     private String receiverCityCode;
 
     /**
-     * 收货邮政编码
+     * 收货区县编码
      */
-    private String receiverPostCode;
+    private String receiverDistrictCode;
+
 
     /**
      * 收货人姓名
