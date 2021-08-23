@@ -20,7 +20,6 @@
     <result column="receiver_province_code" property="receiverProvinceCode" />
     <result column="receiver_city_code" property="receiverCityCode" />
     <result column="receiver_district_code" property="receiverDistrictCode" />
-    <result column="receiver_post_code" property="receiverPostCode" />
     <result column="receiver_name" property="receiverName" />
     <result column="receiver_info" property="receiverInfo" />
     <result column="invoice_info" property="invoiceInfo" />
@@ -104,9 +103,6 @@
         </if>
         <if test="example.receiverDistrictCode != null">
           AND `receiver_district_code` = #{example.receiverDistrictCode}
-        </if>
-        <if test="example.receiverPostCode != null">
-          AND `receiver_post_code` = #{example.receiverPostCode}
         </if>
         <if test="example.receiverName != null">
           AND `receiver_name` = #{example.receiverName}

@@ -163,7 +163,6 @@ public class OrderExtendModel {
         orderExtend.setReceiverProvinceCode(memberAddress.getProvinceCode());
         orderExtend.setReceiverCityCode(memberAddress.getCityCode());
         orderExtend.setReceiverDistrictCode(memberAddress.getDistrictCode());
-        orderExtend.setReceiverPostCode(memberAddress.getPostCode());
         orderExtend.setReceiverName(memberAddress.getMemberName());
         orderExtend.setReceiverInfo(memberAddress.getAddressAll() + memberAddress.getDetailAddress());
         if (storeInfo != null && !StringUtil.isNullOrZero(storeInfo.getInvoiceId())) {
@@ -206,7 +205,6 @@ public class OrderExtendModel {
         orderExtend.setReceiverProvinceCode(memberAddress.getProvinceCode());
         orderExtend.setReceiverCityCode(memberAddress.getCityCode());
         orderExtend.setReceiverDistrictCode(memberAddress.getDistrictCode());
-        orderExtend.setReceiverPostCode(memberAddress.getPostCode());
         orderExtend.setReceiverName(memberAddress.getMemberName());
         orderExtend.setReceiverInfo(memberAddress.getAddressAll() + memberAddress.getDetailAddress());
         if (storeInfo != null && !StringUtil.isNullOrZero(storeInfo.getInvoiceId())) {

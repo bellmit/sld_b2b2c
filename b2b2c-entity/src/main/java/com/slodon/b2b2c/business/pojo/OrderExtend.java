@@ -67,9 +67,6 @@ public class OrderExtend implements Serializable {
     @ApiModelProperty("收货区县编码")
     private String receiverDistrictCode;
 
-    @ApiModelProperty("收货邮政编码")
-    private String receiverPostCode;
-
     @ApiModelProperty("收货人姓名")
     private String receiverName;
 
